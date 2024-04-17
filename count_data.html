@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Is taking the SD of a count variable helpful? &#8212; Data Q&amp;A</title>
+    <title>Standard deviation of a count variable &#8212; Data Q&amp;A</title>
   
   
   
@@ -173,14 +173,8 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Is taking the SD of a count variable helpful?</a></li>
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Standard deviation of a count variable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
-
-
-
 </ul>
 
     </div>
@@ -334,7 +328,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Is taking the SD of a count variable helpful?</h1>
+    <h1>Standard deviation of a count variable</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -344,12 +338,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Is taking the SD of a count variable helpful?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-dataset">Generating a dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-about-those-error-bars">What about those error bars?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-testing">Hypothesis testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-dataset">Generating a dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-about-those-error-bars">What about those error bars?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-testing">Hypothesis testing</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -360,11 +352,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="is-taking-the-sd-of-a-count-variable-helpful">
-<h1>Is taking the SD of a count variable helpful?<a class="headerlink" href="#is-taking-the-sd-of-a-count-variable-helpful" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="standard-deviation-of-a-count-variable">
+<h1>Standard deviation of a count variable<a class="headerlink" href="#standard-deviation-of-a-count-variable" title="Link to this heading">#</a></h1>
 <p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1c1s7qo/q_is_taking_the_sd_of_a_count_variable_helpful/">question from the Reddit statistics forum</a>.</p>
 <blockquote>
-<div><p>A student brought this up to me in class this week and I had no idea how to answer. For some context they are doing in experiment that involves a count variable and then have a choice of what inferential stat test they want to run. If they pick a t-test they need to show SD error bars on their graph but one student kept telling me it isn’t possible. I’ve spent time looking around forums and asked my PI who also shrugged since we’re chemistry people. I was just wondering if someone can explain if finding the SD of a count variable is possible, and if it is, does it tell you anything important or is it just a waste of time?</p>
+<div><p>Is taking the standard deviation of a count variable helpful?</p>
+<p>A student brought this up to me in class this week and I had no idea how to answer. For some context they are doing in experiment that involves a count variable and then have a choice of what inferential stat test they want to run. If they pick a t-test they need to show SD error bars on their graph but one student kept telling me it isn’t possible. I’ve spent time looking around forums and asked my PI who also shrugged since we’re chemistry people. I was just wondering if someone can explain if finding the SD of a count variable is possible, and if it is, does it tell you anything important or is it just a waste of time?</p>
 </div></blockquote>
 <p>In a follow-up, OP provided more context:</p>
 <blockquote>
@@ -423,9 +416,8 @@ document.write(`
 </div>
 </details>
 </div>
-</section>
 <section id="generating-a-dataset">
-<h1>Generating a dataset<a class="headerlink" href="#generating-a-dataset" title="Link to this heading">#</a></h1>
+<h2>Generating a dataset<a class="headerlink" href="#generating-a-dataset" title="Link to this heading">#</a></h2>
 <p>Count data are often well modeled by a negative binomial distribution, so that’s what I’ll use to generate a dataset.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -581,7 +573,7 @@ We can do that in this example by matching moments.</p>
 <p>So that’s my answer to the first question – there’s nothing wrong with reporting the standard deviation of a count variable, as long as we don’t assume that the distribution is normal.</p>
 </section>
 <section id="what-about-those-error-bars">
-<h1>What about those error bars?<a class="headerlink" href="#what-about-those-error-bars" title="Link to this heading">#</a></h1>
+<h2>What about those error bars?<a class="headerlink" href="#what-about-those-error-bars" title="Link to this heading">#</a></h2>
 <p>OP also asked about showing “SD error bars”.
 I’m not sure what they mean, but I think they are confusing standard deviation and standard error.</p>
 <ul class="simple">
@@ -660,7 +652,7 @@ To report the estimated mean and its confidence interval, you could write 4.23 (
 <p>The standard error and confidence interval contain pretty much the same information, so I think it’s better to report one or the other, not both.</p>
 </section>
 <section id="hypothesis-testing">
-<h1>Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Link to this heading">#</a></h1>
+<h2>Hypothesis testing<a class="headerlink" href="#hypothesis-testing" title="Link to this heading">#</a></h2>
 <p>Now let’s get to the last part of the question, whether it’s OK to run a t-test with count data.
 In general, a t-test works well if the variance of the data is not too big and the sample size is not too small.
 But it’s not easy to say how big or how small.</p>
@@ -810,6 +802,7 @@ With such a small sample, the permutation test might not work well.
 But with such a small sample, there is not much point in running a hypothesis test of any kind.
 I think it would be better to consider the experiment exploratory and report descriptive statistics only.</p>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -875,12 +868,10 @@ I think it would be better to consider the experiment exploratory and report des
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Is taking the SD of a count variable helpful?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-dataset">Generating a dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#what-about-those-error-bars">What about those error bars?</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-testing">Hypothesis testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-dataset">Generating a dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-about-those-error-bars">What about those error bars?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hypothesis-testing">Hypothesis testing</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>

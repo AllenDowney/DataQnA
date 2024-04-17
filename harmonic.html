@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'harmonic';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Is taking the SD of a count variable helpful?" href="count_data.html" />
+    <link rel="prev" title="Standard deviation of a count variable" href="count_data.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,14 +172,8 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="count_data.html">Is taking the SD of a count variable helpful?</a></li>
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Bootstrapping the harmonic mean</a></li>
-
-
-
 </ul>
 
     </div>
@@ -343,12 +337,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bootstrapping the harmonic mean</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-dataset">Generating a dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrapping">Bootstrapping</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-harmonic">Why harmonic?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-dataset">Generating a dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrapping">Bootstrapping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-harmonic">Why harmonic?</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -359,7 +351,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="bootstrapping-the-harmonic-mean">
+  <section class="tex2jax_ignore mathjax_ignore" id="bootstrapping-the-harmonic-mean">
 <h1>Bootstrapping the harmonic mean<a class="headerlink" href="#bootstrapping-the-harmonic-mean" title="Link to this heading">#</a></h1>
 <p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1bv2w06/q_can_you_calculate_a_standard_error_for_harmonic">question from the Reddit statistics forum</a>.</p>
 <blockquote>
@@ -407,9 +399,8 @@ If you are not familiar with bootstrapping, there’s an introduction in Chapter
 </div>
 </details>
 </div>
-</section>
 <section id="generating-a-dataset">
-<h1>Generating a dataset<a class="headerlink" href="#generating-a-dataset" title="Link to this heading">#</a></h1>
+<h2>Generating a dataset<a class="headerlink" href="#generating-a-dataset" title="Link to this heading">#</a></h2>
 <p>To demonstrate the behavior of the harmonic mean, I’ll generate two datasets, one from a Gaussian, and another with the same data plus a few outliers.</p>
 <p>The first dataset contains <code class="docutils literal notranslate"><span class="pre">n=100</span></code> values from a Gaussian distribution with mean 10 and standard deviation 1.</p>
 <div class="cell docutils container">
@@ -504,7 +495,7 @@ So I’ll add in one of each.</p>
 </div>
 </section>
 <section id="bootstrapping">
-<h1>Bootstrapping<a class="headerlink" href="#bootstrapping" title="Link to this heading">#</a></h1>
+<h2>Bootstrapping<a class="headerlink" href="#bootstrapping" title="Link to this heading">#</a></h2>
 <p>Now let’s compute the standard error of the harmonic mean using bootstrap resampling.
 The following function takes a dataset as a parameter, draws a random sample from it with replacement, and returns the harmonic mean of the resampled data.</p>
 <div class="cell docutils container">
@@ -573,7 +564,7 @@ I’m not sure, but one possibility is that they read something else: that there
 That’s true, which is why bootstrapping is particularly useful.</p>
 </section>
 <section id="why-harmonic">
-<h1>Why harmonic?<a class="headerlink" href="#why-harmonic" title="Link to this heading">#</a></h1>
+<h2>Why harmonic?<a class="headerlink" href="#why-harmonic" title="Link to this heading">#</a></h2>
 <p>The other outstanding question is whether the harmonic mean is the best choice for summarizing this data.
 Without more context, I can’t say, but I can offer some general advice.</p>
 <p>The harmonic mean is often a good choice when the quantities in the dataset are rates.
@@ -690,6 +681,7 @@ In this example, trimming 10% of the data works well for all the datasets: the o
 </div>
 <p>In all three cases, the estimated mean is close to the actual mean of the dataset, before the addition of outliers.</p>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -727,7 +719,7 @@ In this example, trimming 10% of the data works well for all the datasets: the o
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Is taking the SD of a count variable helpful?</p>
+        <p class="prev-next-title">Standard deviation of a count variable</p>
       </div>
     </a>
 </div>
@@ -746,12 +738,10 @@ In this example, trimming 10% of the data works well for all the datasets: the o
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Bootstrapping the harmonic mean</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-dataset">Generating a dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrapping">Bootstrapping</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#why-harmonic">Why harmonic?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generating-a-dataset">Generating a dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrapping">Bootstrapping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-harmonic">Why harmonic?</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
