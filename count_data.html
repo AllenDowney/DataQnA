@@ -61,7 +61,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Bootstrapping the harmonic mean" href="harmonic.html" />
-    <link rel="prev" title="What does a confidence interval mean?" href="confidence.html" />
+    <link rel="prev" title="What does “strength” mean?" href="corr_trend.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -139,7 +139,7 @@
 
   
 
-<a class="navbar-brand logo" href="README.html">
+<a class="navbar-brand logo" href="index.html">
   
   
   
@@ -165,7 +165,7 @@
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="README.html">
+                <a class="reference internal" href="index.html">
                     Data Q&A
                 </a>
             </li>
@@ -173,6 +173,7 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Standard deviation of a count variable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
 </ul>
@@ -594,7 +595,7 @@ We can answer that question by bootstrap resampling.</p>
 </div>
 </div>
 </div>
-<p>If we call this function 1000 times, we get a sample from from sampling distribution of the harmonic mean.</p>
+<p>If we call this function 1000 times, we get a sample from from sampling distribution of the mean.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="p">[</span><span class="n">bootstrap_mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>
@@ -801,6 +802,9 @@ In the dataset the OP asked about, the sample size in each group is only 3.
 With such a small sample, the permutation test might not work well.
 But with such a small sample, there is not much point in running a hypothesis test of any kind.
 I think it would be better to consider the experiment exploratory and report descriptive statistics only.</p>
+<p><em>Data Q&amp;A: Answering the real questions with Python</em></p>
+<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
 </section>
 </section>
 
@@ -835,12 +839,12 @@ I think it would be better to consider the experiment exploratory and report des
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="confidence.html"
+       href="corr_trend.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">What does a confidence interval mean?</p>
+        <p class="prev-next-title">What does “strength” mean?</p>
       </div>
     </a>
     <a class="right-next"
