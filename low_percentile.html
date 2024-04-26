@@ -1,0 +1,1082 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Bootstrapping percentiles &#8212; Data Q&amp;A</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'low_percentile';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Bootstrapping the harmonic mean" href="harmonic.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Q&A</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Data Q&A
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bootstrapping percentiles</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/AllenDowney/DataQnA" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/low_percentile.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Bootstrapping percentiles</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-bootstrap">Basic bootstrap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling-from-a-normal-model">Resampling from a normal model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling-with-kde">Resampling with KDE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fill-missing-values">Fill missing values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="bootstrapping-percentiles">
+<h1>Bootstrapping percentiles<a class="headerlink" href="#bootstrapping-percentiles" title="Link to this heading">#</a></h1>
+<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1cal0fl/q_determine_confidence_interval_based_on_observed">question from the Reddit statistics forum</a>.</p>
+<blockquote>
+<div><p>I’m trying to figure out how to determine the confidence interval for the .2 percentile temperature for specific set of observed temperatures (all hourly temperatures during January, February, and December since 2000). I have recordings for 53128 of the 53424 possible hourly recordings.</p>
+<p>How would I go about saying that I am X% sure that the actual .2 percentile value is between two numbers? Could anyone provide any insight on how to accomplish this. Thank you.</p>
+</div></blockquote>
+<p>OP provided a link to the data, so this is a question we can answer!
+For computing confidence intervals, my first choice is bootstrap resampling, but as it turns out, it does not work well for this problem.
+I’ll show what goes wrong and how to fix it.
+Then we’ll answer a follow-up question about quantifying the effect of missing data.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/low_percentile.ipynb">Click here to run this notebook on Colab</a>.</p>
+<p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
+<div class="cell tag_remove-print docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">filename</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># install the empiricaldist library, if necessary</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">empiricaldist</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h2>
+<p>I downloaded the data as a CSV file, which we can read into a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># download the data</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/data/temperature_data_ama.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;temperature_data_ama.csv&#39;
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;Date/Time&#39;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;temperature_data_ama.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">index_col</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>tmpf</th>
+    </tr>
+    <tr>
+      <th>Date/Time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2000-01-01 00:00:00</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2000-01-01 01:00:00</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2000-01-01 02:00:00</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2000-01-01 03:00:00</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2000-01-01 04:00:00</th>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>There are 53424 measurements, of which 306 are missing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>53424
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">missing</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tmpf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+<span class="n">missing</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>306
+</pre></div>
+</div>
+</div>
+</div>
+<p>The range of temperatures is from -9.9 degF to 89 degF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_clean</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tmpf&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">data_clean</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count    53118.00000
+mean        38.28920
+std         13.71636
+min         -9.90000
+25%         29.00000
+50%         37.00000
+75%         47.00000
+max         89.00000
+Name: tmpf, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>And the 0.2 percentile is 1 degF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">data_clean</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="basic-bootstrap">
+<h2>Basic bootstrap<a class="headerlink" href="#basic-bootstrap" title="Link to this heading">#</a></h2>
+<p>The following function takes the cleaned data, resamples it, and computes the 0.2 percentile of the bootstrapped sample.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bootstrap_percentile</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">resampled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">resampled</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we call this function 1001 times, we get a sample from the sampling distribution of the percentile.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">sample</span> <span class="o">=</span> <span class="p">[</span><span class="n">bootstrap_percentile</span><span class="p">(</span><span class="n">data_clean</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s what that sample looks like.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/bd79e5d26d210ba84cfbe85f90e6ee52101e89402cc7e50e1efe5e9897efd1fe.png" src="_images/bd79e5d26d210ba84cfbe85f90e6ee52101e89402cc7e50e1efe5e9897efd1fe.png" />
+</div>
+</div>
+<p>Immediately we can see that something has gone wrong.
+The resampling process produces only 8 unique values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.    , 0.234 , 1.    , 1.0936, 1.2106, 1.4   , 1.517 , 1.9   ])
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we try to compute a CI by pulling percentiles from the sample, the results are not credible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([1.    , 1.0936])
+</pre></div>
+</div>
+</div>
+</div>
+<p>This example demonstrates a limitation of bootstrap resampling – it does not work well when there are a small number of unique values.</p>
+<p>However, because the data are temperature measurements, they are actually continuous quantities.
+So one option is to replace bootstrapping with a model that generates continuous quantities.
+We’ll try that with a normal model, see that it does not work, and they try again with KDE.</p>
+</section>
+<section id="resampling-from-a-normal-model">
+<h2>Resampling from a normal model<a class="headerlink" href="#resampling-from-a-normal-model" title="Link to this heading">#</a></h2>
+<p>If we look at the CDF of the data, it resembles the characteristic sigma of the normal distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
+
+<span class="n">cdf_data</span> <span class="o">=</span> <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">data_clean</span><span class="p">)</span>
+<span class="n">cdf_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (degF)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9f66f4d6415490d4f5605dd841f139b853ce58d7cfa302f864dd986e5010748e.png" src="_images/9f66f4d6415490d4f5605dd841f139b853ce58d7cfa302f864dd986e5010748e.png" />
+</div>
+</div>
+<p>So let’s see how it compares to a normal model.
+I’ll estimate the parameters by computing the mean and standard deviation of the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="n">mu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data_clean</span><span class="p">)</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data_clean</span><span class="p">)</span>
+<span class="n">dist</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And compute the normal CDF within 4 standard deviations of the mean.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">sigma</span><span class="p">,</span> <span class="n">mu</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">sigma</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s what the model looks like compared to the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Normal model&#39;</span><span class="p">)</span>
+<span class="n">cdf_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (degF)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0d9511c678d3304f59a181b3071b4a1885bb0e8aedf698755c8eba72990f2306.png" src="_images/0d9511c678d3304f59a181b3071b4a1885bb0e8aedf698755c8eba72990f2306.png" />
+</div>
+</div>
+<p>It looks pretty good, but there are places where the data clearly deviate from the model.
+That’s enough to make me worry, but let’s proceed and see how it goes.</p>
+<p>The following function takes the cleaned data, generates a random sample from the normal model, and returns the 0.2 percentile of the sample.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample_percentile_norm</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">resampled</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">resampled</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we call it 1001 times, we hope the result is a sample from the sampling distribution of the percentile.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">sample2</span> <span class="o">=</span> <span class="p">[</span><span class="n">resample_percentile_norm</span><span class="p">(</span><span class="n">data_clean</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And at first glance it looks good.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sample2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sampling distribution&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (degF)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/df6aab046acad35b8e971eb543e526e4b47fe779c2f5e73d623cf5178b7052b8.png" src="_images/df6aab046acad35b8e971eb543e526e4b47fe779c2f5e73d623cf5178b7052b8.png" />
+</div>
+</div>
+<p>But notice that range of the sampling distribution does not include the 0.2 percentile of the data, which is 1.
+We can compute a 90% CI, but again, it is not credible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci90</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sample2</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
+<span class="n">ci90</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-1.84803327, -0.46534009])
+</pre></div>
+</div>
+</div>
+</div>
+<p>To see what went wrong, let’s look at the normal model and the data again, this time with the <code class="docutils literal notranslate"><span class="pre">y</span></code> axis on a log scale.
+The log scale is like a microscope that lets us see more clearly what is happening in the tail of the distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Normal model&#39;</span><span class="p">)</span>
+<span class="n">cdf_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (degF)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">,</span>
+         <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/fa3d443a8cd995d10d38634e610b5209813fa23461c7863bd4c1818bff466cb0.png" src="_images/fa3d443a8cd995d10d38634e610b5209813fa23461c7863bd4c1818bff466cb0.png" />
+</div>
+</div>
+<p>On a linear scale, it seemed like the normal model might be good enough; on a log scale, it is clear that the data deviate from the model in the left tail.</p>
+<p>In retrospect, it is not a surprise if a simple two-parameter model fails to capture every detail of the distribution – the world is a complicated place.
+So let’s try a nonparametric approach.</p>
+</section>
+<section id="resampling-with-kde">
+<h2>Resampling with KDE<a class="headerlink" href="#resampling-with-kde" title="Link to this heading">#</a></h2>
+<p>We can use kernel density estimation (KDE) to model the distribution of the data, then use the model to resample.
+Here’s how we estimate the distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gaussian_kde</span>
+
+<span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">data_clean</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To see what the result looks like, we can approximate the density of the model with a discrete PMF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
+
+<span class="n">pmf_kde</span> <span class="o">=</span> <span class="n">Pmf</span><span class="p">(</span><span class="n">kde</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">xs</span><span class="p">),</span> <span class="n">xs</span><span class="p">)</span>
+<span class="n">pmf_kde</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.8226580141477107
+</pre></div>
+</div>
+</div>
+</div>
+<p>And then compare the CDF of the model with the CDF of the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf_kde</span><span class="o">.</span><span class="n">make_cdf</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;KDE model&#39;</span><span class="p">)</span>
+<span class="n">cdf_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (degF)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/193305b9e8dd514b6829c13e73d7c8718e2797bee71c803a7fba3cfc7a9578a8.png" src="_images/193305b9e8dd514b6829c13e73d7c8718e2797bee71c803a7fba3cfc7a9578a8.png" />
+</div>
+</div>
+<p>The result shows that KDE is doing what it is meant to do – fitting a continuous distribution to the data with minimal assumptions.</p>
+<p>The following function takes the cleaned data, uses the KDE model to generate a random sample, and returns the 0.2 percentile of the sample.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample_percentile_kde</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">resampled</span> <span class="o">=</span> <span class="n">kde</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">resampled</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we call it 1001 times, we hope once again that the result is a sample from the sampling distribution of the percentile.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">sample3</span> <span class="o">=</span> <span class="p">[</span><span class="n">resample_percentile_kde</span><span class="p">(</span><span class="n">data_clean</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And this time we get a better result. The sampling distribution looks good, and it contains the actual percentile of the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sample3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sampling distribution&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (degF)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/0f77abf1c0e3632333a8c4878eebcc3c08fd538b65606ce9a6aca1d141727e90.png" src="_images/0f77abf1c0e3632333a8c4878eebcc3c08fd538b65606ce9a6aca1d141727e90.png" />
+</div>
+</div>
+<p>And the width of the 90% CI is plausible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sample3</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.27006571, 1.18702612])
+</pre></div>
+</div>
+</div>
+</div>
+<p>So with a couple of false starts, we have answered the original question.
+But it turns out there’s more.</p>
+</section>
+<section id="fill-missing-values">
+<h2>Fill missing values<a class="headerlink" href="#fill-missing-values" title="Link to this heading">#</a></h2>
+<p>In a follow-up message, OP wrote:</p>
+<blockquote>
+<div><p>Just in case it helps any, here’s what I’m ultimately trying to accomplish with this endeavor… I am trying to come up with a plausible way of demonstrating that the .2 percentile value (1 degF) that is derived from this data set is sufficiently representative of what the value would be if there were no missing data points (hourly readings) from the dataset.</p>
+</div></blockquote>
+<p>OK, that’s a different question!
+However, the resampling framework can be extended naturally to estimate the effect of missing data.
+Here’s a function that takes the original data – including NaNs – and fills the missing values with a random selection of valid values.
+For historical reasons, this way of filling missing values is called “hot deck imputation”.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_nan</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;tmpf&#39;</span><span class="p">]</span>
+<span class="n">valid</span> <span class="o">=</span> <span class="n">data_nan</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">missing</span> <span class="o">=</span> <span class="n">data_nan</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">fill_missing</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">filled</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">filled</span><span class="p">[</span><span class="n">missing</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">valid</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">missing</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">filled</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To test it, we can check that the result has no NaNs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filled</span> <span class="o">=</span> <span class="n">fill_missing</span><span class="p">(</span><span class="n">data_nan</span><span class="p">)</span>
+<span class="n">filled</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can include <code class="docutils literal notranslate"><span class="pre">fill_missing</span></code> as part of the resampling pipeline.
+The following function takes the original data, fills missing values, generates a sample from a KDE model, and returns the 0.2 percentile of the sample.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample_percentile_kde_fill</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">filled</span> <span class="o">=</span> <span class="n">fill_missing</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">filled</span><span class="p">)</span>
+    <span class="n">resampled</span> <span class="o">=</span> <span class="n">kde</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">resampled</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we call it many times, we get a sample from a distribution that represents the uncertainty of the estimate due to a combination of missing data and random sampling.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<span class="n">sample4</span> <span class="o">=</span> <span class="p">[</span><span class="n">resample_percentile_kde_fill</span><span class="p">(</span><span class="n">data_nan</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s what the result looks like, compared to the sampling distribution from the previous section, which represents only uncertainty due to random sampling.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sample3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sampling distribution&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sample4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sampling distribution with fill&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (degF)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1883702e26de513e2bed2568bffa221201e369b2a70ece12b2ee0ceacc26ce4d.png" src="_images/1883702e26de513e2bed2568bffa221201e369b2a70ece12b2ee0ceacc26ce4d.png" />
+</div>
+</div>
+<p>The difference does not seem substantial, and the CIs are similar.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sample3</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.27006571, 1.18702612])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sample4</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.29608271, 1.18784825])
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can conclude that missing data does not have much effect on the CI.</p>
+<p>To estimate the effect more precisely, we could run this again with a sample size of 10,001 rather than 1001.
+But I won’t bother because with only 306 missing values out of 53,424, I did not expect the missing data to affect the results by much, and this result confirms it.
+Rather than estimate the CI more precisely, I would conclude that missing data is not a problem, and drop it.</p>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p>Normally I am quick to recommend bootstrap resampling because “it just works”.
+It makes almost no assumptions about the distribution of the data, and it is easy to extend to almost any statistic.
+But as this example shows, it is not infallible – the kryptonite of bootstrapping is lack of diversity in the data.</p>
+<p>To diagnose this problem, it is a good idea to explore the sampling distribution.
+If bootstrapping goes well, the sampling distribution should have many unique values, and the range should contain the estimate computed directly from the data, usually close to the middle of the CI.</p>
+<p>If the results from bootstrapping fail these tests, think about other ways to model the data-generating process.
+If a parametric model fits the data well, you can use the data to estimate parameters and then use the model to generate simulated samples.
+Otherwise, consider a non-parametric approach like KDE.</p>
+<p>For filling missing data, hot deck imputation ignores serial correlation and other statistical structure in the data, so the imputed values are likely to be unrealistic.
+But in this case that’s probably a feature, because the results overestimate the effect of missing data.
+As a result, we can make the argument, “Even if we assume that the missing data is highly variable, it has no substantial effect on the estimated percentile or the computed CI.”</p>
+<p>If it were necessary to fill missing data with more realistic values, we could use a time series method like ARIMA or a Gaussian process.</p>
+<p><em>Data Q&amp;A: Answering the real questions with Python</em></p>
+<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="harmonic.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Bootstrapping the harmonic mean</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-bootstrap">Basic bootstrap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling-from-a-normal-model">Resampling from a normal model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling-with-kde">Resampling with KDE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fill-missing-values">Fill missing values</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
