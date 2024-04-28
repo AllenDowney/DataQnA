@@ -57,9 +57,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'low_percentile';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Testing percentiles" href="test_percentile.html" />
     <link rel="prev" title="Bootstrapping the harmonic mean" href="harmonic.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -176,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Bootstrapping percentiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
 </ul>
 
     </div>
@@ -791,7 +795,22 @@ Here’s how we estimate the distribution.</p>
 <img alt="_images/193305b9e8dd514b6829c13e73d7c8718e2797bee71c803a7fba3cfc7a9578a8.png" src="_images/193305b9e8dd514b6829c13e73d7c8718e2797bee71c803a7fba3cfc7a9578a8.png" />
 </div>
 </div>
-<p>The result shows that KDE is doing what it is meant to do – fitting a continuous distribution to the data with minimal assumptions.</p>
+<p>The result shows that KDE is doing what it is meant to do – fitting a continuous distribution to the data with minimal assumptions.
+And if we put the <code class="docutils literal notranslate"><span class="pre">y</span></code> axis on a log scale, we can see that the KDE model fits the data well in the range we care about, near 1 degF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf_kde</span><span class="o">.</span><span class="n">make_cdf</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;KDE model&#39;</span><span class="p">)</span>
+<span class="n">cdf_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Temperature (degF)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">,</span>
+         <span class="n">yscale</span><span class="o">=</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/50961620288704c42e4c19d8c2617a9b1ed37fd3734a67e6a73f653ab8459c1f.png" src="_images/50961620288704c42e4c19d8c2617a9b1ed37fd3734a67e6a73f653ab8459c1f.png" />
+</div>
+</div>
 <p>The following function takes the cleaned data, uses the KDE model to generate a random sample, and returns the 0.2 percentile of the sample.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -943,6 +962,115 @@ The following function takes the original data, fills missing values, generates 
 <p>To estimate the effect more precisely, we could run this again with a sample size of 10,001 rather than 1001.
 But I won’t bother because with only 306 missing values out of 53,424, I did not expect the missing data to affect the results by much, and this result confirms it.
 Rather than estimate the CI more precisely, I would conclude that missing data is not a problem, and drop it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filled</span> <span class="o">=</span> <span class="n">data_nan</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">8</span><span class="p">:]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">()</span>
+<span class="n">filled</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Date/Time&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/8500b7cb84a2c4389c1e721480b6e5c7a7d9000f5ac5647a3518ae204da6a5a8.png" src="_images/8500b7cb84a2c4389c1e721480b6e5c7a7d9000f5ac5647a3518ae204da6a5a8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statsmodels.tsa.arima.model</span> <span class="kn">import</span> <span class="n">ARIMA</span>
+
+<span class="c1"># Fit ARIMA model</span>
+<span class="n">order</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Example order, choose based on AIC, etc.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ARIMA</span><span class="p">(</span><span class="n">filled</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<caption>SARIMAX Results</caption>
+<tr>
+  <th>Dep. Variable:</th>         <td>tmpf</td>       <th>  No. Observations:  </th>    <td>53416</td>   
+</tr>
+<tr>
+  <th>Model:</th>            <td>ARIMA(1, 1, 1)</td>  <th>  Log Likelihood     </th> <td>-133066.758</td>
+</tr>
+<tr>
+  <th>Date:</th>            <td>Sat, 27 Apr 2024</td> <th>  AIC                </th> <td>266139.517</td> 
+</tr>
+<tr>
+  <th>Time:</th>                <td>10:52:19</td>     <th>  BIC                </th> <td>266166.174</td> 
+</tr>
+<tr>
+  <th>Sample:</th>                  <td>0</td>        <th>  HQIC               </th> <td>266147.842</td> 
+</tr>
+<tr>
+  <th></th>                     <td> - 53416</td>     <th>                     </th>      <td> </td>     
+</tr>
+<tr>
+  <th>Covariance Type:</th>        <td>opg</td>       <th>                     </th>      <td> </td>     
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+     <td></td>       <th>coef</th>     <th>std err</th>      <th>z</th>      <th>P>|z|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>ar.L1</th>  <td>    0.6542</td> <td>    0.007</td> <td>  100.047</td> <td> 0.000</td> <td>    0.641</td> <td>    0.667</td>
+</tr>
+<tr>
+  <th>ma.L1</th>  <td>   -0.2284</td> <td>    0.007</td> <td>  -32.610</td> <td> 0.000</td> <td>   -0.242</td> <td>   -0.215</td>
+</tr>
+<tr>
+  <th>sigma2</th> <td>    8.5377</td> <td>    0.025</td> <td>  346.204</td> <td> 0.000</td> <td>    8.489</td> <td>    8.586</td>
+</tr>
+</table>
+<table class="simpletable">
+<tr>
+  <th>Ljung-Box (L1) (Q):</th>     <td>9.68</td> <th>  Jarque-Bera (JB):  </th> <td>114851.97</td>
+</tr>
+<tr>
+  <th>Prob(Q):</th>                <td>0.00</td> <th>  Prob(JB):          </th>   <td>0.00</td>   
+</tr>
+<tr>
+  <th>Heteroskedasticity (H):</th> <td>1.08</td> <th>  Skew:              </th>   <td>-0.12</td>  
+</tr>
+<tr>
+  <th>Prob(H) (two-sided):</th>    <td>0.00</td> <th>  Kurtosis:          </th>   <td>10.18</td>  
+</tr>
+</table><br/><br/>Warnings:<br/>[1] Covariance matrix calculated using the outer product of gradients (complex-step).</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_simulations</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">filled</span><span class="p">)</span>
+
+<span class="n">simulated</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">n_steps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulated</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: xlabel=&#39;Date/Time&#39;&gt;
+</pre></div>
+</div>
+<img alt="_images/ffeaac1283c78de6190adf8f4f459f84cb382e85d62a2d441ffbb4e91b2b97fb.png" src="_images/ffeaac1283c78de6190adf8f4f459f84cb382e85d62a2d441ffbb4e91b2b97fb.png" />
+</div>
+</div>
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
@@ -1002,6 +1130,15 @@ As a result, we can make the argument, “Even if we assume that the missing dat
         <p class="prev-next-subtitle">previous</p>
         <p class="prev-next-title">Bootstrapping the harmonic mean</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="test_percentile.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Testing percentiles</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
