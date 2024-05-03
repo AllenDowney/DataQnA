@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; Data Q&amp;A</title>
+    <title>Testing percentiles &#8212; Data Q&amp;A</title>
   
   
   
@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'make_regression';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'hypo_test';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -248,7 +248,7 @@
       
       
       
-      <li><a href="_sources/make_regression.ipynb" target="_blank"
+      <li><a href="_sources/hypo_test.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -332,7 +332,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>Testing percentiles</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -341,9 +341,9 @@ document.write(`
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -354,32 +354,144 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="testing-percentiles">
+<h1>Testing percentiles<a class="headerlink" href="#testing-percentiles" title="Link to this heading">#</a></h1>
+<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1cdpblu/comment/l1e9zaf/">question from the Reddit statistics forum</a>.</p>
+<blockquote>
+<div><p>I have two different samples (about 100 observations per sample) drawn from the same population (or that’s what I hypothesize; the populations may in fact be different). The samples and population are approximately normal in distribution.</p>
+<p>I want to estimate the 85th percentile value for both samples, and then see if there is a statistically significant difference between these two values. I cannot use a normal z- or t-test for this, can I? It’s my current understanding that those tests would only work if I were comparing the means of the samples.</p>
+<p>As an extension of this, say I wanted to compare one of these 85th percentile values to a fixed value; again, if I was looking at the mean, I would just construct a confidence interval and see if the fixed value fell within it…but the percentile stuff is throwing me for a loop.</p>
+<p>This is […] related to a research project I’m working on (in my job).</p>
+</div></blockquote>
+<p>There are two questions here.
+The first is about testing a difference in percentiles between two groups.
+The second is about the difference between a percentile from an observed sample and an expected value.</p>
+<p>We’ll answer the first question with a permutation test, and we’ll answer the second in two ways: bootstrap resampling and a Gaussian model.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/test_percentile.ipynb">Click here to run this notebook on Colab</a>.</p>
+<p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
+<div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">filename</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">make_regression</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">n_informative</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-<span class="n">reg_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Ft </span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)])</span>
-<span class="n">reg_df</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span> <span class="n">reg_df</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">fignum</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">number</span> <span class="p">)</span>
-<span class="n">cb</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-<span class="n">cb</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Correlation Matrix&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># install the empiricaldist library, if necessary</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">empiricaldist</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/9f95113115b256310c5553ff4707a7ce05e35f16412cd2c3ea8324b8fd918f29.png" src="_images/9f95113115b256310c5553ff4707a7ce05e35f16412cd2c3ea8324b8fd918f29.png" />
+</details>
 </div>
-</div>
+<p>In my previous article I argued that classical statistical inference is only mostly wrong.  About null-hypothesis significance testing (NHST),  I wrote:</p>
+<p>“If the p-value is small, you can conclude that the fourth possibility is unlikely, and infer that the other three possibilities are more likely.”</p>
+<p>Where “the fourth possibility” I referred to was:</p>
+<p>“The apparent effect might be due to chance; that is, the difference might appear in a random sample, but not in the general population.”</p>
+<p>Several commenters chastised me; for example:</p>
+<blockquote>
+<div><p>“All a p-value tells you is the probability of your data (or data more extreme) given the null is true. They say nothing about whether your data is ‘due to chance.’”</p>
+</div></blockquote>
+<p>My correspondent is partly right.  The p-value is the probability of the apparent effect under the null hypothesis, which is not the same thing as the probability we should assign to the null hypothesis after seeing the data.  But they are related to each other by Bayes’s theorem, which is why I said that you can use the first to make an inference about the second.</p>
+<p>Let me explain by showing a few examples.  I’ll start with what I think is a common scenario:  suppose you are reading a scientific paper that reports a new relationship between two variables.  There are (at least) three explanations you might consider for this apparent effect:</p>
+<p>A:  The effect might be actual; that is, it might exist in the unobserved population as well as the observed sample.
+B:  The effect might be bogus, caused by errors like sampling bias and measurement error, or by fraud.
+C:  The effect might be due to chance, appearing randomly in the sample but not in the population.</p>
+<p>If we think of these as competing hypotheses to explain the apparent effect, we can use Bayes’s theorem to update our belief in each hypothesis.</p>
+<p>Scenario #1</p>
+<p>As a first scenario, suppose that the apparent effect is plausible, and the p-value is low.  The following table shows what the Bayesian update might look like:</p>
+<p>Prior</p>
+<p>Likelihood</p>
+<p>Posterior
+Actual</p>
+<p>70</p>
+<p>0.5–1.0</p>
+<p>~75
+Bogus</p>
+<p>20</p>
+<p>0.5–1.0</p>
+<p>~25
+Chance</p>
+<p>10</p>
+<p>p = 0.01</p>
+<p>~0.001</p>
+<p>Since the apparent effect is plausible, I give it a prior probability of 70%.  I assign a prior of 20% to the hypothesis that the result is to due to error or fraud, and 10% to the hypothesis that it’s due to chance.  If you don’t agree with the numbers I chose, we’ll look at some alternatives soon.  Or feel free to plug in your own.</p>
+<p>Now we compute the likelihood of the apparent effect under each hypothesis.  If the effect is real, it is quite likely to appear in the sample, so I figure the likelihood is between 50% and 100%.   And in the presence of error or fraud, I assume the apparent effect is also quite likely.</p>
+<p>If the effect is due to chance, we can compute the likelihood directly.  The likelihood of the data under the null hypothesis is the p-value.  As an example, suppose p=0.01.</p>
+<p>The table shows the resulting posterior probabilities.  The hypothesis that the effect is due to chance has been almost eliminated, and the other hypotheses are marginally more likely.  The hypothesis test helps a little, by ruling out one source of error, but it doesn’t help a lot, because randomness was not the source of error I was most worried about.</p>
+<p>Scenario #2</p>
+<p>In the second scenario, suppose the p-value is low, again, but the apparent effect is less plausible.  In that case, I would assign a lower prior probability to Actual and a higher prior to Bogus.  I am still inclined to assign a low priority to Chance, simply because I don’t think it is the most common cause of scientific error.</p>
+<p>Prior</p>
+<p>Likelihood</p>
+<p>Posterior
+Actual</p>
+<p>20</p>
+<p>0.5–1.0</p>
+<p>~25
+Bogus</p>
+<p>70</p>
+<p>0.5–1.0</p>
+<p>~75
+Chance</p>
+<p>10</p>
+<p>p = 0.01</p>
+<p>~0.001</p>
+<p>The results are pretty much the same as in Scenario #1: we can be reasonably confident that the result is not due to chance.  But again, the hypothesis test does not make a lot of difference in my belief about the validity of the paper.</p>
+<p>I believe these examples cover a large majority of real-world scenarios, and in each case my claim holds up:  If the p-value is small, you can conclude that apparent effect is unlikely to be due to chance, and the other possibilities (Actual and Bogus) are more likely.</p>
+<p>Scenario #3</p>
+<p>I admit that there are situations where this conclusion would not be valid.  For example, if the effect is implausible and you have good reason to think that error and fraud are unlikely, you might start with a larger prior belief in Chance.  In that case a p-value like 0.01 might not be sufficient to rule out Chance:</p>
+<p>Prior</p>
+<p>Likelihood</p>
+<p>Posterior
+Actual</p>
+<p>10</p>
+<p>0.5</p>
+<p>46
+Bogus</p>
+<p>10</p>
+<p>0.5</p>
+<p>46
+Chance</p>
+<p>80</p>
+<p>p = 0.01</p>
+<p>8</p>
+<p>But even in this contrived scenario, the p-value has a substantial effect on our belief in the Chance hypothesis.  And a somewhat smaller p-value, like 0.001, would be sufficient to rule out Chance as a likely cause of error.</p>
+<p>In summary, NHST is problematic but not useless.  If you think an apparent effect might be due to chance, choosing an appropriate null hypothesis and computing a p-value is a reasonable way to check.</p>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p><em>Data Q&amp;A: Answering the real questions with Python</em></p>
+<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -426,9 +538,9 @@ document.write(`
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
