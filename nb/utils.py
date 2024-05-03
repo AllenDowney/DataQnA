@@ -167,7 +167,7 @@ def values(series):
 
     returns: series mapping from values to frequencies
     """
-    return series.value_counts().sort_index()
+    return series.value_counts(dropna=False).sort_index()
 
 
 def count_by_year(gss, varname):
@@ -288,7 +288,7 @@ def make_lowess(series):
 
     return pd.Series(data, index=index)
 
-def plot_series_lowess(series, color):
+def plot_series_lowess(series, color, **options):
     """Plots a series of data points and a smooth line.
 
     series: pd.Series
@@ -296,7 +296,7 @@ def plot_series_lowess(series, color):
     """
     series.plot(lw=0, marker='o', color=color, alpha=0.5)
     smooth = make_lowess(series)
-    smooth.plot(label='_', color=color)
+    smooth.plot(color=color, **options)
 
 def plot_columns_lowess(df, columns, colors):
     """Plot the columns in a DataFrame.
@@ -318,6 +318,22 @@ def anchor_legend(x, y):
     plt.legend(bbox_to_anchor=(x, y), loc='upper left', ncol=1)
 
 
+def xticks(tick_map, **options):
+    """Put labels on the x-axis.
+    
+    tick_map: map from locations to labels
+    """
+    plt.xticks(list(tick_map.keys()), list(tick_map.values()), **options)
+
+    
+def yticks(tick_map, **options):
+    """Put labels on the y-axis.
+    
+    tick_map: map from locations to labels
+    """
+    plt.yticks(list(tick_map.keys()), list(tick_map.values()), **options)
+    
+    
 def download(url):
     filename = basename(url)
     if not exists(filename):
@@ -353,9 +369,6 @@ def traceback(mode):
     # this context suppresses the output
     with contextlib.redirect_stdout(io.StringIO()):
         get_ipython().run_cell(f'%xmode {mode}')
-
-
-traceback('Minimal')
 
 
 def extract_function_name(text):
