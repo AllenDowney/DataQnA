@@ -534,7 +534,7 @@ We can compute the mean in each year like this:</p>
 </div>
 </div>
 <p>I used LOWESS to plot a local regression line, which makes long-term trends easier to see.
-It looks like the center of mass trended toward conservative from the 1970s to 1990 and trended toward liberal since then.</p>
+It looks like the center of mass trended toward conservative from the 1970s into the 1990s and trended toward liberal since then.</p>
 <p>When you compute any summary statistic, you lose information.
 To see what we might be missing, we can use a normalized cross-tabulation to compute the distribution of responses in each year.</p>
 <div class="cell docutils container">
@@ -649,7 +649,7 @@ To see what we might be missing, we can use a normalized cross-tabulation to com
 <img alt="_images/cb9012b94d8e3037a0906ee9ba125e27b451cfb0ed5e0baea4325789b5691ab4.png" src="_images/cb9012b94d8e3037a0906ee9ba125e27b451cfb0ed5e0baea4325789b5691ab4.png" />
 </div>
 </div>
-<p>Based on the heat map, it seems like the general shape of the distribution has not changed over time, which means that the mean is probably a good way to make comparisons over time.</p>
+<p>Based on the heat map, it seems like the general shape of the distribution has not changed much – so the mean is probably a good way to make comparisons over time.</p>
 <p>However, it is hard to interpret the mean in absolute terms.
 For example, in the most recent data, the mean is about 4.1.</p>
 <div class="cell docutils container">
@@ -736,8 +736,7 @@ As with the mean, my answer is yes and no.</p>
 <p>The standard deviation is easy to compute, and it makes it easy to see the long-term trend.
 If we interpret the spread of the distribution as a measure of polarization, it looks like it has increased in the last 30 years.</p>
 <p>But it is not easy to interpret this result in context.
-It looks like it increased from about 1.35 to 1.5.
-Is that a lot?
+If it increased from about 1.35 to 1.5, is that a lot?
 It’s hard to say.</p>
 <p>As an alternative, let’s compute the mean absolute deviation (MAD), which we can think of like this: if we choose two people at random, how much will they differ on this scale, on average?</p>
 <p>A quick way to estimate MAD is to draw two samples from the responses and compute the mean pairwise distance.</p>
@@ -762,13 +761,13 @@ It’s hard to say.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.537
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.515
 </pre></div>
 </div>
 </div>
 </div>
 <p>The result is about 1.5 points, which is bigger than the distance from moderate to slightly conservative, and smaller than the distance from moderate to conservative.</p>
-<p>Rather than sampling, we can compute the MAD deterministically by forming the joint distribution of response pairs and computing the expected value of the distances.
+<p>Rather than sampling, we can compute MAD deterministically by forming the joint distribution of response pairs and computing the expected value of the distances.
 For this computation, it is convenient to use NumPy functions for outer product and outer difference.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -915,9 +914,9 @@ Name: count, dtype: int64
 <img alt="_images/f79cf63b91ed2e5816fe85bb3f80df4df98df5bc7a7db5428644c377a8194ed5.png" src="_images/f79cf63b91ed2e5816fe85bb3f80df4df98df5bc7a7db5428644c377a8194ed5.png" />
 </div>
 </div>
-<p>In this example, there are several reasons it’s a bad idea to summarize this distribution by computing the mean.
-First, the “Other” response means that the values are not ordered.
-So if we include this response in the mean, the result is meaningless.</p>
+<p>There are several reasons it’s a bad idea to summarize this distribution by computing the mean.
+First, one of the responses is not ordered.
+If we include “Other” in the mean, the result is meaningless.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">&#39;homosex&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>         <span class="c1"># total nonsense</span>
@@ -946,7 +945,7 @@ So if we include this response in the mean, the result is meaningless.</p>
 <p>If we compute a mean and report that the average response is somewhere between “Sometimes wrong” and “Almost always wrong”, that is not an effective summary of the distribution.</p>
 <p>The distribution of results is strongly bimodal – most people are either accepting of homosexuality or not.
 And that suggests a better way to summarize the distribution: we can simply report the fraction of respondents who choose one extreme or the other.</p>
-<p>I’ll start by creating a binary variable that is <code class="docutils literal notranslate"><span class="pre">1</span></code> for respondents who chose “Not wrong at all”, <code class="docutils literal notranslate"><span class="pre">0</span></code> for the other responses, and <code class="docutils literal notranslate"><span class="pre">NaN</span></code> for people who were not asked the question or did not respond.</p>
+<p>I’ll start by creating a binary variable that is <code class="docutils literal notranslate"><span class="pre">1</span></code> for respondents who chose “Not wrong at all”, <code class="docutils literal notranslate"><span class="pre">0</span></code> for the other responses, and <code class="docutils literal notranslate"><span class="pre">NaN</span></code> for people who were not asked the question, did not respond, or chose “Other”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">homosex_recode</span> <span class="o">=</span> <span class="p">{</span>
@@ -978,7 +977,7 @@ Name: count, dtype: int64
 </div>
 </div>
 </div>
-<p>The mean of this variable is the fraction of respondents who chose “Not at all wrong”.</p>
+<p>The mean of this variable is the fraction of respondents who chose “Not wrong at all”.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">&#39;homosex_recode&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -1019,9 +1018,9 @@ For a discussion of this trend, and similar trends related to racism and sexism,
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
 <p>Computing the mean of an ordinal variable can be a quick way to make comparisons between groups or show trends over time.
-The computation implicitly assume that the points on the scale are equally spaced, which is not true in general, but in many cases it is probably good enough.</p>
-<p>However, even when the mean (or standard deviation) is a reasonable choice, there is often an alternative that is easier to interpret in context.
-It’s always good to look at the distribution before choosing a summary statistic.
+The computation implicitly assumes that the points on the scale are equally spaced, which is not true in general, but in many cases it is close enough.</p>
+<p>However, even when the mean (or standard deviation) is a reasonable choice, there is often an alternative that is easier to interpret in context.</p>
+<p>It’s always good to look at the distribution before choosing a summary statistic.
 If it’s bimodal, the mean is probably not the best choice.</p>
 <p><em>Data Q&amp;A: Answering the real questions with Python</em></p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
