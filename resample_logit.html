@@ -1,484 +1,378 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="./" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Resampling and Logistic Regression &#8212; Elements of Data Science</title>
-    
+    <title>Resampling and Logistic Regression &#8212; Data Q&amp;A</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'resample_logit';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Never Test for Normality" href="anderson.html" />
-    <link rel="prev" title="Hypothesis Testing" href="13_hypothesis.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-    <div class="container-fluid" id="banner"></div>
-
     
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">Elements of Data Science</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Q&A</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="README.html">
-                    Elements of Data Science
+                <a class="reference internal" href="index.html">
+                    Data Q&A
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Chapters
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="01_variables.html">
-   Variables and Values
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02_times.html">
-   Times and Places
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03_arrays.html">
-   Lists and Arrays
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04_loops.html">
-   Loops and Files
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05_dictionaries.html">
-   Dictionaries
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06_plotting.html">
-   Plotting
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07_dataframes.html">
-   DataFrames and Series
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08_distributions.html">
-   Distributions
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="09_relationships.html">
-   Relationships
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10_regression.html">
-   Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11_resampling.html">
-   Resampling
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="12_bootstrap.html">
-   Bootstrap Sampling
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13_hypothesis.html">
-   Hypothesis Testing
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Examples
- </span>
-</p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Resampling and Logistic Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="anderson.html">
-   Never Test for Normality
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauss_bayes.html">Estimation with Small Samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likert_mean.html">Likert scale analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/AllenDowney/ElementsOfDataScience/master?urlpath=tree/resample_logit.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/AllenDowney/DataQnA" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/AllenDowney/ElementsOfDataScience"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/resample_logit.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/resample_logit.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-data">
-   The Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logistic-regression">
-   Logistic Regression
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#boostrap-sampling">
-   Boostrap sampling
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-resampling-framework">
-   The Resampling Framework
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parametric-bootstrap">
-   Parametric bootstrap
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-hybrid-model">
-   The Hybrid Model
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#which-one-is-right">
-   Which One Is Right?
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Resampling and Logistic Regression</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-data">
-   The Data
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#logistic-regression">
-   Logistic Regression
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#boostrap-sampling">
-   Boostrap sampling
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-resampling-framework">
-   The Resampling Framework
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#parametric-bootstrap">
-   Parametric bootstrap
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-hybrid-model">
-   The Hybrid Model
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#which-one-is-right">
-   Which One Is Right?
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Resampling and Logistic Regression</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data">The Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boostrap-sampling">Boostrap sampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-resampling-framework">The Resampling Framework</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parametric-bootstrap">Parametric bootstrap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-model">The Hybrid Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-one-is-right">Which One Is Right?</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="resampling-and-logistic-regression">
-<h1>Resampling and Logistic Regression<a class="headerlink" href="#resampling-and-logistic-regression" title="Permalink to this headline">#</a></h1>
-<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/ElementsOfDataScience/blob/master/examples/resample_logit.ipynb">Click here to run this notebook on Colab</a></p>
-<p>Different ways of computing sampling distributions – and the statistics derived from them, like standard errors and confidence intervals – yield different results. None of them are right or wrong; rather, they are based on different modeling assumptions. In practice, the differences are often small compared to other sources of error, so we are free to use whichever is convenient.</p>
-<p>This article is prompted by a recent question on <a class="reference external" href="https://www.reddit.com/r/statistics/comments/10ayfm5/q_parametric_bootstrap_for_logistic_regression/">Reddit</a>:</p>
+<h1>Resampling and Logistic Regression<a class="headerlink" href="#resampling-and-logistic-regression" title="Link to this heading">#</a></h1>
+<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/10ayfm5/q_parametric_bootstrap_for_logistic_regression/">question from Reddit’s statistics forum</a>:</p>
 <blockquote>
 <div><p>I am trying to do parametric bootstrap for logistic regression but I don’t know what the random error terms should be. I know how to do it with linear regression since the error terms follow a normal distribution. Really appreciate any pointers to resources about this topic.</p>
 </div></blockquote>
 <p>One of the responses recommends <a class="reference external" href="https://www.scirp.org/journal/paperinformation.aspx?paperid=70962">this paper</a>: “An Application of Bootstrapping in Logistic Regression Model”, by Isaac Akpor Adjei and Rezaul Karim.</p>
-<p>The paper suggests two ways to compute the sampling distribution of the parameters of a logistic regression by bootstrap sampling. They characterize one as parametric and the other as non-parametric, and advise:</p>
+<p>The paper suggests two ways to compute the sampling distribution of the parameters of a logistic regression by bootstrap sampling.
+They characterize one as parametric and the other as non-parametric, and advise:</p>
 <blockquote>
 <div><p>The non-parametric bootstrap [relies] on weaker assumptions (or no assumptions at all) about the underlying distribution of the population. Statistical practitioners should use non-parametric procedures only in so far as the assumptions about the underlying distribution are seriously doubtful in their validity. … However, when assumptions are not violated, non-parametric procedures will usually have greater variance (in point estimation), less power (in hypothesis testing), wider intervals (in confidence interval estimation), lower probability of correct selection (in ranking and selection) and higher risk (in decision theory) when compared to a corresponding parametric procedure (Efron and Tibshirani, 1994 [1] ).</p>
 </div></blockquote>
@@ -486,22 +380,37 @@ title="Print to PDF"
 <p>I disagree with these premises. The parametric and non-parametric methods they present are based on different modeling decisions, so they compute answers to different questions.
 And the models they are based on are only two of many possible models.</p>
 <p>To explain what I mean, I will implement the methods they propose and explain the assumptions each is based on. Then I will propose a third method that is a hybrid of the two. I’ll show that all three methods yield different results, and suggest criteria for when one might be preferred over the others.</p>
-<section id="the-data">
-<h2>The Data<a class="headerlink" href="#the-data" title="Permalink to this headline">#</a></h2>
-<p>As an example, I’ll use data from the General Social Survey (GSS).
-I’ll download an HDF file from the <em>Elements of Data Science</em> repository, which contains a subset of the GSS data that has been resampled to correct for stratified sampling.</p>
-<div class="cell docutils container">
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/resample_logit.ipynb">Click here to run this notebook on Colab</a>.</p>
+<p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
+<div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">filename</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">)</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
 </pre></div>
 </div>
 </div>
 </div>
+<section id="the-data">
+<h2>The Data<a class="headerlink" href="#the-data" title="Link to this heading">#</a></h2>
+<p>As an example, I’ll use data from the General Social Survey (GSS).
+I’ll download an HDF file from the <em>Elements of Data Science</em> repository, which contains a subset of the GSS data that has been resampled to correct for stratified sampling.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
@@ -628,8 +537,8 @@ I’ll download an HDF file from the <em>Elements of Data Science</em> repositor
 </table>
 </div></div></div>
 </div>
-<p>To demonstrate logistic regression, I’ll use on <a class="reference external" href="https://gssdataexplorer.norc.org/variables/285/vshow">one of the questions</a> in the General Social Survey, which asks “Do you think the use of marijuana should be made legal or not?”
-The responses are in a column called <code class="docutils literal notranslate"><span class="pre">GRASS</span></code>; here are the values.</p>
+<p>To demonstrate logistic regression, I’ll use <a class="reference external" href="https://gssdataexplorer.norc.org/variables/285/vshow">one of the questions</a> in the General Social Survey, which asks “Do you think the use of marijuana should be made legal or not?”
+The responses are in a column called <code class="docutils literal notranslate"><span class="pre">GRASS</span></code> – here are the values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">&#39;GRASS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
@@ -637,9 +546,10 @@ The responses are in a column called <code class="docutils literal notranslate">
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.0    25662
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GRASS
+2.0    25662
 1.0    11884
-Name: GRASS, dtype: int64
+Name: count, dtype: int64
 </pre></div>
 </div>
 </div>
@@ -648,7 +558,7 @@ Name: GRASS, dtype: int64
 First we have to recode the dependent variable so <code class="docutils literal notranslate"><span class="pre">1</span></code> means “yes” and <code class="docutils literal notranslate"><span class="pre">0</span></code> means “no”.  We can do that by replacing <code class="docutils literal notranslate"><span class="pre">2</span></code> with <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">&#39;GRASS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">&#39;GRASS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gss</span><span class="p">[</span><span class="s1">&#39;GRASS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -672,7 +582,7 @@ First we have to recode the dependent variable so <code class="docutils literal 
 </div>
 </section>
 <section id="logistic-regression">
-<h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Permalink to this headline">#</a></h2>
+<h2>Logistic Regression<a class="headerlink" href="#logistic-regression" title="Link to this heading">#</a></h2>
 <p>Here are the results of logistic regression with these variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -702,10 +612,10 @@ First we have to recode the dependent variable so <code class="docutils literal 
   <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>   <td>     5</td>  
 </tr>
 <tr>
-  <th>Date:</th>            <td>Tue, 17 Jan 2023</td> <th>  Pseudo R-squ.:     </th>   <td>0.05003</td> 
+  <th>Date:</th>            <td>Wed, 08 May 2024</td> <th>  Pseudo R-squ.:     </th>   <td>0.05003</td> 
 </tr>
 <tr>
-  <th>Time:</th>                <td>08:58:57</td>     <th>  Log-Likelihood:    </th>  <td> -12151.</td> 
+  <th>Time:</th>                <td>15:30:02</td>     <th>  Log-Likelihood:    </th>  <td> -12151.</td> 
 </tr>
 <tr>
   <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th>  <td> -12791.</td> 
@@ -767,13 +677,13 @@ First we have to recode the dependent variable so <code class="docutils literal 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/resample_logit_21_0.png" src="_images/resample_logit_21_0.png" />
+<img alt="_images/07138025c0480c40f40c34065dfbcedbd4543f14e6550bc571ecf4c574c7b1cd.png" src="_images/07138025c0480c40f40c34065dfbcedbd4543f14e6550bc571ecf4c574c7b1cd.png" />
 </div>
 </div>
 <p>Men are more likely to support legalization than women, and younger people more likely than older people.</p>
 </section>
 <section id="boostrap-sampling">
-<h2>Boostrap sampling<a class="headerlink" href="#boostrap-sampling" title="Permalink to this headline">#</a></h2>
+<h2>Boostrap sampling<a class="headerlink" href="#boostrap-sampling" title="Link to this heading">#</a></h2>
 <p>Now let’s implement the method characterized as non-parametric, which is based on bootstrap resampling.
 The following function samples the rows of <code class="docutils literal notranslate"><span class="pre">data</span></code> with replacement and runs the regression model on the resampled data.</p>
 <div class="cell docutils container">
@@ -781,6 +691,7 @@ The following function samples the rows of <code class="docutils literal notrans
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start_params</span><span class="o">=</span><span class="n">result_hat</span><span class="o">.</span><span class="n">params</span><span class="p">)</span> 
 
 <span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">bootstrapped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">bootstrapped</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">params</span>
@@ -792,12 +703,18 @@ The following function samples the rows of <code class="docutils literal notrans
 <p>Each time we run this process, the result represents a single draw from the sampling distribution of the parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> bootstrap(0)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bootstrap</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>82.2 ms ± 1.89 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.861770
+C(SEX)[T.2]   -0.380758
+AGE           -0.021963
+AGE2           0.000034
+EDUC           0.209531
+EDUC2         -0.002996
+dtype: float64
 </pre></div>
 </div>
 </div>
@@ -808,7 +725,7 @@ The following function samples the rows of <code class="docutils literal notrans
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">pqdm.threads</span> <span class="kn">import</span> <span class="n">pqdm</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="o">!</span>pip install pqdm
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pqdm
     <span class="kn">from</span> <span class="nn">pqdm.threads</span> <span class="kn">import</span> <span class="n">pqdm</span>
 </pre></div>
 </div>
@@ -823,13 +740,7 @@ The following function samples the rows of <code class="docutils literal notrans
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "d28231a131174b9fb063ee38ec4f91ed", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "55a283d1156444df861ef280683ee0db", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "97ecac5ee6df414a87ec65e81b501a06", "version_major": 2, "version_minor": 0}
-</script><div class="output text_html"><div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "982eb036ebff47448ecc0ee6afe386ad", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "431c3f67b9fe452da06242ceb139897f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "7bc57e4d369a4c598c44ba4c5b633b90", "version_major": 2, "version_minor": 0}</script><div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -858,48 +769,48 @@ The following function samples the rows of <code class="docutils literal notrans
   <tbody>
     <tr>
       <th>0</th>
-      <td>-1.747448</td>
-      <td>-0.413202</td>
-      <td>-0.027473</td>
-      <td>0.000114</td>
-      <td>0.213299</td>
-      <td>-0.003302</td>
+      <td>-1.861770</td>
+      <td>-0.380758</td>
+      <td>-0.021963</td>
+      <td>0.000034</td>
+      <td>0.209531</td>
+      <td>-0.002996</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-2.055303</td>
-      <td>-0.411384</td>
-      <td>-0.029943</td>
-      <td>0.000129</td>
-      <td>0.276153</td>
-      <td>-0.005563</td>
+      <td>-1.870006</td>
+      <td>-0.343399</td>
+      <td>-0.024615</td>
+      <td>0.000093</td>
+      <td>0.211290</td>
+      <td>-0.003338</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-2.050773</td>
-      <td>-0.414960</td>
-      <td>-0.023190</td>
-      <td>0.000094</td>
-      <td>0.242778</td>
-      <td>-0.004530</td>
+      <td>-1.550265</td>
+      <td>-0.422493</td>
+      <td>-0.031421</td>
+      <td>0.000166</td>
+      <td>0.196451</td>
+      <td>-0.002947</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-2.031659</td>
-      <td>-0.392391</td>
-      <td>-0.029538</td>
-      <td>0.000147</td>
-      <td>0.251942</td>
-      <td>-0.004616</td>
+      <td>-1.913072</td>
+      <td>-0.342552</td>
+      <td>-0.022696</td>
+      <td>0.000073</td>
+      <td>0.208549</td>
+      <td>-0.002995</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-1.847295</td>
-      <td>-0.363829</td>
-      <td>-0.031532</td>
-      <td>0.000156</td>
-      <td>0.238870</td>
-      <td>-0.004339</td>
+      <td>-1.709399</td>
+      <td>-0.385184</td>
+      <td>-0.025895</td>
+      <td>0.000106</td>
+      <td>0.193661</td>
+      <td>-0.002584</td>
     </tr>
   </tbody>
 </table>
@@ -916,7 +827,7 @@ The following function samples the rows of <code class="docutils literal notrans
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/resample_logit_31_0.png" src="_images/resample_logit_31_0.png" />
+<img alt="_images/6f0e815552ff35fa354b3cff531c99f18bdb1cb28bfbaa6b2cf5f80cd3e25642.png" src="_images/6f0e815552ff35fa354b3cff531c99f18bdb1cb28bfbaa6b2cf5f80cd3e25642.png" />
 </div>
 </div>
 <p>The mean of the sampling distribution should be close to the parameters we estimated with the original dataset, and it is.</p>
@@ -953,32 +864,32 @@ The following function samples the rows of <code class="docutils literal notrans
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>-1.681880</td>
+      <td>-1.699398</td>
       <td>-1.678838</td>
     </tr>
     <tr>
       <th>C(SEX)[T.2]</th>
-      <td>-0.379621</td>
+      <td>-0.379244</td>
       <td>-0.384919</td>
     </tr>
     <tr>
       <th>AGE</th>
-      <td>-0.027804</td>
+      <td>-0.027387</td>
       <td>-0.027825</td>
     </tr>
     <tr>
       <th>AGE2</th>
-      <td>0.000115</td>
+      <td>0.000110</td>
       <td>0.000116</td>
     </tr>
     <tr>
       <th>EDUC</th>
-      <td>0.201137</td>
+      <td>0.201980</td>
       <td>0.200002</td>
     </tr>
     <tr>
       <th>EDUC2</th>
-      <td>-0.002912</td>
+      <td>-0.002937</td>
       <td>-0.002855</td>
     </tr>
   </tbody>
@@ -1032,48 +943,48 @@ Most of them are close enough that the difference probably doesn’t matter in p
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>0.248814</td>
+      <td>0.256191</td>
       <td>0.240243</td>
-      <td>3.567779</td>
+      <td>6.638413</td>
     </tr>
     <tr>
       <th>C(SEX)[T.2]</th>
-      <td>0.027137</td>
+      <td>0.036286</td>
       <td>0.031057</td>
-      <td>-12.622418</td>
+      <td>16.838207</td>
     </tr>
     <tr>
       <th>AGE</th>
-      <td>0.004944</td>
+      <td>0.004992</td>
       <td>0.005153</td>
-      <td>-4.066840</td>
+      <td>-3.141741</td>
     </tr>
     <tr>
       <th>AGE2</th>
-      <td>0.000051</td>
+      <td>0.000052</td>
       <td>0.000053</td>
-      <td>-4.198399</td>
+      <td>-1.399085</td>
     </tr>
     <tr>
       <th>EDUC</th>
-      <td>0.031756</td>
+      <td>0.034325</td>
       <td>0.031193</td>
-      <td>1.804886</td>
+      <td>10.041461</td>
     </tr>
     <tr>
       <th>EDUC2</th>
-      <td>0.001197</td>
+      <td>0.001263</td>
       <td>0.001166</td>
-      <td>2.687507</td>
+      <td>8.386875</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Of course, there is nothing magic about the standard errors computed by StatsModels; they are approximations based on a model of the sampling process, just like the results from resampling.</p>
+<p>Of course, there is nothing magic about the standard errors computed by StatsModels – they are approximations based on a model of the sampling process, just like the results from resampling.</p>
 </section>
 <section id="the-resampling-framework">
-<h2>The Resampling Framework<a class="headerlink" href="#the-resampling-framework" title="Permalink to this headline">#</a></h2>
+<h2>The Resampling Framework<a class="headerlink" href="#the-resampling-framework" title="Link to this heading">#</a></h2>
 <p>The purpose of the sampling distribution is to quantify the variability in an estimate due to random sampling. It is the answer to the question, “If we ran this sampling process many times, how much would we expect the results to vary?”</p>
 <p>To answer that question, we need a model of the sampling process. We use the model to simulate the sampling process and generate counterfactual datasets that represent other samples the process could have generated.</p>
 <p>The following figure represents this framework.</p>
@@ -1086,7 +997,7 @@ An alternative is to ask what would happen if we surveyed the same people, but t
 That’s the model that underlies the parametric method.</p>
 </section>
 <section id="parametric-bootstrap">
-<h2>Parametric bootstrap<a class="headerlink" href="#parametric-bootstrap" title="Permalink to this headline">#</a></h2>
+<h2>Parametric bootstrap<a class="headerlink" href="#parametric-bootstrap" title="Link to this heading">#</a></h2>
 <p>So, how do we simulate a sampling process where we survey the same people, but they give different answers?
 One way is to assume, for the purposes of the simulation, that the parameters we estimated from the original data are correct.
 If so, we can use the regression model to compute the predicted probability for each respondent, like this:</p>
@@ -1122,7 +1033,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3174114774114774
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3184371184371184
 </pre></div>
 </div>
 </div>
@@ -1132,6 +1043,7 @@ The following function shows how.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bootstrap2</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">flipped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">GRASS</span><span class="o">=</span><span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">pi_hat</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">flipped</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">params</span>
@@ -1147,12 +1059,12 @@ The following function shows how.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.805556
-C(SEX)[T.2]   -0.352934
-AGE           -0.023101
-AGE2           0.000058
-EDUC           0.196758
-EDUC2         -0.002599
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.441101
+C(SEX)[T.2]   -0.337146
+AGE           -0.025234
+AGE2           0.000088
+EDUC           0.155658
+EDUC2         -0.001490
 dtype: float64
 </pre></div>
 </div>
@@ -1168,13 +1080,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "d0a97fc4ee8f43d58397ef7f83c0e400", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "a485f5db7f924f3d8f93d820527db76f", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "c1141a18ca35415fbf5cd7140d6496c7", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "db155459cf7d45039a57df608eba9015", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "01ee89c1f2334429b0c065db43ab62a1", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "81aedbf31ee54d76b0b221b253be5439", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1213,48 +1119,48 @@ dtype: float64
   <tbody>
     <tr>
       <th>0</th>
-      <td>-1.804015</td>
-      <td>-0.384881</td>
-      <td>-0.014708</td>
-      <td>-0.000017</td>
-      <td>0.180796</td>
-      <td>-0.002302</td>
+      <td>-1.607550</td>
+      <td>-0.337807</td>
+      <td>-0.030948</td>
+      <td>0.000152</td>
+      <td>0.194980</td>
+      <td>-0.002592</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-1.432664</td>
-      <td>-0.422171</td>
-      <td>-0.023207</td>
-      <td>0.000044</td>
-      <td>0.166255</td>
-      <td>-0.001940</td>
+      <td>-1.744398</td>
+      <td>-0.371315</td>
+      <td>-0.030606</td>
+      <td>0.000140</td>
+      <td>0.214210</td>
+      <td>-0.003249</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-1.415658</td>
-      <td>-0.406837</td>
-      <td>-0.033815</td>
-      <td>0.000168</td>
-      <td>0.180158</td>
-      <td>-0.001914</td>
+      <td>-2.028428</td>
+      <td>-0.382518</td>
+      <td>-0.023002</td>
+      <td>0.000059</td>
+      <td>0.247973</td>
+      <td>-0.004799</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-1.840253</td>
-      <td>-0.394937</td>
-      <td>-0.028435</td>
-      <td>0.000126</td>
-      <td>0.221295</td>
-      <td>-0.003461</td>
+      <td>-1.888331</td>
+      <td>-0.388846</td>
+      <td>-0.028548</td>
+      <td>0.000146</td>
+      <td>0.234939</td>
+      <td>-0.004520</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-1.642430</td>
-      <td>-0.375719</td>
-      <td>-0.034946</td>
-      <td>0.000177</td>
-      <td>0.216985</td>
-      <td>-0.003430</td>
+      <td>-1.488713</td>
+      <td>-0.391091</td>
+      <td>-0.028701</td>
+      <td>0.000100</td>
+      <td>0.187119</td>
+      <td>-0.002527</td>
     </tr>
   </tbody>
 </table>
@@ -1271,7 +1177,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/resample_logit_53_0.png" src="_images/resample_logit_53_0.png" />
+<img alt="_images/c20acf887c6c597aa098870c4585408ea7630731bc3a27b746d07af8d5a725df.png" src="_images/c20acf887c6c597aa098870c4585408ea7630731bc3a27b746d07af8d5a725df.png" />
 </div>
 </div>
 <p>Again, the standard deviations should be close to the standard errors, and they are.</p>
@@ -1308,39 +1214,39 @@ dtype: float64
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>0.199178</td>
+      <td>0.213665</td>
       <td>0.240243</td>
-      <td>-17.092962</td>
+      <td>-11.062937</td>
     </tr>
     <tr>
       <th>C(SEX)[T.2]</th>
-      <td>0.030494</td>
+      <td>0.028567</td>
       <td>0.031057</td>
-      <td>-1.812430</td>
+      <td>-8.015624</td>
     </tr>
     <tr>
       <th>AGE</th>
-      <td>0.005085</td>
+      <td>0.004358</td>
       <td>0.005153</td>
-      <td>-1.327560</td>
+      <td>-15.429475</td>
     </tr>
     <tr>
       <th>AGE2</th>
-      <td>0.000054</td>
+      <td>0.000047</td>
       <td>0.000053</td>
-      <td>2.118557</td>
+      <td>-10.980252</td>
     </tr>
     <tr>
       <th>EDUC</th>
-      <td>0.024899</td>
+      <td>0.030602</td>
       <td>0.031193</td>
-      <td>-20.178173</td>
+      <td>-1.892655</td>
     </tr>
     <tr>
       <th>EDUC2</th>
-      <td>0.000935</td>
       <td>0.001166</td>
-      <td>-19.819110</td>
+      <td>0.001166</td>
+      <td>-0.006701</td>
     </tr>
   </tbody>
 </table>
@@ -1350,11 +1256,12 @@ dtype: float64
 <p>If the first method asks, “What if we surveyed different people?” and the second asks “What if we surveyed the same people and they gave different answers?”, let’s consider a third method that asks “¿Por qué no los dos?”.</p>
 </section>
 <section id="the-hybrid-model">
-<h2>The Hybrid Model<a class="headerlink" href="#the-hybrid-model" title="Permalink to this headline">#</a></h2>
+<h2>The Hybrid Model<a class="headerlink" href="#the-hybrid-model" title="Link to this heading">#</a></h2>
 <p>The following function uses bootstrap sampling to simulate surveying different people; then it uses the parametric method to simulate their responses.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bootstrap3</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">bootstrapped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">pi_hat</span> <span class="o">=</span> <span class="n">result_hat</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">bootstrapped</span><span class="p">)</span>
     <span class="n">flipped</span> <span class="o">=</span> <span class="n">bootstrapped</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">GRASS</span><span class="o">=</span><span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">pi_hat</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
@@ -1371,12 +1278,12 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.655314
-C(SEX)[T.2]   -0.386624
-AGE           -0.024265
-AGE2           0.000083
-EDUC           0.182822
-EDUC2         -0.002334
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.175861
+C(SEX)[T.2]   -0.381466
+AGE           -0.037683
+AGE2           0.000208
+EDUC           0.153999
+EDUC2         -0.001051
 dtype: float64
 </pre></div>
 </div>
@@ -1391,13 +1298,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "d94cba7ed8d14620a93d62ee769b9db0", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "300569d2cf7f4e1a87fc40f41db14c9e", "version_major": 2, "version_minor": 0}
-</script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "c3d77dab4b344ca083e71dd2fa26724b", "version_major": 2, "version_minor": 0}
-</script></div>
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2cf41f196bb944cfbbdc2aa6eaa0449e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "78949c367a6d4dbea7693291419ecb48", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "c01bb4a2a8854fcbaf0711fc5b2acd29", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1436,48 +1337,48 @@ dtype: float64
   <tbody>
     <tr>
       <th>0</th>
-      <td>-2.019658</td>
-      <td>-0.385612</td>
-      <td>-0.025974</td>
-      <td>0.000108</td>
-      <td>0.249717</td>
-      <td>-0.005012</td>
+      <td>-1.292261</td>
+      <td>-0.415617</td>
+      <td>-0.029380</td>
+      <td>0.000135</td>
+      <td>0.150813</td>
+      <td>-0.001118</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-1.648528</td>
-      <td>-0.351063</td>
-      <td>-0.025192</td>
-      <td>0.000100</td>
-      <td>0.182666</td>
-      <td>-0.002312</td>
+      <td>-1.703202</td>
+      <td>-0.351606</td>
+      <td>-0.028947</td>
+      <td>0.000139</td>
+      <td>0.209984</td>
+      <td>-0.003611</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-1.780499</td>
-      <td>-0.445770</td>
-      <td>-0.032862</td>
-      <td>0.000173</td>
-      <td>0.242922</td>
-      <td>-0.004569</td>
+      <td>-1.236159</td>
+      <td>-0.417756</td>
+      <td>-0.034266</td>
+      <td>0.000176</td>
+      <td>0.154023</td>
+      <td>-0.000940</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-1.534347</td>
-      <td>-0.464670</td>
-      <td>-0.029799</td>
-      <td>0.000125</td>
-      <td>0.189228</td>
-      <td>-0.002218</td>
+      <td>-1.894601</td>
+      <td>-0.314302</td>
+      <td>-0.018581</td>
+      <td>0.000029</td>
+      <td>0.183858</td>
+      <td>-0.001909</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-1.336757</td>
-      <td>-0.404636</td>
-      <td>-0.030217</td>
-      <td>0.000137</td>
-      <td>0.160754</td>
-      <td>-0.001453</td>
+      <td>-1.290408</td>
+      <td>-0.425398</td>
+      <td>-0.036473</td>
+      <td>0.000200</td>
+      <td>0.169032</td>
+      <td>-0.001666</td>
     </tr>
   </tbody>
 </table>
@@ -1494,7 +1395,7 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/resample_logit_63_0.png" src="_images/resample_logit_63_0.png" />
+<img alt="_images/5e43ba56bbd241dfa31e790177809e90afb171e4c68b2ba96eeec2679a99b8d5.png" src="_images/5e43ba56bbd241dfa31e790177809e90afb171e4c68b2ba96eeec2679a99b8d5.png" />
 </div>
 </div>
 <p>Again, the standard errors are comparable to the ones computed by StatsModels.</p>
@@ -1531,39 +1432,39 @@ dtype: float64
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>0.236901</td>
+      <td>0.219808</td>
       <td>0.240243</td>
-      <td>-1.390859</td>
+      <td>-8.506060</td>
     </tr>
     <tr>
       <th>C(SEX)[T.2]</th>
-      <td>0.035600</td>
+      <td>0.033729</td>
       <td>0.031057</td>
-      <td>14.629106</td>
+      <td>8.604600</td>
     </tr>
     <tr>
       <th>AGE</th>
-      <td>0.005769</td>
+      <td>0.005016</td>
       <td>0.005153</td>
-      <td>11.939358</td>
+      <td>-2.659318</td>
     </tr>
     <tr>
       <th>AGE2</th>
-      <td>0.000061</td>
+      <td>0.000050</td>
       <td>0.000053</td>
-      <td>15.337773</td>
+      <td>-5.090008</td>
     </tr>
     <tr>
       <th>EDUC</th>
-      <td>0.031469</td>
+      <td>0.027835</td>
       <td>0.031193</td>
-      <td>0.884552</td>
+      <td>-10.764824</td>
     </tr>
     <tr>
       <th>EDUC2</th>
-      <td>0.001173</td>
+      <td>0.001079</td>
       <td>0.001166</td>
-      <td>0.613167</td>
+      <td>-7.466320</td>
     </tr>
   </tbody>
 </table>
@@ -1572,20 +1473,21 @@ dtype: float64
 <p>Now we have four ways to compute sampling distributions, confidence intervals, and standard errors – and they yield different results. So you might wonder…</p>
 </section>
 <section id="which-one-is-right">
-<h2>Which One Is Right?<a class="headerlink" href="#which-one-is-right" title="Permalink to this headline">#</a></h2>
+<h2>Which One Is Right?<a class="headerlink" href="#which-one-is-right" title="Link to this heading">#</a></h2>
 <p>None of them are right.
 They are based on different models of the sampling process, so they quantify different sources of uncertainty.</p>
-<p>In some cases we might find that different methods converge on the same results, asymptotically, under certain assumptions.
-But that doesn’t really matter, because with finite data sets, the results are not generally the same.
-So the important question is whether the differences are big enough to matter in practice.</p>
+<p>In some cases we might find that different methods converge on the same results, eventually, under certain assumptions.
+But eventually doesn’t really matter – with finite data sets, the results are not generally the same.
+So the important question is whether the differences are big enough to matter.</p>
 <p>In this example, it is easy to implement multiple models and compare the results.
 If they were substantially different, we would need to think more carefully about the modeling assumptions they are based on and choose the one we think is the best description of the data-generating process.</p>
 <p>But in this example, the differences are small enough that they probably don’t matter in practice.
 So we are free to choose whichever is easiest to implement, or fastest to compute, or convenient in some other way.</p>
 <p>It is a common error to presume that the result of an analytic method is uniquely correct, and that results from computational methods like resampling are approximations to it.
 Analytic methods are often fast to compute, but they are always based on modeling assumptions and usually based on approximations, so they are no more correct than computational methods.</p>
-<p>Copyright 2023 Allen Downey</p>
-<p><a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a></p>
+<p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
+<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
 </section>
 </section>
 
@@ -1601,7 +1503,7 @@ Analytic methods are often fast to compute, but they are always based on modelin
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1609,50 +1511,91 @@ Analytic methods are often fast to compute, but they are always based on modelin
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="13_hypothesis.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Hypothesis Testing</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="anderson.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Never Test for Normality</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data">The Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boostrap-sampling">Boostrap sampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-resampling-framework">The Resampling Framework</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parametric-bootstrap">Parametric bootstrap</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-model">The Hybrid Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-one-is-right">Which One Is Right?</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Allen B. Downey<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Allen B. Downey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

@@ -175,6 +175,7 @@
 <li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauss_bayes.html">Estimation with Small Samples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
 <li class="toctree-l1"><a class="reference internal" href="likert_mean.html">Likert scale analysis</a></li>
 <li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
@@ -372,7 +373,7 @@ Of those, some unknown proportion are good and the rest are bad.</p>
 But if we choose a sample of patches entirely at random, we can assume that they are independent.
 In that case, we can estimate the proportion of patches that are good and quantify the precision of that estimate by computing a confidence interval.</p>
 <p>Then we can choose a sample size that meets some requirement.
-For example, we might want the 95% confidence interval needs to be smaller than a given threshold, or we might want to bound the probability that the proportion falls below some threshold.</p>
+For example, we might want the 95% confidence interval to be smaller than a given threshold, or we might want to bound the probability that the proportion falls below some threshold.</p>
 <p>But let’s start by estimating proportions and computing confidence intervals.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/sample_size.ipynb">Click here to run this notebook on Colab</a>.</p>
 <p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
