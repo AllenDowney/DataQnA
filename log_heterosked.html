@@ -57,8 +57,6 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'log_heterosked';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -369,8 +367,8 @@ document.write(`
 <p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1czsban/eq_is_it_correct_to_use_logarithmic/">question from the Reddit statistics forum</a>.</p>
 <blockquote>
 <div><p>Is it correct to use logarithmic transformation in order to mitigate heteroskedasticity?</p>
-<p>Hello everyone. For my studies I gathered data on certain preferences across a group of people. I am trying to figure out if I can pinpoint preferences to factors such as gender in this case.</p>
-<p>I used mixed ANOVA analysis with good success however one of my hypothesis came up with heteroskedasticity when doing Levene’s test. I breaking my head all day on how to solve this. I’ve now used logarithmic transformation to all 3 test results and run another Levene’s. When using the media value the test now results [in] homoskedasticity, however interaction is no longer significant?</p>
+<p>For my studies I gathered data on certain preferences across a group of people. I am trying to figure out if I can pinpoint preferences to factors such as gender in this case.</p>
+<p>I used mixed ANOVA analysis with good success however one of my hypothesis came up with heteroskedasticity when doing Levene’s test. [I’ve been] breaking my head all day on how to solve this. I’ve now used logarithmic transformation to all 3 test results and run another Levene’s. When using the media value the test now results [in] homoskedasticity, however interaction is no longer significant?</p>
 <p>Is this the correct way to deal with this problem or is there something I am missing? Thanks in advance to everyone taking their time to help.</p>
 </div></blockquote>
 <p>Although the question is about ANOVA, I’m going to reframe it in terms of regression, for two reasons:</p>
@@ -380,7 +378,12 @@ document.write(`
 </ul>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/log_heterosked.ipynb">Click here to run this notebook on Colab</a>.</p>
 <p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
-<div class="cell tag_remove-print docutils container">
+<div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
@@ -404,6 +407,7 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -425,39 +429,27 @@ document.write(`
 </div>
 <section id="what-is-heteroskedasticity">
 <h2>What is heteroskedasticity?<a class="headerlink" href="#what-is-heteroskedasticity" title="Link to this heading">#</a></h2>
-<p>Linear regression is based on a model of the data-generating process where the independent variable <span class="math notranslate nohighlight">\(y\)</span> is the sum of</p>
+<p>Linear regression is based on a model of the data-generating process where the independent variable <code class="docutils literal notranslate"><span class="pre">y</span></code> is the sum of</p>
 <ul class="simple">
-<li><p>A linear function of <span class="math notranslate nohighlight">\(x\)</span> with an unknown slope and intercept, and</p></li>
-<li><p>Random values drawn from a Gaussian distribution with mean <span class="math notranslate nohighlight">\(\mu=0\)</span> and unknown standard deviation, <span class="math notranslate nohighlight">\(\sigma\)</span>, that does not depend on <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+<li><p>A linear function of <code class="docutils literal notranslate"><span class="pre">x</span></code> with an unknown slope and intercept, and</p></li>
+<li><p>Random values drawn from a Gaussian distribution with mean 0 and unknown standard deviation, <code class="docutils literal notranslate"><span class="pre">sigma</span></code>, that does not depend on <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
 </ul>
-<p>So what happens if we violate these assumptions?</p>
+<p>If, contrary to the second assumption, <code class="docutils literal notranslate"><span class="pre">sigma</span></code> depends on <code class="docutils literal notranslate"><span class="pre">x</span></code>, the data-generating process is heteroskedastic.
+Some amount of heteroskedasticity is common in real data, but most of the time it’s not a problem, because:</p>
 <ul class="simple">
-<li><p>If <span class="math notranslate nohighlight">\(y\)</span> is a non-linear function of <span class="math notranslate nohighlight">\(x\)</span>, regression finds the best linear fit to the data, which might not be very good.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(\mu\)</span> is not zero and it does not depend on <span class="math notranslate nohighlight">\(x\)</span>, the estimate of the intercept will be biased.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(\mu\)</span> is not zero and it <em>does</em> depend on <span class="math notranslate nohighlight">\(x\)</span>, the estimate of the slope will be biased, and probably the intercept, too.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(\sigma\)</span> depends on <span class="math notranslate nohighlight">\(x\)</span>, the data-generating process is heteroskedastic. In general, heteroskedasticity doesn’t bias the slope or the intercept, but it might bias the standard error of the estimated parameters.</p></li>
+<li><p>Heteroskedasticity doesn’t bias the estimated parameters of the model, only the standard errors,</p></li>
+<li><p>Even very strong heteroskedasticity doesn’t affect the standard errors by much, and</p></li>
+<li><p>For practical purposes we don’t need standard errors to be particularly precise.</p></li>
 </ul>
-<p>Right off the bat, we see one reason not to worry much about heteroskedasticity: it doesn’t bias the estimated parameters of the model, only the standard errors.
-And we really don’t need standard errors to be particularly precise.</p>
-<p>Now let’s see a second reason not to worry much about heteroskedasticity: even very strong heteroskedasticity doesn’t affect the standard errors by much.</p>
-<p>To demonstrate, I’ll generate some data.
+<p>To demonstrate, let’s generate some data.
 First, we’ll draw <code class="docutils literal notranslate"><span class="pre">xs</span></code> from a normal distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
 
 <span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 <span class="n">xs</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>If <code class="docutils literal notranslate"><span class="pre">sigma</span></code> is constant, the model is homoskedastic.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">ys</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -482,7 +474,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.121259908869169
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.126391153924031
 </pre></div>
 </div>
 </div>
@@ -498,7 +490,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4e788e7fcf0a44dee18f8f305b1b3b23896815427c9f9f41df9aa8ec807bf861.png" src="_images/4e788e7fcf0a44dee18f8f305b1b3b23896815427c9f9f41df9aa8ec807bf861.png" />
+<img alt="_images/c635a98ae030fa1c294131088f566732960dae33f926d07cf7c14166c28bbe54.png" src="_images/c635a98ae030fa1c294131088f566732960dae33f926d07cf7c14166c28bbe54.png" />
 </div>
 </div>
 <p>Now we can generate <code class="docutils literal notranslate"><span class="pre">ys</span></code> with variable values of <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
@@ -509,7 +501,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 </div>
-<p>If we make a scatter plot of the data, we see a cone shape that is indicative of heteroskedasticity.</p>
+<p>If we make a scatter plot of the data, we see a cone shape that indicates heteroskedasticity.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
@@ -519,7 +511,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2323ed6bbdfc2b80ebcf56e3ae6005e24e01d435dd33327d2ae4f571fc058f45.png" src="_images/2323ed6bbdfc2b80ebcf56e3ae6005e24e01d435dd33327d2ae4f571fc058f45.png" />
+<img alt="_images/36c8792eafdb662387641249230be0e62d39add8624b6ef79f0249e979e523d4.png" src="_images/36c8792eafdb662387641249230be0e62d39add8624b6ef79f0249e979e523d4.png" />
 </div>
 </div>
 <p>Now let’s fit a model to the data.</p>
@@ -537,7 +529,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-11.87454515023267, 1.4066510948880229)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.7580177696902339, 0.9672433174107101)
 </pre></div>
 </div>
 </div>
@@ -555,27 +547,27 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3471aec5f0e86772fd9f978ae52661429bebc0138400517920d3081f9b0612f3.png" src="_images/3471aec5f0e86772fd9f978ae52661429bebc0138400517920d3081f9b0612f3.png" />
+<img alt="_images/2cf20a87305ba235c61b1f6df4fabe354c1c3c1fefe78d45f4122d716771ca38.png" src="_images/2cf20a87305ba235c61b1f6df4fabe354c1c3c1fefe78d45f4122d716771ca38.png" />
 </div>
 </div>
 <p>If we plot the absolute values of the residuals, we can see the heteroskedasticity more clearly.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resid</span> <span class="o">=</span> <span class="n">ys</span> <span class="o">-</span> <span class="n">fys</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fys</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">resid</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">resid</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;absolute residual&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c248c5c73decaecb1e2a13e8acf5cfdbdfdad63d600c8092be299ff7d77a0877.png" src="_images/c248c5c73decaecb1e2a13e8acf5cfdbdfdad63d600c8092be299ff7d77a0877.png" />
+<img alt="_images/d99b736404356f228d7c277aaa4c4e8165825b18db4f891d4d21c17cbf6b227a.png" src="_images/d99b736404356f228d7c277aaa4c4e8165825b18db4f891d4d21c17cbf6b227a.png" />
 </div>
 </div>
 </section>
 <section id="testing-for-heteroskedasticity">
 <h2>Testing for heteroskedasticity<a class="headerlink" href="#testing-for-heteroskedasticity" title="Link to this heading">#</a></h2>
-<p>OP mentions using the Levene test for heteroskedasticity, which is used to test whether variability is different between groups.
+<p>OP mentions using the Levene test for heteroskedasticity, which is used to test whether <code class="docutils literal notranslate"><span class="pre">sigma</span></code> is different between groups.
 For continuous values of <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>, we can use the Breusch-Pagan Lagrange Multiplier test:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -587,7 +579,7 @@ For continuous values of <code class="docutils literal notranslate"><span class=
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.4891051930874875e-05
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0006411829020109725
 </pre></div>
 </div>
 </div>
@@ -603,29 +595,29 @@ For continuous values of <code class="docutils literal notranslate"><span class=
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.6485804310033655e-05
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0019263142806157931
 </pre></div>
 </div>
 </div>
 </div>
-<p>Both tests produce very small p-values, which means that if we generate a dataset by a homoskedastic process, there is almost no chance it would have as much heteroskedasticity as the dataset we generated.</p>
+<p>Both tests produce small p-values, which means that if we generate a dataset by a homoskedastic process, there is almost no chance it would have as much heteroskedasticity as the dataset we generated.</p>
 <p>If you have never heard of either of these tests, don’t panic – neither had I under I looked them up for this example.
 And don’t worry about remembering them, because you should never use them again.
 Like testing for normality, testing for heteroskedasticity is never useful.</p>
 <p>Why? Because in almost any real dataset, you will find some heteroskedasticity.
 So if you test for it, there are only two possible results:</p>
 <ul class="simple">
-<li><p>If the heteroskedasticity is small and you don’t have much data, you will fail to reject.</p></li>
-<li><p>If the heteroskedasticity is large or you have a lot of data, you will reject.</p></li>
+<li><p>If the heteroskedasticity is small and you don’t have much data, you will fail to reject the null hypothesis.</p></li>
+<li><p>If the heteroskedasticity is large or you have a lot of data, you will reject the null hypothesis.</p></li>
 </ul>
-<p>Either way, you learn nothing.
-And in particular, you don’t learn the answer to the question you actually care about, which is whether the heteroskedasticity is so large that the effect on the standard errors is large enough that you care.</p>
-<p>And the answer to that questions is almost always no.</p>
+<p>Either way, you learn nothing – and in particular, you don’t learn the answer to the question you actually care about, which is whether the heteroskedasticity is so large that the effect on the standard errors is large enough that you should care.</p>
+<p>And the answer to that question is almost always no.</p>
 </section>
 <section id="should-we-care">
 <h2>Should we care?<a class="headerlink" href="#should-we-care" title="Link to this heading">#</a></h2>
-<p>In the example, I generated data with a very large heteroskedasticity. Let’s see how much effect that has on the results.
-Here are the standard errors from the simple linear regression:</p>
+<p>The dataset we generated has very large heteroskedasticity.
+Let’s see how much effect that has on the results.
+Here are the standard errors from simple linear regression:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ols_results</span><span class="o">.</span><span class="n">bse</span>
@@ -633,7 +625,7 @@ Here are the standard errors from the simple linear regression:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8.08328349, 0.26836539])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6.06159018, 0.20152957])
 </pre></div>
 </div>
 </div>
@@ -648,7 +640,7 @@ One is the Huber-White estimator, which we can compute like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8.76715672, 0.29588086])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6.73913518, 0.2268012 ])
 </pre></div>
 </div>
 </div>
@@ -663,12 +655,12 @@ One is the Huber-White estimator, which we can compute like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7.58399745, 0.25178907])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([5.92709031, 0.19705786])
 </pre></div>
 </div>
 </div>
 </div>
-<p>And yet another is to use quantile regression.</p>
+<p>Another is to use quantile regression.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">quantile_model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">QuantReg</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
@@ -678,24 +670,26 @@ One is the Huber-White estimator, which we can compute like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([9.64509135, 0.32021748])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7.6449323 , 0.25417092])
 </pre></div>
 </div>
 </div>
 </div>
-<p>And one more option is a wild bootstrap.</p>
+<p>And one more option is a wild bootstrap, which resamples the residuals by multiplying them by a random sequence of <code class="docutils literal notranslate"><span class="pre">1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.
+This way of resampling preserves heteroskedasticity, because it only changes the sign of the residuals, not the magnitude, and it maintains the relationship between those magnitudes and <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">linregress</span>
 
 <span class="k">def</span> <span class="nf">wild_bootstrap</span><span class="p">():</span>
-    <span class="n">resampled</span> <span class="o">=</span> <span class="n">fys</span> <span class="o">+</span> <span class="n">ols_results</span><span class="o">.</span><span class="n">resid</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">resampled</span> <span class="o">=</span> <span class="n">fys</span> <span class="o">+</span> <span class="n">ols_results</span><span class="o">.</span><span class="n">resid</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">linregress</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">resampled</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">intercept</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">slope</span> 
 </pre></div>
 </div>
 </div>
 </div>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">wild_bootstrap</span></code> to generate a sample from the sampling distributions of the intercept and slope.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="p">[</span><span class="n">wild_bootstrap</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span> 
@@ -703,6 +697,7 @@ One is the Huber-White estimator, which we can compute like this:</p>
 </div>
 </div>
 </div>
+<p>The standard deviation of the sampling distributions is the standard error.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bootstrap_bse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -711,16 +706,16 @@ One is the Huber-White estimator, which we can compute like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8.69641028, 0.29320446])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6.63622313, 0.22341784])
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s put those results in a table.</p>
+<p>Now let’s put all of the result in a table.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SE(intercept)&#39;</span><span class="p">,</span> <span class="s1">&#39;SE(slope)&#39;</span><span class="p">]</span>
-<span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OLS&#39;</span><span class="p">,</span> <span class="s1">&#39;robust SE&#39;</span><span class="p">,</span> <span class="s1">&#39;Huber&#39;</span><span class="p">,</span> <span class="s1">&#39;quantile&#39;</span><span class="p">,</span> <span class="s1">&#39;bootstrap&#39;</span><span class="p">]</span>
+<span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OLS&#39;</span><span class="p">,</span> <span class="s1">&#39;Huber-White&#39;</span><span class="p">,</span> <span class="s1">&#39;Huber&#39;</span><span class="p">,</span> <span class="s1">&#39;quantile&#39;</span><span class="p">,</span> <span class="s1">&#39;bootstrap&#39;</span><span class="p">]</span>
 <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">ols_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">robust_se</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">huber_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> 
         <span class="n">quantile_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">bootstrap_bse</span><span class="p">]</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
@@ -754,50 +749,56 @@ One is the Huber-White estimator, which we can compute like this:</p>
   <tbody>
     <tr>
       <th>Huber</th>
-      <td>7.583997</td>
-      <td>0.251789</td>
+      <td>5.927090</td>
+      <td>0.197058</td>
     </tr>
     <tr>
       <th>OLS</th>
-      <td>8.083283</td>
-      <td>0.268365</td>
+      <td>6.061590</td>
+      <td>0.201530</td>
     </tr>
     <tr>
       <th>bootstrap</th>
-      <td>8.696410</td>
-      <td>0.293204</td>
+      <td>6.636223</td>
+      <td>0.223418</td>
     </tr>
     <tr>
-      <th>robust SE</th>
-      <td>8.767157</td>
-      <td>0.295881</td>
+      <th>Huber-White</th>
+      <td>6.739135</td>
+      <td>0.226801</td>
     </tr>
     <tr>
       <th>quantile</th>
-      <td>9.645091</td>
-      <td>0.320217</td>
+      <td>7.644932</td>
+      <td>0.254171</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>The standard errors we get from different methods are notably different, but the differences probably don’t matter much.
-For practical purposes, we don’t need standard errors to be particularly precise.
-In my opinion, you can forget about esoteric methods for dealing with heteroskedasticity. Just use ordinary least squares or bootstrap.</p>
+<p>The standard errors we get from different methods are notably different, but the differences probably don’t matter.</p>
+<p>First, I am skeptical of the results from Huber regression.
+With this kind of heteroskedasticity, the standard errors should be larger than what we get from OLS.
+I’m not sure what’s the problem is, and I haven’t bothered to find out, because I don’t think Huber regression is necessary in the first place.</p>
+<p>The results from bootstrapping and the Huber-White estimator are the most reliable – which suggests that the standard errors from quantile regression are too big.</p>
+<p>In my opinion, we don’t need esoteric methods to dealing with heteroskedasticity.
+If heteroskedasticity is extreme, consider using wild bootstrap.
+Otherwise, just use ordinary least squares.</p>
 <p>Now let’s address OP’s headline question, “Is it correct to use logarithmic transformation in order to mitigate heteroskedasticity?”</p>
 </section>
 <section id="log-transform-help">
 <h2>Log transform help?<a class="headerlink" href="#log-transform-help" title="Link to this heading">#</a></h2>
-<p>In some cases, a log transform can reduce or eliminate heteroskedasticity. However, there are several reasons this is not a good idea in general:</p>
+<p>In some cases, a log transform can reduce or eliminate heteroskedasticity.
+However, there are several reasons this is not a good idea in general:</p>
 <ul class="simple">
 <li><p>As we’ve seen, heteroskedasticity is not a big problem, so it usually doesn’t require any mitigation.</p></li>
-<li><p>Taking a log transform doesn’t always help.</p></li>
-<li><p>Taking a log transform of one or more variables in a regression model changes the meaning of the model – it hypothesizes a different relationship between the variables that might not  make sense in context.</p></li>
+<li><p>Taking a log transform of one or more variables in a regression model changes the meaning of the model – it hypothesizes a relationship between the variables that might not make sense in context.</p></li>
+<li><p>Anyway, taking a log transform doesn’t always help.</p></li>
 </ul>
-<p>To demonstrate the second point, let’s see what happens if we apply a log transform to the dependent variable:</p>
+<p>To demonstrate the last point, let’s see what happens if we apply a log transform to the dependent variable:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -805,30 +806,29 @@ In my opinion, you can forget about esoteric methods for dealing with heterosked
 <p>Here’s what the scatter plot looks like after the transform.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">lys</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">log_ys</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;log10 y&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0ba3ed5014cf1267b4dadf1335be0341202353b185e878b283717c8ff7ad50f3.png" src="_images/0ba3ed5014cf1267b4dadf1335be0341202353b185e878b283717c8ff7ad50f3.png" />
+<img alt="_images/cf0e9870e37eb92fd8c402946b46b3f7c97cdc63eba102eb117a7d697a165cfc.png" src="_images/cf0e9870e37eb92fd8c402946b46b3f7c97cdc63eba102eb117a7d697a165cfc.png" />
 </div>
 </div>
 <p>Here’s what we get if we fit a model to the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-<span class="n">ols_model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">lys</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-<span class="n">ols_results</span> <span class="o">=</span> <span class="n">ols_model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ols_model_log</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">log_ys</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="n">ols_results_log</span> <span class="o">=</span> <span class="n">ols_model_log</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 
-<span class="n">intercept</span><span class="p">,</span> <span class="n">slope</span> <span class="o">=</span> <span class="n">ols_results</span><span class="o">.</span><span class="n">params</span>
+<span class="n">intercept</span><span class="p">,</span> <span class="n">slope</span> <span class="o">=</span> <span class="n">ols_results_log</span><span class="o">.</span><span class="n">params</span>
 <span class="n">intercept</span><span class="p">,</span> <span class="n">slope</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.9375401725340174, 0.018046769921635564)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.072059757295944, 0.013315487289434717)
 </pre></div>
 </div>
 </div>
@@ -836,56 +836,56 @@ In my opinion, you can forget about esoteric methods for dealing with heterosked
 <p>And here’s the fitted line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fys</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">xs</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_fys</span> <span class="o">=</span> <span class="n">intercept</span> <span class="o">+</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">xs</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">lys</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">fys</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">log_ys</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">log_fys</span><span class="p">)</span>
 
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;log10 y&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/74b6d38059005eddb4b90188370af505d1c301455a2cd7240cbfdb4fe9ce239c.png" src="_images/74b6d38059005eddb4b90188370af505d1c301455a2cd7240cbfdb4fe9ce239c.png" />
+<img alt="_images/62a60f1476d01383fff6880f0fb75a75b944bde65a708abd53f8b802fa2516f8.png" src="_images/62a60f1476d01383fff6880f0fb75a75b944bde65a708abd53f8b802fa2516f8.png" />
 </div>
 </div>
 <p>If we plot the absolute values of the residuals, we can see that the log transform did not entirely remove the heteroskedasticity.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resid</span> <span class="o">=</span> <span class="n">lys</span> <span class="o">-</span> <span class="n">fys</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fys</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">resid</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">log_resid</span> <span class="o">=</span> <span class="n">log_ys</span> <span class="o">-</span> <span class="n">log_fys</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">log_resid</span><span class="p">),</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
 
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;absolute residual&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;absolute residual on log y&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/444a421b85d2698cbd9a79bbbeb66c6c742a917b91f64b11c042b9b381c14a9d.png" src="_images/444a421b85d2698cbd9a79bbbeb66c6c742a917b91f64b11c042b9b381c14a9d.png" />
+<img alt="_images/119acd1329c7bc9cedbdaa66d635f051af3f3c42df0625f7736047a713ecc4f5.png" src="_images/119acd1329c7bc9cedbdaa66d635f051af3f3c42df0625f7736047a713ecc4f5.png" />
 </div>
 </div>
 <p>Which we can confirm by running the tests again (which we should never do).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">p_value</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">het_breuschpagan</span><span class="p">(</span><span class="n">resid</span><span class="p">,</span> <span class="n">ols_model</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">p_value</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">het_breuschpagan</span><span class="p">(</span><span class="n">log_resid</span><span class="p">,</span> <span class="n">ols_model_log</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
 <span class="n">p_value</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.30212259044243e-05
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.002154782205265498
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">p_value</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">het_white</span><span class="p">(</span><span class="n">resid</span><span class="p">,</span> <span class="n">ols_model</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">p_value</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">het_white</span><span class="p">(</span><span class="n">log_resid</span><span class="p">,</span> <span class="n">ols_model_log</span><span class="o">.</span><span class="n">exog</span><span class="p">)</span>
 <span class="n">p_value</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.00019397656777266927
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.006069762292696221
 </pre></div>
 </div>
 </div>
@@ -898,11 +898,11 @@ But if the goal was to eliminate heteroskedasticity, the log transform didn’t 
 <p>To summarize:</p>
 <ul class="simple">
 <li><p>Heteroskedasticity is common in real datasets – if you test for it, you will often find it, provided you have enough data.</p></li>
-<li><p>Either way, testing for heteroskedasticity does not answer the question you really care about, which is whether the heteroskedasticity is severe enough to be a problem.</p></li>
-<li><p>Plain old linear regression is quite robust to heteroskedasticity, so unless it is really extreme, it is probably not a problem.</p></li>
-<li><p>Even in the worst case heteroskedasticity does not bias the estimated parameters – it only biases the standard errors. And we don’t need standard errors to be particularly precise anyway.</p></li>
+<li><p>Either way, testing does not answer the question you really care about, which is whether the heteroskedasticity is extreme enough to be a problem.</p></li>
+<li><p>Plain old linear regression is robust to heteroskedasticity, so unless it is really extreme, it is probably not a problem.</p></li>
+<li><p>Even in the worst case, heteroskedasticity does not bias the estimated parameters – it only affects the standard errors – and we don’t need standard errors to be particularly precise anyway.</p></li>
 <li><p>Although a log transform can sometimes mitigate heteroskedasticity, it doesn’t always succeed, and even if it does, it’s usually not necessary.</p></li>
-<li><p>What a log transform <em>does</em> do is change the meaning of the regression model in ways that might not make sense in context.</p></li>
+<li><p>A log transform changes the meaning of the regression model in ways that might not make sense in context.</p></li>
 </ul>
 <p>So, use a log transform if it makes sense in context, not to mitigate a problem that’s not much of a problem in the first place.</p>
 <p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
