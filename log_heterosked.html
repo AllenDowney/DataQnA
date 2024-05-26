@@ -444,9 +444,10 @@ And we really don’t need standard errors to be particularly precise.</p>
 First, we’ll draw <code class="docutils literal notranslate"><span class="pre">xs</span></code> from a normal distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 <span class="n">xs</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -456,7 +457,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigma</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">ys</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">))</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">xs</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -481,7 +482,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.126391153924031
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.121259908869169
 </pre></div>
 </div>
 </div>
@@ -497,7 +498,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c635a98ae030fa1c294131088f566732960dae33f926d07cf7c14166c28bbe54.png" src="_images/c635a98ae030fa1c294131088f566732960dae33f926d07cf7c14166c28bbe54.png" />
+<img alt="_images/4e788e7fcf0a44dee18f8f305b1b3b23896815427c9f9f41df9aa8ec807bf861.png" src="_images/4e788e7fcf0a44dee18f8f305b1b3b23896815427c9f9f41df9aa8ec807bf861.png" />
 </div>
 </div>
 <p>Now we can generate <code class="docutils literal notranslate"><span class="pre">ys</span></code> with variable values of <code class="docutils literal notranslate"><span class="pre">sigma</span></code>.</p>
@@ -518,7 +519,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9f5a368530c0be5ce9614e1b47aa4a9483e04af26b996094f745a38310f18d19.png" src="_images/9f5a368530c0be5ce9614e1b47aa4a9483e04af26b996094f745a38310f18d19.png" />
+<img alt="_images/2323ed6bbdfc2b80ebcf56e3ae6005e24e01d435dd33327d2ae4f571fc058f45.png" src="_images/2323ed6bbdfc2b80ebcf56e3ae6005e24e01d435dd33327d2ae4f571fc058f45.png" />
 </div>
 </div>
 <p>Now let’s fit a model to the data.</p>
@@ -536,7 +537,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3.388094635972095, 0.8937621786255208)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-11.87454515023267, 1.4066510948880229)
 </pre></div>
 </div>
 </div>
@@ -554,7 +555,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/83fa68b019000a2e50e845fa2f754f0a5fec2ec5baeb9d87622e57c2f464a558.png" src="_images/83fa68b019000a2e50e845fa2f754f0a5fec2ec5baeb9d87622e57c2f464a558.png" />
+<img alt="_images/3471aec5f0e86772fd9f978ae52661429bebc0138400517920d3081f9b0612f3.png" src="_images/3471aec5f0e86772fd9f978ae52661429bebc0138400517920d3081f9b0612f3.png" />
 </div>
 </div>
 <p>If we plot the absolute values of the residuals, we can see the heteroskedasticity more clearly.</p>
@@ -568,7 +569,7 @@ First, we’ll draw <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5ed3ff07ce0189d9795909d34a7ecaa9236abaf0c0afb284294f168de6b21241.png" src="_images/5ed3ff07ce0189d9795909d34a7ecaa9236abaf0c0afb284294f168de6b21241.png" />
+<img alt="_images/c248c5c73decaecb1e2a13e8acf5cfdbdfdad63d600c8092be299ff7d77a0877.png" src="_images/c248c5c73decaecb1e2a13e8acf5cfdbdfdad63d600c8092be299ff7d77a0877.png" />
 </div>
 </div>
 </section>
@@ -586,7 +587,7 @@ For continuous values of <code class="docutils literal notranslate"><span class=
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.9400325716458528e-05
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.4891051930874875e-05
 </pre></div>
 </div>
 </div>
@@ -602,7 +603,7 @@ For continuous values of <code class="docutils literal notranslate"><span class=
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.00014557228244861052
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.6485804310033655e-05
 </pre></div>
 </div>
 </div>
@@ -632,7 +633,7 @@ Here are the standard errors from the simple linear regression:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6.94113977, 0.23077194])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8.08328349, 0.26836539])
 </pre></div>
 </div>
 </div>
@@ -647,7 +648,7 @@ One is the Huber-White estimator, which we can compute like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7.31187309, 0.24686819])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8.76715672, 0.29588086])
 </pre></div>
 </div>
 </div>
@@ -662,7 +663,7 @@ One is the Huber-White estimator, which we can compute like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([6.75285441, 0.22451202])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([7.58399745, 0.25178907])
 </pre></div>
 </div>
 </div>
@@ -677,7 +678,40 @@ One is the Huber-White estimator, which we can compute like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8.63698842, 0.28715379])
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([9.64509135, 0.32021748])
+</pre></div>
+</div>
+</div>
+</div>
+<p>And one more option is a wild bootstrap.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">linregress</span>
+
+<span class="k">def</span> <span class="nf">wild_bootstrap</span><span class="p">():</span>
+    <span class="n">resampled</span> <span class="o">=</span> <span class="n">fys</span> <span class="o">+</span> <span class="n">ols_results</span><span class="o">.</span><span class="n">resid</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">linregress</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">resampled</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">intercept</span><span class="p">,</span> <span class="n">res</span><span class="o">.</span><span class="n">slope</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sample</span> <span class="o">=</span> <span class="p">[</span><span class="n">wild_bootstrap</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">)]</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bootstrap_bse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">bootstrap_bse</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([8.69641028, 0.29320446])
 </pre></div>
 </div>
 </div>
@@ -686,8 +720,9 @@ One is the Huber-White estimator, which we can compute like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SE(intercept)&#39;</span><span class="p">,</span> <span class="s1">&#39;SE(slope)&#39;</span><span class="p">]</span>
-<span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OLS&#39;</span><span class="p">,</span> <span class="s1">&#39;robust SE&#39;</span><span class="p">,</span> <span class="s1">&#39;Huber&#39;</span><span class="p">,</span> <span class="s1">&#39;Quantile&#39;</span><span class="p">]</span>
-<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">ols_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">robust_se</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">huber_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">quantile_results</span><span class="o">.</span><span class="n">bse</span><span class="p">]</span>
+<span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;OLS&#39;</span><span class="p">,</span> <span class="s1">&#39;robust SE&#39;</span><span class="p">,</span> <span class="s1">&#39;Huber&#39;</span><span class="p">,</span> <span class="s1">&#39;quantile&#39;</span><span class="p">,</span> <span class="s1">&#39;bootstrap&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">ols_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">robust_se</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">huber_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> 
+        <span class="n">quantile_results</span><span class="o">.</span><span class="n">bse</span><span class="p">,</span> <span class="n">bootstrap_bse</span><span class="p">]</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;SE(slope)&#39;</span><span class="p">)</span>
 </pre></div>
@@ -719,32 +754,36 @@ One is the Huber-White estimator, which we can compute like this:</p>
   <tbody>
     <tr>
       <th>Huber</th>
-      <td>6.752854</td>
-      <td>0.224512</td>
+      <td>7.583997</td>
+      <td>0.251789</td>
     </tr>
     <tr>
       <th>OLS</th>
-      <td>6.941140</td>
-      <td>0.230772</td>
+      <td>8.083283</td>
+      <td>0.268365</td>
+    </tr>
+    <tr>
+      <th>bootstrap</th>
+      <td>8.696410</td>
+      <td>0.293204</td>
     </tr>
     <tr>
       <th>robust SE</th>
-      <td>7.311873</td>
-      <td>0.246868</td>
+      <td>8.767157</td>
+      <td>0.295881</td>
     </tr>
     <tr>
-      <th>Quantile</th>
-      <td>8.636988</td>
-      <td>0.287154</td>
+      <th>quantile</th>
+      <td>9.645091</td>
+      <td>0.320217</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>The results from Huber regression and OLS are very similar.
-The robust standard errors and the results from quantile regression are notably higher, which might be some cause for concern.
-But even in this example where the heteroskedasticity is substantial, the difference in the standard errors probably don’t matter much – for practical purposes, we don’t need standard errors to be particularly precise.</p>
-<p>In my opinion, you can forget about esoteric methods for dealing with heteroskedasticity. Just use ordinary least squares.</p>
+<p>The standard errors we get from different methods are notably different, but the differences probably don’t matter much.
+For practical purposes, we don’t need standard errors to be particularly precise.
+In my opinion, you can forget about esoteric methods for dealing with heteroskedasticity. Just use ordinary least squares or bootstrap.</p>
 <p>Now let’s address OP’s headline question, “Is it correct to use logarithmic transformation in order to mitigate heteroskedasticity?”</p>
 </section>
 <section id="log-transform-help">
@@ -773,7 +812,7 @@ But even in this example where the heteroskedasticity is substantial, the differ
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2d645d7fb6816fcd7b2f55fe62eb6f4d731bd8fb0a1f8dd734e566e3972b38cd.png" src="_images/2d645d7fb6816fcd7b2f55fe62eb6f4d731bd8fb0a1f8dd734e566e3972b38cd.png" />
+<img alt="_images/0ba3ed5014cf1267b4dadf1335be0341202353b185e878b283717c8ff7ad50f3.png" src="_images/0ba3ed5014cf1267b4dadf1335be0341202353b185e878b283717c8ff7ad50f3.png" />
 </div>
 </div>
 <p>Here’s what we get if we fit a model to the data.</p>
@@ -789,7 +828,7 @@ But even in this example where the heteroskedasticity is substantial, the differ
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1.1237964079702256, 0.011777374792320695)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.9375401725340174, 0.018046769921635564)
 </pre></div>
 </div>
 </div>
@@ -807,7 +846,7 @@ But even in this example where the heteroskedasticity is substantial, the differ
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b3cb4182a1ce3d4ee85cee4cba30350e01e0ad5b7767f41db0e1b6518a7b46e8.png" src="_images/b3cb4182a1ce3d4ee85cee4cba30350e01e0ad5b7767f41db0e1b6518a7b46e8.png" />
+<img alt="_images/74b6d38059005eddb4b90188370af505d1c301455a2cd7240cbfdb4fe9ce239c.png" src="_images/74b6d38059005eddb4b90188370af505d1c301455a2cd7240cbfdb4fe9ce239c.png" />
 </div>
 </div>
 <p>If we plot the absolute values of the residuals, we can see that the log transform did not entirely remove the heteroskedasticity.</p>
@@ -821,7 +860,7 @@ But even in this example where the heteroskedasticity is substantial, the differ
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/91096d79012bbcea2b7e705d89e8580c6d5e92a4d98529f0fb470299b2ffa03f.png" src="_images/91096d79012bbcea2b7e705d89e8580c6d5e92a4d98529f0fb470299b2ffa03f.png" />
+<img alt="_images/444a421b85d2698cbd9a79bbbeb66c6c742a917b91f64b11c042b9b381c14a9d.png" src="_images/444a421b85d2698cbd9a79bbbeb66c6c742a917b91f64b11c042b9b381c14a9d.png" />
 </div>
 </div>
 <p>Which we can confirm by running the tests again (which we should never do).</p>
@@ -833,7 +872,7 @@ But even in this example where the heteroskedasticity is substantial, the differ
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0002697763744132208
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.30212259044243e-05
 </pre></div>
 </div>
 </div>
@@ -846,12 +885,12 @@ But even in this example where the heteroskedasticity is substantial, the differ
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0011617542598402885
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.00019397656777266927
 </pre></div>
 </div>
 </div>
 </div>
-<p>The p-values are a few orders of magnitude bigger, which suggests that the log transform mitigated the heteroskedasticity a little.
+<p>The p-values are bigger, which suggests that the log transform mitigated the heteroskedasticity a little.
 But if the goal was to eliminate heteroskedasticity, the log transform didn’t do it.</p>
 </section>
 <section id="discussion">
