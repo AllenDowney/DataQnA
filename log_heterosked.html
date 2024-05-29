@@ -181,6 +181,7 @@
 <li class="toctree-l1"><a class="reference internal" href="likert_mean.html">Likert scale analysis</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Logarithms and heteroskedasticity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
 </ul>
@@ -781,8 +782,8 @@ This way of resampling preserves heteroskedasticity, because it only changes the
 With this kind of heteroskedasticity, the standard errors should be larger than what we get from OLS.
 I’m not sure what’s the problem is, and I haven’t bothered to find out, because I don’t think Huber regression is necessary in the first place.</p>
 <p>The results from bootstrapping and the Huber-White estimator are the most reliable – which suggests that the standard errors from quantile regression are too big.</p>
-<p>In my opinion, we don’t need esoteric methods to dealing with heteroskedasticity.
-If heteroskedasticity is extreme, consider using wild bootstrap.
+<p>In my opinion, we don’t need esoteric methods to deal with heteroskedasticity.
+If it’s extreme, consider using wild bootstrap.
 Otherwise, just use ordinary least squares.</p>
 <p>Now let’s address OP’s headline question, “Is it correct to use logarithmic transformation in order to mitigate heteroskedasticity?”</p>
 </section>
