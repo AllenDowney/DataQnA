@@ -368,8 +368,8 @@ document.write(`
 <blockquote>
 <div><p>What’s the difference between cumulative frequency as a percentage and percentiles?</p>
 <p>Example that got me super confused:</p>
-<p>[Here’s the data provided by OP]:</p>
 </div></blockquote>
+<p>[Here’s the data provided by OP]:</p>
 <div class="cell tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -528,7 +528,7 @@ As an example, let’s consider the distribution of height, and suppose the medi
 In that case, 168 cm is the 50th percentile, and if someone is 168 cm tall, their percentile rank is 50%.</p>
 <p>By this definition, the percentile rank for a particular quantity is its cumulative frequency expressed as a percentage, exactly as OP suggests.
 If you are taller than, or the same height as, 50% of the population, your percentile rank is 50%.</p>
-<p>However, some books present – and some classes teach – the alternative definition OP presents.
+<p>However, some classes teach the alternative definition OP presents.
 So, let me explain the two definitions, and we can discuss the pros and cons.
 At the risk of giving away the ending, here is my conclusion:</p>
 <ul class="simple">
@@ -736,7 +736,7 @@ To demonstrate, we can use <code class="docutils literal notranslate"><span clas
 </div></div></div>
 </div>
 <p>A <code class="docutils literal notranslate"><span class="pre">Cdf</span></code> object is a Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code> that contains the observed quantities as an index and their cumulative probabilities as values.
-We can use square bracket to look up a quantity and get a cumulative probability.</p>
+We can use square brackets to look up a quantity and get a cumulative probability.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cdf</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span>
@@ -864,9 +864,9 @@ As far as I can tell, it’s just called a cumulative probability.</p>
 </section>
 <section id="so-what-s-wrong-with-percentile-rank">
 <h2>So what’s wrong with percentile rank?<a class="headerlink" href="#so-what-s-wrong-with-percentile-rank" title="Link to this heading">#</a></h2>
-<p>So percentiles and percentile ranks have a perfectly good definition, which follows from the definition of the CDF.
-What’s the problem?
-Well, I have to admit – it’s a little arbitrary.</p>
+<p>Percentiles and percentile ranks have a perfectly good definition, which follows from the definition of the CDF.
+So what’s the problem?
+Well, I have to admit – the definition is a little arbitrary.</p>
 <p>In the example, suppose your score is 14.
 Your score is strictly better than 37.5% of the other scores.</p>
 <div class="cell docutils container">
@@ -927,7 +927,7 @@ For a score of 14, here’s the midpoint:</p>
 </div>
 </div>
 </div>
-<p>That’s the result OP’s teacher was expecting, and to be fair, that’s <a class="reference external" href="https://en.wikipedia.org/wiki/Percentile_rank">Wikipedia’s definition</a>.
+<p>That’s the result OP’s teacher was expecting, and to be fair, that’s <a class="reference external" href="https://en.wikipedia.org/wiki/Percentile_rank">Wikipedia’s definition of percentile rank</a>.
 But I don’t like it.</p>
 </section>
 <section id="discussion">
