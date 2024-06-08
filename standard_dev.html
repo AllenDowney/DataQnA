@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Which Standard Deviation &#8212; Data Q&amp;A</title>
+    <title>Which Standard Deviation? &#8212; Data Q&amp;A</title>
   
   
   
@@ -183,7 +183,7 @@
 <li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Which Standard Deviation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Which Standard Deviation?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
 </ul>
 
@@ -338,7 +338,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Which Standard Deviation</h1>
+    <h1>Which Standard Deviation?</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -363,7 +363,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="which-standard-deviation">
-<h1>Which Standard Deviation<a class="headerlink" href="#which-standard-deviation" title="Link to this heading">#</a></h1>
+<h1>Which Standard Deviation?<a class="headerlink" href="#which-standard-deviation" title="Link to this heading">#</a></h1>
 <p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1d9fe9p/q_when_do_we_use_t_and_when_t1_for_computation_of/">question from the Reddit statistics forum</a>.</p>
 <blockquote>
 <div><p>When do we use N and when N-1 for computation of sd and cov?</p>
@@ -594,7 +594,7 @@ In this case, it is the difference between the presumed degrees of freedom, <cod
 <li><p>The <code class="docutils literal notranslate"><span class="pre">N</span></code> version is a descriptive statistic – it is quantifies the variability of the data.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">N-1</span></code> version is an estimator – if <code class="docutils literal notranslate"><span class="pre">data</span></code> is a sample from a population, we can use it to infer the standard deviation of the population.</p></li>
 </ul>
-<p>To be more specific, the <code class="docutils literal notranslate"><span class="pre">N-1</span></code> version is an <em>unbiased</em> estimator, which means that it gets the answer right, on average, in the long run.
+<p>To be more specific, the <code class="docutils literal notranslate"><span class="pre">N-1</span></code> version is an almost unbiased estimator, which means that it gets the answer almost right, on average, in the long run.
 Let’s see how that works.</p>
 <p>Consider a uniform distribution from 0 to 10.</p>
 <div class="cell docutils container">
@@ -672,13 +672,13 @@ First we’ll compute the <code class="docutils literal notranslate"><span class
 </div>
 </div>
 </div>
-<p>Yes it is. In fact, the long-run average is exactly correct, which means that the <code class="docutils literal notranslate"><span class="pre">N-1</span></code> version is an unbiased estimator of the standard deviation.</p>
+<p>Yes! The <code class="docutils literal notranslate"><span class="pre">N-1</span></code> version is a much less biased estimator of the standard deviation.</p>
 <p>That’s why the <code class="docutils literal notranslate"><span class="pre">N-1</span></code> version is called the “sample standard deviation”, because it is appropriate when we are using a sample to estimate the standard deviation of a population.</p>
 <p>If, instead, we are able to measure an entire population, we can use the <code class="docutils literal notranslate"><span class="pre">N</span></code> version – which is why it is called the “population standard deviation”.</p>
 </section>
 <section id="should-we-care">
 <h2>Should we care?<a class="headerlink" href="#should-we-care" title="Link to this heading">#</a></h2>
-<p>On one hand, it is impressive that such a simple correction yields an unbiased estimator. On the other hand, it almost never matters in practice.</p>
+<p>On one hand, it is impressive that such a simple correction yields a much better estimator. On the other hand, it almost never matters in practice.</p>
 <ul class="simple">
 <li><p>If you have a large sample, the difference between the two versions is negligible.</p></li>
 <li><p>If you have a small sample, you can’t make a precise estimate of the standard deviation anyway.</p></li>
