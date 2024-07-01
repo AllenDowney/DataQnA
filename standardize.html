@@ -374,9 +374,8 @@ document.write(`
 </div></blockquote>
 <p>There might be a few points of confusion here:</p>
 <ul class="simple">
-<li><p>One is the idea that the independent variables in a regression model have to follow a normal distribution, at least approximately. This is a common misconception. Ordinary least squares regression assumes that the residuals follow a normal distribution. The dependent and independent variables don’t have to.</p></li>
-<li><p>Another is the idea that statistical tests are useful for checking whether a variables follows a normal distribution.
-As I’ve explained in other articles, these tests don’t do anything useful.</p></li>
+<li><p>One is the idea that the independent variables in a regression model have to follow a normal distribution. This is a common misconception. Ordinary least squares regression assumes that the <em>residuals</em> follow a normal distribution – the dependent and independent variables don’t have to.</p></li>
+<li><p>Another is the idea that statistical tests are useful for checking whether a variable follows a normal distribution. As I’ve explained in other articles, these tests don’t do anything useful.</p></li>
 <li><p>The question might also reveal confusion about what “normalization” means. In the context of regression models, it usually means scaling a variable so its range is between 0 and 1. Its sounds like OP might be using it to mean transforming a variable so it follows a normal distribution.</p></li>
 </ul>
 <p>In general, transforming an independent variable to normal is not a good idea. It has no benefit, and it changes the estimated parameters for no justified reason. Let me explain.</p>
@@ -630,29 +629,6 @@ On which step of the ladder would you say you personally feel you stand at this 
 </table>
 </div></div></div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Regional indicator&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Regional indicator
-Sub-Saharan Africa                    39
-Western Europe                        21
-Latin America and Caribbean           21
-Middle East and North Africa          17
-Central and Eastern Europe            17
-Commonwealth of Independent States    12
-Southeast Asia                         9
-South Asia                             7
-East Asia                              6
-North America and ANZ                  4
-Name: count, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
 <p>I’ll select the columns we’re interested in and give them shorter names.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -671,7 +647,7 @@ Name: count, dtype: int64
 </div>
 <p>Notice that GDP is already on a log scale, which is generally a good idea.
 The other variables are in a variety of units and different scales.</p>
-<p>Now, contrary to the advice OP was given, let’s go ahead and run a regression model without even looking at the data.</p>
+<p>Now, contrary to the advice OP was given, let’s run a regression model without even looking at the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
@@ -697,15 +673,21 @@ dtype: float64
 </div>
 </div>
 <p>Because the independent variables are on different scales, the estimated parameters are in different units.
-For example, <code class="docutils literal notranslate"><span class="pre">social</span></code> is the “”, so the estimated parameter 2.72 indicates that a difference of one unit between countries is associated with an increase of 2.27 units on the Cantril ladder.</p>
+For example, <code class="docutils literal notranslate"><span class="pre">life_exp</span></code> is healthy life expectancy at birth in units of years, so the estimated parameter, 0.035, indicates that a difference of one year of life expectancy between countries is associated with an increase of 0.035 units on the Cantril ladder.</p>
 <p>Now let’s check retroactively whether this dataset is consistent with the assumption that the residuals follow a normal distribution.
-I’ll use these two functions to compare the CDF of the residuals to a normal model with the same mean and standard deviation.</p>
+I’ll use the following functions to compare the CDF of the residuals to a normal model with the same mean and standard deviation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
 <span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
 
 <span class="k">def</span> <span class="nf">make_normal_model</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make a Cdf of a normal distribution.</span>
+<span class="sd">    </span>
+<span class="sd">    sample: sequence of numbers</span>
+<span class="sd">    </span>
+<span class="sd">    returns: Cdf object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">sample</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
     <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
@@ -717,6 +699,10 @@ I’ll use these two functions to compare the CDF of the residuals to a normal m
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_normal_model</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot the Cdf of a sample and a normal model.</span>
+<span class="sd">    </span>
+<span class="sd">    sample: sequence of numbers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cdf_model</span> <span class="o">=</span> <span class="n">make_normal_model</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
     <span class="n">cdf_data</span> <span class="o">=</span> <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
 
@@ -728,12 +714,13 @@ I’ll use these two functions to compare the CDF of the residuals to a normal m
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_normal_model</span><span class="p">(</span><span class="n">results_raw</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_normal_model</span><span class="p">(</span><span class="n">results_raw</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;residuals&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;residuals&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/87d06c66b53fd646283456826e94f5dcc1223e23c53f0bdd8409ef3b043d6367.png" src="_images/87d06c66b53fd646283456826e94f5dcc1223e23c53f0bdd8409ef3b043d6367.png" />
+<img alt="_images/c9e322ec6c5c5fef47c3ae791c38fb48c400ecd38dfa7a2b302c6320c06618b4.png" src="_images/c9e322ec6c5c5fef47c3ae791c38fb48c400ecd38dfa7a2b302c6320c06618b4.png" />
 </div>
 </div>
 <p>The normal model fits the residuals well enough that the deviations are not a concern.
@@ -832,8 +819,7 @@ Sometimes the model fits pretty well, sometimes not.</p>
 </section>
 <section id="standardize">
 <h2>Standardize<a class="headerlink" href="#standardize" title="Link to this heading">#</a></h2>
-<p>Nevertheless, there are reasons we might want to transform the independent variables before running a regression model.
-One is to quantify the “importance” of the different factors. One way to do that is to standardize the variables, which means transforming them to have mean 0 and standard deviation 1.</p>
+<p>Nevertheless, there are reasons we might want to transform the independent variables before running a regression model – one is to quantify the “importance” of the different factors. We can do that by standardizing the variables, which means transforming them to have mean 0 and standard deviation 1.</p>
 <p>In the untransformed variables, the means vary in magnitude from about 0.1 to 64.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -874,28 +860,9 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>And, as I’ve already noted, they are all expressed in different units. So if we look at the parameters of the raw regression (without transformations):</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_raw</span><span class="o">.</span><span class="n">params</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    -2.059377
-log_gdp       0.229079
-social        2.723318
-life_exp      0.035307
-freedom       1.776815
-generosity    0.410566
-corruption   -0.628162
-dtype: float64
-</pre></div>
-</div>
-</div>
-</div>
-<p>There is no meaningful way to compare the parameter of <code class="docutils literal notranslate"><span class="pre">life_exp</span></code>, which is steps of the Cantril ladder per year of life expectancy, with the parameter of <code class="docutils literal notranslate"><span class="pre">corruption</span></code>, which is in steps of the latter per percentage point.</p>
-<p>But we can make these comparisons meaningful by standardizing the variables.</p>
+<p>And, as I’ve already noted, they are expressed in different units.
+There is no meaningful way to compare the parameter of <code class="docutils literal notranslate"><span class="pre">life_exp</span></code>, which is steps of the Cantril ladder per year of life expectancy, with the parameter of <code class="docutils literal notranslate"><span class="pre">corruption</span></code>, which is in steps of the ladder per percentage point.
+But we can make these comparisons meaningful by standardizing the variables – that is, subtracting off the mean and dividing by the standard deviation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">standardized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
@@ -966,7 +933,7 @@ dtype: float64
 </div>
 <p>The intercept is close to 0 – that’s a consequence of how the math works out.
 And now the magnitudes of the parameters indicate how much a change in each independent variable, expressed as a multiple of its standard deviation, is associated with a change in the dependent variables, also as a multiple of its standard deviation.</p>
-<p>By this metric, <code class="docutils literal notranslate"><span class="pre">social</span></code> is the most important factor, followed closely by <code class="docutils literal notranslate"><span class="pre">log_gdp</span></code> and <code class="docutils literal notranslate"><span class="pre">life_exp</span></code>, and <code class="docutils literal notranslate"><span class="pre">generosity</span></code> is the least important factor (at least as its quantified by this variable).</p>
+<p>By this metric, <code class="docutils literal notranslate"><span class="pre">social</span></code> is the most important factor, followed closely by <code class="docutils literal notranslate"><span class="pre">log_gdp</span></code> and <code class="docutils literal notranslate"><span class="pre">life_exp</span></code>. <code class="docutils literal notranslate"><span class="pre">generosity</span></code> is the least important factor, at least as its quantified by this variable.</p>
 </section>
 <section id="normalizing">
 <h2>Normalizing<a class="headerlink" href="#normalizing" title="Link to this heading">#</a></h2>
@@ -1083,8 +1050,7 @@ dtype: float64
 </section>
 <section id="transform-to-normal">
 <h2>Transform to normal<a class="headerlink" href="#transform-to-normal" title="Link to this heading">#</a></h2>
-<p>Here’s how we transform values to a normal distribution. The <code class="docutils literal notranslate"><span class="pre">ps</span></code> are the cumulative probabilities; the <code class="docutils literal notranslate"><span class="pre">zs</span></code> are the corresponding quantiles in a standard normal distribution (<code class="docutils literal notranslate"><span class="pre">ppf</span></code> computes the “percent point function” which is an unnecessary name for the inverse CDF).</p>
-<p>Inside the loop, we sort <code class="docutils literal notranslate"><span class="pre">transformed</span></code> by one of the columns and then assign the <code class="docutils literal notranslate"><span class="pre">zs</span></code> in that order.</p>
+<p>Here’s how we transform values to a normal distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -1099,6 +1065,8 @@ dtype: float64
 </div>
 </div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ps</span></code> are the cumulative probabilities; the <code class="docutils literal notranslate"><span class="pre">zs</span></code> are the corresponding quantiles in a standard normal distribution (<code class="docutils literal notranslate"><span class="pre">ppf</span></code> computes the “percent point function” which is an unnecessary name for the inverse CDF).
+Inside the loop, we sort <code class="docutils literal notranslate"><span class="pre">transformed</span></code> by one of the columns and then assign the <code class="docutils literal notranslate"><span class="pre">zs</span></code> in that order.</p>
 <p>The transformed means are all close to 0.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1119,7 +1087,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>And the standard deviations are close to 1 (but not exactly because the tails of the distribution are cut off.</p>
+<p>And the standard deviations are close to 1 (but not exact because the tails of the distribution are cut off).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transformed</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
@@ -1139,7 +1107,7 @@ dtype: float64
 </div>
 </div>
 </div>
-<p>But as intended, the transformed variables follow a normal distribution.</p>
+<p>As intended, the transformed variables follow a normal distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_normal_model</span><span class="p">(</span><span class="n">transformed</span><span class="p">[</span><span class="s1">&#39;corruption&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;corruption&#39;</span><span class="p">)</span>
