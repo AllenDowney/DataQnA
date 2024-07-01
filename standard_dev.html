@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'standard_dev';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Testing percentiles" href="test_percentile.html" />
+    <link rel="next" title="Standardization and Normalization" href="standardize.html" />
     <link rel="prev" title="Sample Size Selection" href="sample_size.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -184,6 +184,7 @@
 <li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Which Standard Deviation?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
 </ul>
 
@@ -349,6 +350,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#samples-and-populations">Samples and Populations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-and-degrees-of-freedom">Computation and Degrees of Freedom</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-one-is-right">Which one is right?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#should-we-care">Should we care?</a></li>
 </ul>
@@ -520,7 +522,10 @@ As an example, we’ll use the sequence from 0 to 9.</p>
 </div>
 </div>
 </div>
-<p>With <code class="docutils literal notranslate"><span class="pre">N=10</span></code>, the difference between the version is non-negligible, but this is pretty much the worst case. With larger sample sizes, the difference in smaller – and with smaller sample sizes, you probably shouldn’t compute a standard deviation at all.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">N=10</span></code>, the difference between the versions is non-negligible, but this is pretty much the worst case. With larger sample sizes, the difference is smaller – and with smaller sample sizes, you probably shouldn’t compute a standard deviation at all.</p>
+</section>
+<section id="computation-and-degrees-of-freedom">
+<h2>Computation and Degrees of Freedom<a class="headerlink" href="#computation-and-degrees-of-freedom" title="Link to this heading">#</a></h2>
 <p>By default, NumPy computes the <code class="docutils literal notranslate"><span class="pre">N</span></code> version.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -584,8 +589,35 @@ You are free to choose the first and second numbers, but then the third number i
 <p>If we are given a dataset with <code class="docutils literal notranslate"><span class="pre">N</span></code> elements, we generally assume that it has <code class="docutils literal notranslate"><span class="pre">N</span></code> degrees of freedom unless we are told otherwise.
 That’s what the <code class="docutils literal notranslate"><span class="pre">ddof</span></code> parameter does.
 It stands for “delta degrees of freedom”, where “delta” indicates a change or a difference.
-In this case, it is the difference between the presumed degrees of freedom, <code class="docutils literal notranslate"><span class="pre">N</span></code>, and the degrees of freedom that should be used for the computation, <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code>.</p>
-<p>So, with <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code>, the denominator is <code class="docutils literal notranslate"><span class="pre">N</span></code>. With <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code>, the denominator is <code class="docutils literal notranslate"><span class="pre">N-1</span></code>.</p>
+In this case, it is the difference between the presumed degrees of freedom, <code class="docutils literal notranslate"><span class="pre">N</span></code>, and the degrees of freedom that should be used for the computation, <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code>.
+So, with <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code>, the denominator is <code class="docutils literal notranslate"><span class="pre">N</span></code>. With <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code>, the denominator is <code class="docutils literal notranslate"><span class="pre">N-1</span></code>.</p>
+<p>Why is this relevant to the calculation of the standard deviation? Remember that the deviation of each point is the distance from the mean.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">deviations</span> <span class="o">=</span> <span class="n">data</span> <span class="o">-</span> <span class="n">m</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([-4.5, -3.5, -2.5, -1.5, -0.5,  0.5,  1.5,  2.5,  3.5,  4.5])
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a result, they are constrained to add up to 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">deviations</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Because of this constraint, if there are <code class="docutils literal notranslate"><span class="pre">N</span></code> deviations, there are <code class="docutils literal notranslate"><span class="pre">N-1</span></code> degrees of freedom.</p>
 </section>
 <section id="which-one-is-right">
 <h2>Which one is right?<a class="headerlink" href="#which-one-is-right" title="Link to this heading">#</a></h2>
@@ -678,7 +710,7 @@ First we’ll compute the <code class="docutils literal notranslate"><span class
 </section>
 <section id="should-we-care">
 <h2>Should we care?<a class="headerlink" href="#should-we-care" title="Link to this heading">#</a></h2>
-<p>On one hand, it is impressive that such a simple correction yields a much better estimator. On the other hand, it almost never matters in practice.</p>
+<p>On one hand, it is impressive that a simple correction yields a much better estimator. On the other hand, it almost never matters in practice.</p>
 <ul class="simple">
 <li><p>If you have a large sample, the difference between the two versions is negligible.</p></li>
 <li><p>If you have a small sample, you can’t make a precise estimate of the standard deviation anyway.</p></li>
@@ -700,6 +732,11 @@ First we’ll compute the <code class="docutils literal notranslate"><span class
 <p>Compared to the variation in the estimates, the difference between the versions is small.</p>
 <p>In summary, if your sample size is small and it is really important to avoid underestimating the standard deviation, use the <code class="docutils literal notranslate"><span class="pre">N-1</span></code> correction.
 Otherwise it doesn’t matter.</p>
+<p>OP says:</p>
+<blockquote>
+<div><p>Great! That has helped me a lot!! Thanks!!</p>
+</div></blockquote>
+<p>The following leftovers demonstrate the difference between different modules.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
@@ -721,6 +758,21 @@ Otherwise it doesn’t matter.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.0276503540974917
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">statistics</span> <span class="kn">import</span> <span class="n">stdev</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">stdev</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.0
 </pre></div>
 </div>
 </div>
@@ -771,11 +823,11 @@ Otherwise it doesn’t matter.</p>
       </div>
     </a>
     <a class="right-next"
-       href="test_percentile.html"
+       href="standardize.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Testing percentiles</p>
+        <p class="prev-next-title">Standardization and Normalization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -796,6 +848,7 @@ Otherwise it doesn’t matter.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#samples-and-populations">Samples and Populations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computation-and-degrees-of-freedom">Computation and Degrees of Freedom</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-one-is-right">Which one is right?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#should-we-care">Should we care?</a></li>
 </ul>

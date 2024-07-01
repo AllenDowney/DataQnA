@@ -1,0 +1,1329 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Standardization and Normalization &#8212; Data Q&amp;A</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'standardize';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Testing percentiles" href="test_percentile.html" />
+    <link rel="prev" title="Which Standard Deviation?" href="standard_dev.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Q&A</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Data Q&A
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="combine_risk.html">Combining Risks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauss_bayes.html">Estimation with Small Samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likert_mean.html">Likert scale analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_heterosked.html">Logarithms and heteroskedasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_dev.html">Which Standard Deviation?</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Standardization and Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/AllenDowney/DataQnA" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/standardize.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Standardization and Normalization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#happiness">Happiness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-for-trouble">Looking for trouble</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standardize">Standardize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizing">Normalizing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transform-to-normal">Transform to normal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="standardization-and-normalization">
+<h1>Standardization and Normalization<a class="headerlink" href="#standardization-and-normalization" title="Link to this heading">#</a></h1>
+<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1drvlyt/q_what_do_to_when_a_sw_and_ks_test_fail_on_a_pre/">question from the Reddit statistics forum</a>.</p>
+<blockquote>
+<div><p>I want to write a research article that has regression analysis in it. I normalized my independent variables and want to include in the article the results of a statistical test showing that all variables are normal. I normalized using the scale function in R and some custom normalization functions I found online but whatever I do the new data fails the Shapiro Wilkinson and KS test on some columns? What to do?</p>
+</div></blockquote>
+<p>There might be a few points of confusion here:</p>
+<ul class="simple">
+<li><p>One is the idea that the independent variables in a regression model have to follow a normal distribution, at least approximately. This is a common misconception. Ordinary least squares regression assumes that the residuals follow a normal distribution. The dependent and independent variables don’t have to.</p></li>
+<li><p>Another is the idea that statistical tests are useful for checking whether a variables follows a normal distribution.
+As I’ve explained in other articles, these tests don’t do anything useful.</p></li>
+<li><p>The question might also reveal confusion about what “normalization” means. In the context of regression models, it usually means scaling a variable so its range is between 0 and 1. Its sounds like OP might be using it to mean transforming a variable so it follows a normal distribution.</p></li>
+</ul>
+<p>In general, transforming an independent variable to normal is not a good idea. It has no benefit, and it changes the estimated parameters for no justified reason. Let me explain.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/standardize.ipynb">Click here to run this notebook on Colab</a>.</p>
+<p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
+<div class="cell tag_remove-print tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">filename</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell tag_remove-print docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># install the empiricaldist library, if necessary</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">empiricaldist</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section id="happiness">
+<h2>Happiness<a class="headerlink" href="#happiness" title="Link to this heading">#</a></h2>
+<p>As an example, I’ll use data from the <a class="reference external" href="https://worldhappiness.report/">World Happiness Report</a>, which uses survey data from 153 countries to explore the relationship between self-reported happiness and six potentially predictive factors:</p>
+<ul class="simple">
+<li><p>Income as represented by per capita GDP.</p></li>
+<li><p>Social support</p></li>
+<li><p>Healthy life expectancy at birth</p></li>
+<li><p>Freedom to make life choices</p></li>
+<li><p>Generosity</p></li>
+<li><p>Perceptions of corruption</p></li>
+</ul>
+<p>The dependent variable, happiness, is the national average of responses to the “Cantril ladder question” used by the <a class="reference external" href="https://news.gallup.com/poll/122453/understanding-gallup-uses-cantril-scale.aspx">Gallup World Poll</a>:</p>
+<blockquote>
+<div><p>Please imagine a ladder with steps numbered from zero at the bottom to 10 at the top.
+The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you.
+On which step of the ladder would you say you personally feel you stand at this time?</p>
+</div></blockquote>
+<p>The data they used is <a class="reference external" href="https://happiness-report.s3.amazonaws.com/2020/WHR20_DataForFigure2.1.xls">available here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://happiness-report.s3.amazonaws.com/2020/WHR20_DataForFigure2.1.xls&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;WHR20_DataForFigure2.1.xls&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can read the data into a Pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;WHR20_DataForFigure2.1.xls&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country name</th>
+      <th>Regional indicator</th>
+      <th>Ladder score</th>
+      <th>Standard error of ladder score</th>
+      <th>upperwhisker</th>
+      <th>lowerwhisker</th>
+      <th>Logged GDP per capita</th>
+      <th>Social support</th>
+      <th>Healthy life expectancy</th>
+      <th>Freedom to make life choices</th>
+      <th>Generosity</th>
+      <th>Perceptions of corruption</th>
+      <th>Ladder score in Dystopia</th>
+      <th>Explained by: Log GDP per capita</th>
+      <th>Explained by: Social support</th>
+      <th>Explained by: Healthy life expectancy</th>
+      <th>Explained by: Freedom to make life choices</th>
+      <th>Explained by: Generosity</th>
+      <th>Explained by: Perceptions of corruption</th>
+      <th>Dystopia + residual</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Finland</td>
+      <td>Western Europe</td>
+      <td>7.8087</td>
+      <td>0.031156</td>
+      <td>7.869766</td>
+      <td>7.747634</td>
+      <td>10.639267</td>
+      <td>0.954330</td>
+      <td>71.900826</td>
+      <td>0.949172</td>
+      <td>-0.059482</td>
+      <td>0.195445</td>
+      <td>1.972317</td>
+      <td>1.285190</td>
+      <td>1.499526</td>
+      <td>0.961271</td>
+      <td>0.662317</td>
+      <td>0.159670</td>
+      <td>0.477857</td>
+      <td>2.762835</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Denmark</td>
+      <td>Western Europe</td>
+      <td>7.6456</td>
+      <td>0.033492</td>
+      <td>7.711245</td>
+      <td>7.579955</td>
+      <td>10.774001</td>
+      <td>0.955991</td>
+      <td>72.402504</td>
+      <td>0.951444</td>
+      <td>0.066202</td>
+      <td>0.168489</td>
+      <td>1.972317</td>
+      <td>1.326949</td>
+      <td>1.503449</td>
+      <td>0.979333</td>
+      <td>0.665040</td>
+      <td>0.242793</td>
+      <td>0.495260</td>
+      <td>2.432741</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Switzerland</td>
+      <td>Western Europe</td>
+      <td>7.5599</td>
+      <td>0.035014</td>
+      <td>7.628528</td>
+      <td>7.491272</td>
+      <td>10.979933</td>
+      <td>0.942847</td>
+      <td>74.102448</td>
+      <td>0.921337</td>
+      <td>0.105911</td>
+      <td>0.303728</td>
+      <td>1.972317</td>
+      <td>1.390774</td>
+      <td>1.472403</td>
+      <td>1.040533</td>
+      <td>0.628954</td>
+      <td>0.269056</td>
+      <td>0.407946</td>
+      <td>2.350267</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Iceland</td>
+      <td>Western Europe</td>
+      <td>7.5045</td>
+      <td>0.059616</td>
+      <td>7.621347</td>
+      <td>7.387653</td>
+      <td>10.772559</td>
+      <td>0.974670</td>
+      <td>73.000000</td>
+      <td>0.948892</td>
+      <td>0.246944</td>
+      <td>0.711710</td>
+      <td>1.972317</td>
+      <td>1.326502</td>
+      <td>1.547567</td>
+      <td>1.000843</td>
+      <td>0.661981</td>
+      <td>0.362330</td>
+      <td>0.144541</td>
+      <td>2.460688</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Norway</td>
+      <td>Western Europe</td>
+      <td>7.4880</td>
+      <td>0.034837</td>
+      <td>7.556281</td>
+      <td>7.419719</td>
+      <td>11.087804</td>
+      <td>0.952487</td>
+      <td>73.200783</td>
+      <td>0.955750</td>
+      <td>0.134533</td>
+      <td>0.263218</td>
+      <td>1.972317</td>
+      <td>1.424207</td>
+      <td>1.495173</td>
+      <td>1.008072</td>
+      <td>0.670201</td>
+      <td>0.287985</td>
+      <td>0.434101</td>
+      <td>2.168266</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Regional indicator&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Regional indicator
+Sub-Saharan Africa                    39
+Western Europe                        21
+Latin America and Caribbean           21
+Middle East and North Africa          17
+Central and Eastern Europe            17
+Commonwealth of Independent States    12
+Southeast Asia                         9
+South Asia                             7
+East Asia                              6
+North America and ANZ                  4
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>I’ll select the columns we’re interested in and give them shorter names.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;ladder&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Ladder score&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;log_gdp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Logged GDP per capita&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;social&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Social support&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;life_exp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Healthy life expectancy&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;freedom&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Freedom to make life choices&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;generosity&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Generosity&#39;</span><span class="p">]</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;corruption&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Perceptions of corruption&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Notice that GDP is already on a log scale, which is generally a good idea.
+The other variables are in a variety of units and different scales.</p>
+<p>Now, contrary to the advice OP was given, let’s go ahead and run a regression model without even looking at the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+
+<span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;ladder ~ log_gdp + social + life_exp + freedom + generosity + corruption&#39;</span>
+
+<span class="n">results_raw</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">results_raw</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    -2.059377
+log_gdp       0.229079
+social        2.723318
+life_exp      0.035307
+freedom       1.776815
+generosity    0.410566
+corruption   -0.628162
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Because the independent variables are on different scales, the estimated parameters are in different units.
+For example, <code class="docutils literal notranslate"><span class="pre">social</span></code> is the “”, so the estimated parameter 2.72 indicates that a difference of one unit between countries is associated with an increase of 2.27 units on the Cantril ladder.</p>
+<p>Now let’s check retroactively whether this dataset is consistent with the assumption that the residuals follow a normal distribution.
+I’ll use these two functions to compare the CDF of the residuals to a normal model with the same mean and standard deviation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
+
+<span class="k">def</span> <span class="nf">make_normal_model</span><span class="p">(</span><span class="n">sample</span><span class="p">):</span>
+    <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">sample</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+    <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+    <span class="n">ps</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Cdf</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_normal_model</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="n">cdf_model</span> <span class="o">=</span> <span class="n">make_normal_model</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="n">cdf_data</span> <span class="o">=</span> <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+    <span class="n">cdf_model</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">cdf_data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_normal_model</span><span class="p">(</span><span class="n">results_raw</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/87d06c66b53fd646283456826e94f5dcc1223e23c53f0bdd8409ef3b043d6367.png" src="_images/87d06c66b53fd646283456826e94f5dcc1223e23c53f0bdd8409ef3b043d6367.png" />
+</div>
+</div>
+<p>The normal model fits the residuals well enough that the deviations are not a concern.
+This regression model is just fine with no transformations required.</p>
+<p>But suppose we follow the advice OP received and check whether the dependent and independent variables follow normal distributions.</p>
+</section>
+<section id="looking-for-trouble">
+<h2>Looking for trouble<a class="headerlink" href="#looking-for-trouble" title="Link to this heading">#</a></h2>
+<p>Here are the distributions of the variables compared to a normal model.
+Sometimes the model fits pretty well, sometimes not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;ladder&#39;</span>
+<span class="n">plot_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ba22b05c071ce7a3021736717c0ea0354be660fe98a9095ff137951bacbe95c9.png" src="_images/ba22b05c071ce7a3021736717c0ea0354be660fe98a9095ff137951bacbe95c9.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;log_gdp&#39;</span>
+<span class="n">plot_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/41eed0f08c051e02236b75662498f59a499f23cf4366f54315fa81df86812d58.png" src="_images/41eed0f08c051e02236b75662498f59a499f23cf4366f54315fa81df86812d58.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;social&#39;</span>
+<span class="n">plot_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f24b440f3c9825005e2387b8a80e0401928569d857846ad741619680051b28c7.png" src="_images/f24b440f3c9825005e2387b8a80e0401928569d857846ad741619680051b28c7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;life_exp&#39;</span>
+<span class="n">plot_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/927d18768aad9589e0a48b6e4afa77d419dee183df96359e688f1d3fdb00749a.png" src="_images/927d18768aad9589e0a48b6e4afa77d419dee183df96359e688f1d3fdb00749a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;freedom&#39;</span>
+<span class="n">plot_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/b48858d64a6484959ce150cfc8742df1ff24e5c40ac56171d63d673220f88674.png" src="_images/b48858d64a6484959ce150cfc8742df1ff24e5c40ac56171d63d673220f88674.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;generosity&#39;</span>
+<span class="n">plot_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c3d6a7e087fcd06267386e960d92418030c1a6afcc1cc975513b2c85f7e4e017.png" src="_images/c3d6a7e087fcd06267386e960d92418030c1a6afcc1cc975513b2c85f7e4e017.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;corruption&#39;</span>
+<span class="n">plot_normal_model</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">column</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/64ce0c5f63272db8551050333a3667dd5cc0f28d7110c9bef9c4f2ed8cf2c379.png" src="_images/64ce0c5f63272db8551050333a3667dd5cc0f28d7110c9bef9c4f2ed8cf2c379.png" />
+</div>
+</div>
+<p>If we ran a statistical test, most of these would fail. But we don’t care – regression models don’t require these variables to follow normal distributions. And when we make this kind of comparison across countries, there no reason to expect them to.</p>
+</section>
+<section id="standardize">
+<h2>Standardize<a class="headerlink" href="#standardize" title="Link to this heading">#</a></h2>
+<p>Nevertheless, there are reasons we might want to transform the independent variables before running a regression model.
+One is to quantify the “importance” of the different factors. One way to do that is to standardize the variables, which means transforming them to have mean 0 and standard deviation 1.</p>
+<p>In the untransformed variables, the means vary in magnitude from about 0.1 to 64.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>generosity    -0.014568
+corruption     0.733120
+freedom        0.783360
+social         0.808721
+ladder         5.473240
+log_gdp        9.295706
+life_exp      64.445529
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>And the standard deviations vary from about 0.1 to 7.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>freedom       0.117786
+social        0.121453
+generosity    0.151809
+corruption    0.175172
+ladder        1.112270
+log_gdp       1.201588
+life_exp      7.057848
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>And, as I’ve already noted, they are all expressed in different units. So if we look at the parameters of the raw regression (without transformations):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_raw</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    -2.059377
+log_gdp       0.229079
+social        2.723318
+life_exp      0.035307
+freedom       1.776815
+generosity    0.410566
+corruption   -0.628162
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>There is no meaningful way to compare the parameter of <code class="docutils literal notranslate"><span class="pre">life_exp</span></code>, which is steps of the Cantril ladder per year of life expectancy, with the parameter of <code class="docutils literal notranslate"><span class="pre">corruption</span></code>, which is in steps of the latter per percentage point.</p>
+<p>But we can make these comparisons meaningful by standardizing the variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">standardized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>After transformation, the means are all close to 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">standardized</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ladder       -2.786442e-16
+log_gdp       6.966105e-16
+social       -3.715256e-16
+life_exp     -5.108477e-16
+freedom      -3.250849e-16
+generosity   -2.612289e-17
+corruption   -2.554239e-16
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>And the standard deviations are all close to 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">standardized</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ladder        1.0
+log_gdp       1.0
+social        1.0
+life_exp      1.0
+freedom       1.0
+generosity    1.0
+corruption    1.0
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the regression with the transformed variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_standardized</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">standardized</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">results_standardized</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    -4.072828e-16
+log_gdp       2.474749e-01
+social        2.973701e-01
+life_exp      2.240379e-01
+freedom       1.881597e-01
+generosity    5.603632e-02
+corruption   -9.892975e-02
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The intercept is close to 0 – that’s a consequence of how the math works out.
+And now the magnitudes of the parameters indicate how much a change in each independent variable, expressed as a multiple of its standard deviation, is associated with a change in the dependent variables, also as a multiple of its standard deviation.</p>
+<p>By this metric, <code class="docutils literal notranslate"><span class="pre">social</span></code> is the most important factor, followed closely by <code class="docutils literal notranslate"><span class="pre">log_gdp</span></code> and <code class="docutils literal notranslate"><span class="pre">life_exp</span></code>, and <code class="docutils literal notranslate"><span class="pre">generosity</span></code> is the least important factor (at least as its quantified by this variable).</p>
+</section>
+<section id="normalizing">
+<h2>Normalizing<a class="headerlink" href="#normalizing" title="Link to this heading">#</a></h2>
+<p>An alternative to standardization is normalization, which transforms a variable so its range is between 0 and 1.
+To be honest, I’m not sure what the point of normalization is – it makes the results a little harder to interpret, and it doesn’t have any advantages I can think of.</p>
+<p>But just for completeness, here’s how it’s done.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normalized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As intended, the normalized variables have the same range.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normalized</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ladder        0.0
+log_gdp       0.0
+social        0.0
+life_exp      0.0
+freedom       0.0
+generosity    0.0
+corruption    0.0
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normalized</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ladder        1.0
+log_gdp       1.0
+social        1.0
+life_exp      1.0
+freedom       1.0
+generosity    1.0
+corruption    1.0
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>But as a result they have somewhat different means and standard deviations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normalized</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ladder        0.554455
+log_gdp       0.565357
+social        0.746725
+life_exp      0.608947
+freedom       0.668690
+generosity    0.332345
+corruption    0.754826
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">normalized</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ladder        0.212192
+log_gdp       0.242351
+social        0.185365
+life_exp      0.223317
+freedom       0.203633
+generosity    0.176200
+corruption    0.212124
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the regression with normalized variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_normalized</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">normalized</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">results_normalized</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept    -0.030706
+log_gdp       0.216678
+social        0.340407
+life_exp      0.212877
+freedom       0.196069
+generosity    0.067483
+corruption   -0.098962
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ll look more closely at those results soon, but first let’s look at one more preprocessing option, transforming values to follow a normal distribution.</p>
+</section>
+<section id="transform-to-normal">
+<h2>Transform to normal<a class="headerlink" href="#transform-to-normal" title="Link to this heading">#</a></h2>
+<p>Here’s how we transform values to a normal distribution. The <code class="docutils literal notranslate"><span class="pre">ps</span></code> are the cumulative probabilities; the <code class="docutils literal notranslate"><span class="pre">zs</span></code> are the corresponding quantiles in a standard normal distribution (<code class="docutils literal notranslate"><span class="pre">ppf</span></code> computes the “percent point function” which is an unnecessary name for the inverse CDF).</p>
+<p>Inside the loop, we sort <code class="docutils literal notranslate"><span class="pre">transformed</span></code> by one of the columns and then assign the <code class="docutils literal notranslate"><span class="pre">zs</span></code> in that order.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">ps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">zs</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span>
+
+<span class="n">transformed</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">transformed</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">transformed</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">transformed</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">zs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The transformed means are all close to 0.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transformed</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ladder        4.644070e-17
+log_gdp       4.644070e-17
+social        1.161018e-17
+life_exp      0.000000e+00
+freedom       0.000000e+00
+generosity    4.644070e-17
+corruption   -4.644070e-17
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>And the standard deviations are close to 1 (but not exactly because the tails of the distribution are cut off.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transformed</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ladder        0.975034
+log_gdp       0.975034
+social        0.975034
+life_exp      0.975034
+freedom       0.975034
+generosity    0.975034
+corruption    0.975034
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>But as intended, the transformed variables follow a normal distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_normal_model</span><span class="p">(</span><span class="n">transformed</span><span class="p">[</span><span class="s1">&#39;corruption&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;corruption&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/801cd3966aa294a164a3466789f5dcd545181972742d5fe2cff54b3e56cd4ae9.png" src="_images/801cd3966aa294a164a3466789f5dcd545181972742d5fe2cff54b3e56cd4ae9.png" />
+</div>
+</div>
+<p>Here’s the regression model with the transformed values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_transformed</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">transformed</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">results_transformed</span><span class="o">.</span><span class="n">params</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     5.425248e-18
+log_gdp       2.382770e-01
+social        3.642517e-01
+life_exp      1.951131e-01
+freedom       2.028179e-01
+generosity    3.216042e-02
+corruption   -4.517596e-02
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now let’s compare the estimated parameters with the three transformations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_standardized</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;standardized&#39;</span><span class="p">)</span>
+<span class="n">results_normalized</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;normalized&#39;</span><span class="p">)</span>
+<span class="n">results_transformed</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;transformed&#39;</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Estimated parameter&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a54081297731e29891055ba00dbadb224141ccfa54618a7ce56c02719689076c.png" src="_images/a54081297731e29891055ba00dbadb224141ccfa54618a7ce56c02719689076c.png" />
+</div>
+</div>
+<p>The results with standardized variables are the easiest to interpret, so in that sense they are “right”. The other transformations have no advantages over standardization, and they produce somewhat different parameters.</p>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p>Regression does not require the dependent or independent variables to follow a normal distribution.
+It only assumes that the distribution of residuals is approximately normal, and even that requirement is not strict – regression is quite robust.</p>
+<p>You do not need to check whether any of these variables follows a normal distribution, and you definitely should not use a statistical test.</p>
+<p>As part of your usual exploratory data analysis, you should look at the distribution of all variables, but that’s primarily to detect any anomalies, outliers, or really extreme distributions – not to check whether they fit normal distributions.</p>
+<p>If you want to use the parameters of the model to quantify the importance of the independent variables, use standardization. There’s no reason to use normalization, and definitely no reason to transform to a normal distribution.</p>
+<p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
+<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="standard_dev.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Which Standard Deviation?</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="test_percentile.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Testing percentiles</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#happiness">Happiness</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#looking-for-trouble">Looking for trouble</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standardize">Standardize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizing">Normalizing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transform-to-normal">Transform to normal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
