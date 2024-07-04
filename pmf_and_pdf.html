@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Combining Risks &#8212; Data Q&amp;A</title>
+    <title>PMFs and PDFs &#8212; Data Q&amp;A</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'combine_risk';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'pmf_and_pdf';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="What does a confidence interval mean?" href="confidence.html" />
-    <link rel="prev" title="Data Q&amp;A" href="index.html" />
+    <link rel="next" title="Sample Size Selection" href="sample_size.html" />
+    <link rel="prev" title="What is a Percentile Rank?" href="percentile_rank.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,7 +172,7 @@
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Combining Risks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combine_risk.html">Combining Risks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
@@ -182,7 +182,7 @@
 <li class="toctree-l1"><a class="reference internal" href="log_heterosked.html">Logarithms and heteroskedasticity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pmf_and_pdf.html">PMFs and PDFs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PMFs and PDFs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standard_dev.html">Which Standard Deviation?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
@@ -256,7 +256,7 @@
       
       
       
-      <li><a href="_sources/combine_risk.ipynb" target="_blank"
+      <li><a href="_sources/pmf_and_pdf.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -340,7 +340,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Combining Risks</h1>
+    <h1>PMFs and PDFs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -350,9 +350,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-sum-of-means">Weighted sum of means</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-this-make-any-sense">Does this make any sense?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-by-hand">Computing by hand</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answer">Answer</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
             </nav>
@@ -365,28 +363,19 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="combining-risks">
-<h1>Combining Risks<a class="headerlink" href="#combining-risks" title="Link to this heading">#</a></h1>
-<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/AskStatistics/comments/1cufwos/can_someone_please_help_me_calculate_combined/">question from the Reddit statistics forum</a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="pmfs-and-pdfs">
+<h1>PMFs and PDFs<a class="headerlink" href="#pmfs-and-pdfs" title="Link to this heading">#</a></h1>
+<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1cibmgg/q_comparison_between_pmf_and_pdf_on_a_plot/">question from the Reddit statistics forum</a>.</p>
 <blockquote>
-<div><p>Bit of a weird one but I’m hoping you’re the community to help. I work in children’s residential care and I’m trying to find a way of better matching potential young people together.</p>
-<p>The way we calculate individual risk for a child is</p>
-<p><code class="docutils literal notranslate"><span class="pre">risk</span> <span class="pre">=</span> <span class="pre">likelihood</span> <span class="pre">+</span> <span class="pre">impact</span></code> (<code class="docutils literal notranslate"><span class="pre">R=L+I</span></code>), so</p>
-<p><code class="docutils literal notranslate"><span class="pre">L4</span> <span class="pre">+</span> <span class="pre">I5</span> <span class="pre">=</span> <span class="pre">R9</span></code></p>
-<p>That works well for individuals but I need to work out a good way of calculating a combined risk to place children [in] the home together. I’m currently using the [arithmetic] average but I don’t feel that it works properly as the average is always lower then the highest risk.</p>
-<p>I’ll use a fairly light risk as an example, running away from the home. (We call this MFC missing from care) It’s fairly common that one of the kids will run away from the home at some point or another either out of boredom or frustration. If young person A has a risk of 9 and young person B has a risk of 12 the the average risk of MFC in the home would be 10.5</p>
-<p>HOWEVER more often then not having two young people that go MFC will often result in more episodes as they will run off together, so having a lower risk rating doesn’t really make sense. Adding the two together to 21 doesn’t really work either though as the likelihood is the thing that increases not necessarily the impact.</p>
-<p>I’m a lot better at chasing after run away kids then I am mathematics so please help 😂.</p>
+<div><p>I met a basic problem in pdf and pmf. I perform a grid approximation on bayesian problem. After normalizing the vector, I got a discretized pmf. Then I want to draw pmf and pdf on a plot to check if they are similar distribution. However, the pmf doesn’t resemble the pdf at all. The instruction told me that I need to sample from my pmf then draw a histogram with density for comparison. It really works, but why can’t I directly compare them?</p>
 </div></blockquote>
-<p>Here’s one way to think about this question: based on background knowledge and experience, OP has qualitative ideas about what happens when we put children at different risks together, and he is looking for a statistical summary that is consistent with these ideas.</p>
-<p>The arithmetic mean probably makes sense as a starting point, but it clashes with the observation that if you put two children together who are high risk, they interact in ways that increase the risk.
-For example, if we put together children with risks 9 and 12, the average is 10.5, and OP’s domain knowledge says that’s too low – it should be more than 12.</p>
-<p>At the other extreme, I’ll guess that putting together two low risk children might be beneficial to both – so the combined risk might be lower than either.</p>
-<p>And that implies that there is a neutral point somewhere in the middle, where the combined risk is equal to the individual risks.</p>
-<p>To construct a summary statistic like that, I suggest a weighted sum of the arithmetic and geometric means.
-That might sound strange, but I’ll show that it has the properties we want.
-And it might not be as strange as it sounds – there’s a reason it might make sense.</p>
-<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/combine_risk.ipynb">Click here to run this notebook on Colab</a>.</p>
+<p>In <em>Think Bayes</em> I used this kind of discrete approximation in almost every chapter, so this issue came up a lot! There are at least two good solutions:</p>
+<ul class="simple">
+<li><p>Normalize the PDF and PMF so they are on the same scale, or</p></li>
+<li><p>Use CDFs.</p></li>
+</ul>
+<p>I’ll demonstrate both.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/pmf_and_pdf.ipynb">Click here to run this notebook on Colab</a>.</p>
 <p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -437,248 +426,233 @@ And it might not be as strange as it sounds – there’s a reason it might make
 </div>
 </details>
 </div>
-<section id="weighted-sum-of-means">
-<h2>Weighted sum of means<a class="headerlink" href="#weighted-sum-of-means" title="Link to this heading">#</a></h2>
-<p>The following function computes the arithmetic mean of a sequence of values, which is the sum divided by <code class="docutils literal notranslate"><span class="pre">n</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">amean</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The following function computes the geometric mean of a sequence, which is the product raised to the power <code class="docutils literal notranslate"><span class="pre">1/n</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gmean</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>And the following function computes the weighted sum of the arithmetic and geometric means.
-The constant <code class="docutils literal notranslate"><span class="pre">k</span></code> determines how much weight we give the geometric mean.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mean_plus_gmean</span><span class="p">(</span><span class="o">*</span><span class="n">xs</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">amean</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">gmean</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The value <code class="docutils literal notranslate"><span class="pre">4</span></code> determines the neutral point. So if we put together two people with risk <code class="docutils literal notranslate"><span class="pre">4</span></code>, the combined average is <code class="docutils literal notranslate"><span class="pre">4</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_plus_gmean</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.0
-</pre></div>
-</div>
-</div>
-</div>
-<p>Above the neutral point, there is a penalty if we put together two children with higher risks.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_plus_gmean</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.0
-</pre></div>
-</div>
-</div>
-</div>
-<p>In that case, the combined risk is higher than the individual risks.
-Below the neutral point, there is a bonus if we put together two children with low risks.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_plus_gmean</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.0
-</pre></div>
-</div>
-</div>
-</div>
-<p>In that case, the combined risk is less than the individual risks.</p>
-<p>If we combine low and high risks, the discrepancy brings the average down a little.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_plus_gmean</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.872983346207417
-</pre></div>
-</div>
-</div>
-</div>
-<p>In the example OP presented, where we put together two people with high risk, the penalty is substantial.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_plus_gmean</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16.892304845413264
-</pre></div>
-</div>
-</div>
-</div>
-<p>If that penalty seems too high, we can adjust the weight, <code class="docutils literal notranslate"><span class="pre">k</span></code>, and the neutral point accordingly.</p>
-<p>This behavior extends to more than two people.
-If everyone is neutral, the result is neutral.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_plus_gmean</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.9999999999999996
-</pre></div>
-</div>
-</div>
-</div>
-<p>If you add one person with higher risk, there’s a moderate penalty, compared to the arithmetic mean.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_plus_gmean</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">amean</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4.6422027133971, 4.333333333333333)
-</pre></div>
-</div>
-</div>
-</div>
-<p>With two higher risk people, the penalty is bigger.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_plus_gmean</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">amean</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5.308255500279445, 4.666666666666667)
-</pre></div>
-</div>
-</div>
-</div>
-<p>And with three it is even bigger.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean_plus_gmean</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">amean</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(5.999999999999999, 5.0)
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-<section id="does-this-make-any-sense">
-<h2>Does this make any sense?<a class="headerlink" href="#does-this-make-any-sense" title="Link to this heading">#</a></h2>
-<p>The idea behind this suggestion is logistic regression with an interaction term.
-Let me explain where that comes from.
-OP explained:</p>
+<section id="answer">
+<h2>Answer<a class="headerlink" href="#answer" title="Link to this heading">#</a></h2>
+<p>As an example, I’ll solve an exercise from Chapter xxx of Think Bayes:</p>
 <blockquote>
-<div><p>The way we calculate individual risk for a child is</p>
-<p><code class="docutils literal notranslate"><span class="pre">risk</span> <span class="pre">=</span> <span class="pre">likelihood</span> <span class="pre">+</span> <span class="pre">impact</span></code> (<code class="docutils literal notranslate"><span class="pre">R=L+I</span></code>), so</p>
-<p><code class="docutils literal notranslate"><span class="pre">L4</span> <span class="pre">+</span> <span class="pre">I5</span> <span class="pre">=</span> <span class="pre">R9</span></code></p>
+<div><p>In Major League Baseball, most players have a batting average between .200 and .330, which means that their probability of getting a hit is between 0.2 and 0.33.</p>
+<p>Suppose a player appearing in their first game gets 3 hits out of 3 attempts. What is the posterior distribution for their probability of getting a hit?</p>
 </div></blockquote>
-<p>At first I thought it was strange to add a likelihood and an impact score,
-Thinking about expected value, I thought it should be the product of a probability and a cost.
-But if both are on a log scale, adding these logarithms is like multiplying probability by impact on a linear scale, so that makes more sense.</p>
-<p>And if the scores are consistent with something like a log-odds scale, we can see a connection with logistic regression.
-If <code class="docutils literal notranslate"><span class="pre">r1</span></code> and <code class="docutils literal notranslate"><span class="pre">r2</span></code> are risk scores, we can imagine a regression equation that looks like this, where <code class="docutils literal notranslate"><span class="pre">p</span></code> is the probability of an outcome like “missing from care”:</p>
-<p><code class="docutils literal notranslate"><span class="pre">logit(p)</span> <span class="pre">=</span> <span class="pre">a</span> <span class="pre">r1</span> <span class="pre">+</span> <span class="pre">b</span> <span class="pre">r2</span> <span class="pre">+</span> <span class="pre">c</span> <span class="pre">r1</span> <span class="pre">r2</span></code></p>
-<p>In this equation, <code class="docutils literal notranslate"><span class="pre">logit(p)</span></code> is the combined risk score, <code class="docutils literal notranslate"><span class="pre">a</span></code>, <code class="docutils literal notranslate"><span class="pre">b</span></code>, and <code class="docutils literal notranslate"><span class="pre">c</span></code> are unknown parameters, and the product <code class="docutils literal notranslate"><span class="pre">r1</span> <span class="pre">r2</span></code> is an interaction term that captures the tendency of high risks to amplify each other.</p>
-<p>With enough data, we could estimate the unknown parameters.
-Without data, the best we can do is chose values that make the results consistent with expectations.</p>
-<p>Since <code class="docutils literal notranslate"><span class="pre">r1</span></code> and <code class="docutils literal notranslate"><span class="pre">r2</span></code> are interchangeable, they have to have the same parameter.
-And since the whole risk scale has an unspecified zero point, we can set it <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> to <code class="docutils literal notranslate"><span class="pre">1/2</span></code>.
-Which means there is only one parameter left, the weight of the interaction term.</p>
-<p><code class="docutils literal notranslate"><span class="pre">logit(p)</span> <span class="pre">=</span> <span class="pre">(r_1</span> <span class="pre">+</span> <span class="pre">r2)</span> <span class="pre">/</span> <span class="pre">2</span> <span class="pre">+</span> <span class="pre">k</span> <span class="pre">r1</span> <span class="pre">r2</span></code></p>
-<p>Now we can see that the first term is the arithmetic mean and the second term is close to the geometric mean, but without the square root.</p>
-<p>So the function I suggested – the weighted sum of arithmetic and weighted means – is not identical to the logistic model, but it is motivated by it.</p>
-<p>With this rationale in mind, we might consider a revision: rather than add the likelihood and impact scores, and then compute the weighted sum of means, it might make more sense to separate likelihood and impact, compute the weighted sum of the means of the likelihoods, and then add back the impact.</p>
-</section>
-<section id="computing-by-hand">
-<h2>Computing by hand<a class="headerlink" href="#computing-by-hand" title="Link to this heading">#</a></h2>
-<p>In case the Python code makes it hard to see what’s going on, let’s work an example by hand.
-Suppose <code class="docutils literal notranslate"><span class="pre">r1</span></code> is 9 and <code class="docutils literal notranslate"><span class="pre">r2</span></code> is 12.</p>
+<p>To represent the prior distribution, I’ll use a beta distribution with parameters I chose to be consistent with the assumption that most batting averages are between .230 and .300.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="mi">9</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="mi">12</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Here’s the arithmetic mean.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">9</span> <span class="o">+</span> <span class="mi">12</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-<span class="n">m1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">110</span>
+<span class="n">beta_prior</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">beta_prior</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">beta_prior</span><span class="o">.</span><span class="n">ppf</span><span class="p">([</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.5
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.26666666666666666, array([0.22937673, 0.30411982]))
 </pre></div>
 </div>
 </div>
 </div>
-<p>Here’s the geometric mean.</p>
+<p>Here’s what the PDF of this distribution looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">9</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">m2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="n">ps</span> <span class="o">=</span> <span class="n">beta_prior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;prior&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Batting average&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;PDF&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10.392304845413264
-</pre></div>
+<img alt="_images/0f05014d057db44e056b503a34f53041fccec79a1f5ae934f10de0c6d1bdd229.png" src="_images/0f05014d057db44e056b503a34f53041fccec79a1f5ae934f10de0c6d1bdd229.png" />
 </div>
 </div>
-</div>
-<p>And here’s how we combine them.</p>
+<p>Unlike probability masses, probability densities can exceed 1.
+But the area under the curve should be 1, which we can check using <code class="docutils literal notranslate"><span class="pre">trapz</span></code>, which is a NumPy function that computes numerical integrals using the trapezoid rule.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">combined_risk</span> <span class="o">=</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">m2</span> <span class="o">-</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">combined_risk</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span>
+<span class="n">area</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16.892304845413264
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9999999999999999
 </pre></div>
 </div>
 </div>
 </div>
+<p>Within floating-point error, the area under the PDF is 1.
+To do the Bayesian update, I’ll put these values in a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object and normalize it so the sum of the probability masses is 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
+
+<span class="n">pmf_prior</span> <span class="o">=</span> <span class="n">Pmf</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">qs</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pmf_prior</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can use <code class="docutils literal notranslate"><span class="pre">binom</span></code> to compute the probability of the data for each possible batting average in <code class="docutils literal notranslate"><span class="pre">qs</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">binom</span>
+
+<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">likelihood</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To compute the posterior distribution, we multiply the prior by the likelihood and normalize again so the sum of the posterior <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> is 1.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf_posterior</span> <span class="o">=</span> <span class="n">pmf_prior</span> <span class="o">*</span> <span class="n">likelihood</span>
+<span class="n">pmf_posterior</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.020006971070059262
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result is a discrete approximation of the actual posterior distribution – so let’s see how close it is.</p>
+<p>Because the beta distribution is the conjugate prior of the binomial likelihood function, the posterior is also a beta distribution, with parameters updated to reflect the data: 3 successes and 0 failures.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">beta_posterior</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s what this theoretical posterior distribution looks like compared to our numerical approximation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">beta_posterior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
+<span class="n">pmf_posterior</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Batting average&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;PDF/PMF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f584bb96df26e6f5f817efcba80572a099957dc20da435a7bcd150609e0e912f.png" src="_images/f584bb96df26e6f5f817efcba80572a099957dc20da435a7bcd150609e0e912f.png" />
+</div>
+</div>
+<p>Oops! Something has gone wrong. I assume this is what OP meant by “the pmf doesn’t resemble the pdf at all”.</p>
+<p>The problem is that the PMF is normalized so the total of the probability masses is 1, and the PDF is normalized so the area under the curve is 1.
+They are not on the same scale, so the y-axis in this figure is different for the two curves.</p>
+<p>To fix the problem, we can find the area under the PMF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">pmf_posterior</span><span class="o">.</span><span class="n">ps</span><span class="p">,</span> <span class="n">pmf_posterior</span><span class="o">.</span><span class="n">qs</span><span class="p">)</span>
+<span class="n">area</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.01
+</pre></div>
+</div>
+</div>
+</div>
+<p>And divide through to create a discrete approximation of the posterior PDF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdf_posterior</span> <span class="o">=</span> <span class="n">pmf_posterior</span> <span class="o">/</span> <span class="n">area</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can compare density to density.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">beta_posterior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
+<span class="n">pdf_posterior</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Batting average&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;PDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/01dbc02a7a2c54e53d291d0ab462d5d435427d454aa89c4b394c1cb70df949f3.png" src="_images/01dbc02a7a2c54e53d291d0ab462d5d435427d454aa89c4b394c1cb70df949f3.png" />
+</div>
+</div>
+<p>The curves are visually indistinguishable, and the numerical differences are small.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff</span> <span class="o">=</span> <span class="n">ps</span> <span class="o">-</span> <span class="n">pdf_posterior</span><span class="o">.</span><span class="n">ps</span>
+<span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.618527782440651e-14
+</pre></div>
+</div>
+</div>
+</div>
+<p>As an aside, note that the posterior and prior distributions are not very different.
+The prior mean is 0.267 and the posterior mean is 0.281.
+If a rookie goes 3 for 3 in their first game, that’s a good start, but it doesn’t mean they are the next Ted Williams.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf_prior</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">pmf_posterior</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.26666666666666666, 0.28104575163398704)
+</pre></div>
+</div>
+</div>
+</div>
+<p>As an alternative to comparing PDFs, we could convert the PMF to a CDF, which contains the cumulative sum of the probability masses.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cdf_posterior</span> <span class="o">=</span> <span class="n">pmf_posterior</span><span class="o">.</span><span class="n">make_cdf</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And compare to the mathematical CDF of the beta distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">beta_posterior</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
+
+<span class="n">cdf_posterior</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Batting average&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/87f54f1de92ab7b585e58fb8dff91733360d1114541a86d2563239abf72cb180.png" src="_images/87f54f1de92ab7b585e58fb8dff91733360d1114541a86d2563239abf72cb180.png" />
+</div>
+</div>
+<p>In this example, I plotted the discrete approximation of the CDF as a step function – which is technically what it is – to highlight how it overlaps with the beta distribution.</p>
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
-<p>This question got my attention because OP is working on a challenging and important problem – and they provided useful context.
-It’s an intriguing idea to define something that is intuitively like an average, but is not always bounded between the minimum and maximum of the data.</p>
-<p>If we think strictly about generalized means, that’s not possible. But if we think in terms of logarithms, regression, and interaction terms, we find a way.</p>
+<p>Probability density is hard to define – the best I can do is usually, “It’s something that you can integrate to get a probability mass”.
+And when you work with probability densities computationally, you often have to discretize them, which can add another layer of confusion.</p>
+<p>One way to distinguish PMFs and PDFs is the remember that PMFs are normalized so the probability masses add up to 1, and PDFs are normalized so the area under the curve is 1.
+In general, you can’t plot PMFs and PDFs on the same axes because they are not in the same units.</p>
 <p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
@@ -716,20 +690,20 @@ It’s an intriguing idea to define something that is intuitively like an averag
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="percentile_rank.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Data Q&amp;A</p>
+        <p class="prev-next-title">What is a Percentile Rank?</p>
       </div>
     </a>
     <a class="right-next"
-       href="confidence.html"
+       href="sample_size.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">What does a confidence interval mean?</p>
+        <p class="prev-next-title">Sample Size Selection</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -749,9 +723,7 @@ It’s an intriguing idea to define something that is intuitively like an averag
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-sum-of-means">Weighted sum of means</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#does-this-make-any-sense">Does this make any sense?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-by-hand">Computing by hand</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answer">Answer</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
   </nav></div>
