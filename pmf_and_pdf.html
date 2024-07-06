@@ -350,7 +350,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answer">Answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseball">Baseball</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
             </nav>
@@ -426,14 +426,14 @@ document.write(`
 </div>
 </details>
 </div>
-<section id="answer">
-<h2>Answer<a class="headerlink" href="#answer" title="Link to this heading">#</a></h2>
-<p>As an example, I’ll solve an exercise from Chapter xxx of Think Bayes:</p>
+<section id="baseball">
+<h2>Baseball<a class="headerlink" href="#baseball" title="Link to this heading">#</a></h2>
+<p>As an example, I’ll solve an exercise from Chapter 4 of <a class="reference external" href="https://allendowney.github.io/ThinkBayes2/chap04.html#exercises"><em>Think Bayes</em></a>:</p>
 <blockquote>
-<div><p>In Major League Baseball, most players have a batting average between .200 and .330, which means that their probability of getting a hit is between 0.2 and 0.33.</p>
+<div><p>In Major League Baseball, most players have a batting average between .230 and .300, which means that their probability of getting a hit is between 0.23 and 0.30.</p>
 <p>Suppose a player appearing in their first game gets 3 hits out of 3 attempts. What is the posterior distribution for their probability of getting a hit?</p>
 </div></blockquote>
-<p>To represent the prior distribution, I’ll use a beta distribution with parameters I chose to be consistent with the assumption that most batting averages are between .230 and .300.</p>
+<p>To represent the prior distribution, I’ll use a beta distribution with parameters I chose to be consistent with the expected range of batting averages.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
@@ -453,7 +453,7 @@ document.write(`
 <p>Here’s what the PDF of this distribution looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
 <span class="n">ps</span> <span class="o">=</span> <span class="n">beta_prior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -467,7 +467,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/0f05014d057db44e056b503a34f53041fccec79a1f5ae934f10de0c6d1bdd229.png" src="_images/0f05014d057db44e056b503a34f53041fccec79a1f5ae934f10de0c6d1bdd229.png" />
+<img alt="_images/5d6ce5b21057972ba8bbf89f60bd4779387044b24f75bf857bcb93ea73834b9c.png" src="_images/5d6ce5b21057972ba8bbf89f60bd4779387044b24f75bf857bcb93ea73834b9c.png" />
 </div>
 </div>
 <p>Unlike probability masses, probability densities can exceed 1.
@@ -480,7 +480,7 @@ But the area under the curve should be 1, which we can check using <code class="
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9999999999999999
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
 </pre></div>
 </div>
 </div>
@@ -497,7 +497,7 @@ To do the Bayesian update, I’ll put these values in a <code class="docutils li
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100.0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200.0
 </pre></div>
 </div>
 </div>
@@ -549,7 +549,7 @@ To do the Bayesian update, I’ll put these values in a <code class="docutils li
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f584bb96df26e6f5f817efcba80572a099957dc20da435a7bcd150609e0e912f.png" src="_images/f584bb96df26e6f5f817efcba80572a099957dc20da435a7bcd150609e0e912f.png" />
+<img alt="_images/8ea516ac569c215ea687e04ca4604b96c35310caa60a3435598fe439b5192e72.png" src="_images/8ea516ac569c215ea687e04ca4604b96c35310caa60a3435598fe439b5192e72.png" />
 </div>
 </div>
 <p>Oops! Something has gone wrong. I assume this is what OP meant by “the pmf doesn’t resemble the pdf at all”.</p>
@@ -564,7 +564,7 @@ They are not on the same scale, so the y-axis in this figure is different for th
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.01
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.004999999999999999
 </pre></div>
 </div>
 </div>
@@ -589,7 +589,7 @@ They are not on the same scale, so the y-axis in this figure is different for th
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/01dbc02a7a2c54e53d291d0ab462d5d435427d454aa89c4b394c1cb70df949f3.png" src="_images/01dbc02a7a2c54e53d291d0ab462d5d435427d454aa89c4b394c1cb70df949f3.png" />
+<img alt="_images/6c2db3730db46828f19d2eaeec694e252e105822b56f26dc03998202e354fa1b.png" src="_images/6c2db3730db46828f19d2eaeec694e252e105822b56f26dc03998202e354fa1b.png" />
 </div>
 </div>
 <p>The curves are visually indistinguishable, and the numerical differences are small.</p>
@@ -601,7 +601,7 @@ They are not on the same scale, so the y-axis in this figure is different for th
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.618527782440651e-14
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.973799150320701e-14
 </pre></div>
 </div>
 </div>
@@ -616,7 +616,7 @@ If a rookie goes 3 for 3 in their first game, that’s a good start, but it does
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.26666666666666666, 0.28104575163398704)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.2666666666666667, 0.28104575163398693)
 </pre></div>
 </div>
 </div>
@@ -642,7 +642,7 @@ If a rookie goes 3 for 3 in their first game, that’s a good start, but it does
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/87f54f1de92ab7b585e58fb8dff91733360d1114541a86d2563239abf72cb180.png" src="_images/87f54f1de92ab7b585e58fb8dff91733360d1114541a86d2563239abf72cb180.png" />
+<img alt="_images/6df58b1cd4936cd7bd5183d4b928228604cbbc8a753ef8c82e14e1371eed3288.png" src="_images/6df58b1cd4936cd7bd5183d4b928228604cbbc8a753ef8c82e14e1371eed3288.png" />
 </div>
 </div>
 <p>In this example, I plotted the discrete approximation of the CDF as a step function – which is technically what it is – to highlight how it overlaps with the beta distribution.</p>
@@ -651,7 +651,7 @@ If a rookie goes 3 for 3 in their first game, that’s a good start, but it does
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
 <p>Probability density is hard to define – the best I can do is usually, “It’s something that you can integrate to get a probability mass”.
 And when you work with probability densities computationally, you often have to discretize them, which can add another layer of confusion.</p>
-<p>One way to distinguish PMFs and PDFs is the remember that PMFs are normalized so the probability masses add up to 1, and PDFs are normalized so the area under the curve is 1.
+<p>One way to distinguish PMFs and PDFs is to remember that PMFs are normalized so sum of the probability masses is 1, and PDFs are normalized so the area under the curve is 1.
 In general, you can’t plot PMFs and PDFs on the same axes because they are not in the same units.</p>
 <p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
@@ -723,7 +723,7 @@ In general, you can’t plot PMFs and PDFs on the same axes because they are not
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answer">Answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseball">Baseball</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
   </nav></div>
