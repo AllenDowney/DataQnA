@@ -401,13 +401,11 @@ document.write(`
     <span class="k">return</span> <span class="n">filename</span>
 
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;utils.py&#39;
 </pre></div>
 </div>
 </div>
@@ -431,11 +429,29 @@ document.write(`
 </div>
 </details>
 </div>
+<div class="cell tag_remove-print tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
 <section id="mass">
 <h2>Mass<a class="headerlink" href="#mass" title="Link to this heading">#</a></h2>
 <p>I’ll start with a discrete distribution, so we can leave density out of it for now and focus on the difference between a probability mass function (PMF) and a likelihood function.</p>
 <p>As an example, suppose we know that a hockey team scores goals at a rate of 3 goals per game on average.
-If we model goal scoring as a Poisson process – which is not a bad model – the number of goals per game follows a Poisson distribution with the parameter <code class="docutils literal notranslate"><span class="pre">mu=3</span></code>.</p>
+If we model goal scoring as a Poisson process – which is not a bad model – the number of goals per game follows a Poisson distribution with parameter <code class="docutils literal notranslate"><span class="pre">mu=3</span></code>.</p>
 <p>The PMF of the Poisson distribution tells us the probability of scoring <code class="docutils literal notranslate"><span class="pre">k</span></code> goals in a game, for non-negative values of <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -447,19 +463,19 @@ If we model goal scoring as a Poisson process – which is not a bad model – t
 </div>
 </div>
 </div>
-<p>The PMF is a function of <code class="docutils literal notranslate"><span class="pre">k</span></code>, with <code class="docutils literal notranslate"><span class="pre">mu</span></code> as a fixed parameter.
-Here’s what it looks like.</p>
+<p>Here’s what it looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">ks</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Goals&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Probability mass&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Goals (k)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Probability mass&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cf4322e9c0a1a19b6d3a1bb75b3900652269ef6a0a8b10e5471a4b9c6d12899a.png" src="_images/cf4322e9c0a1a19b6d3a1bb75b3900652269ef6a0a8b10e5471a4b9c6d12899a.png" />
+<img alt="_images/f83314b1a9c49a1198038e7c149edbc8907256e4348d8b00f2cd3d9f74d91925.png" src="_images/f83314b1a9c49a1198038e7c149edbc8907256e4348d8b00f2cd3d9f74d91925.png" />
 </div>
 </div>
+<p>The PMF is a function of <code class="docutils literal notranslate"><span class="pre">k</span></code>, with <code class="docutils literal notranslate"><span class="pre">mu</span></code> as a fixed parameter.</p>
 <p>The values in the distribution are probability masses, so if we want to know the probability of scoring exactly 5 goals, we can look it up like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -487,15 +503,16 @@ Here’s what it looks like.</p>
 </div>
 </div>
 </div>
-<p>If we extend the <code class="docutils literal notranslate"><span class="pre">ks</span></code> to infinity, the sum would be exactly 1.
+<p>If we extend the <code class="docutils literal notranslate"><span class="pre">ks</span></code> to infinity, the sum is exactly 1.
 So this set of probability masses is a proper discrete distribution.</p>
 </section>
 <section id="likelihood">
 <h2>Likelihood<a class="headerlink" href="#likelihood" title="Link to this heading">#</a></h2>
-<p>Now suppose we don’t know the goal scoring rate for a team, but we observe that they score 4 goals in one game.
-There are several ways we could use this data to estimate <code class="docutils literal notranslate"><span class="pre">mu</span></code>, which is the parameter of the Poisson distribution that determines the mean.
-On way is to find the maximum likelihood estimator (MLE), which is the value of <code class="docutils literal notranslate"><span class="pre">mu</span></code> that makes the observed data most likely.</p>
-<p>To find the MLE, we need to maximize the likelihood function, which is a function of <code class="docutils literal notranslate"><span class="pre">mu</span></code>, with a fixed number of observed goals, <code class="docutils literal notranslate"><span class="pre">k</span></code>.</p>
+<p>Now suppose we don’t know the goal scoring rate, but we observe 4 goals in one game.
+There are several ways we can use this data to estimate <code class="docutils literal notranslate"><span class="pre">mu</span></code>.
+One is to find the maximum likelihood estimator (MLE), which is the value of <code class="docutils literal notranslate"><span class="pre">mu</span></code> that makes the observed data most likely.</p>
+<p>To find the MLE, we need to maximize the likelihood function, which is a function of <code class="docutils literal notranslate"><span class="pre">mu</span></code> with a fixed number of observed goals, <code class="docutils literal notranslate"><span class="pre">k</span></code>.
+To evaluate the likelihood function, we can use the PMF of the Poisson distribution again, this time with a single value of <code class="docutils literal notranslate"><span class="pre">k</span></code> and a range of values for <code class="docutils literal notranslate"><span class="pre">mu</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">4</span>
@@ -505,7 +522,7 @@ On way is to find the maximum likelihood estimator (MLE), which is the value of 
 </div>
 </div>
 </div>
-<p>Here’s what it looks like.</p>
+<p>Here’s what the likelihood function looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mus</span><span class="p">,</span> <span class="n">ls</span><span class="p">)</span>
@@ -564,10 +581,10 @@ Here’s the likelihood at the maximum of the likelihood function.</p>
 <section id="density">
 <h2>Density<a class="headerlink" href="#density" title="Link to this heading">#</a></h2>
 <p>Now suppose, again, that we know the goal scoring rate is exactly 3,
-and suppose we want to know how long it will be until the next goal.
-If we model the goal-scoring process as a Poisson process, the time until the next goal follows an exponential distribution with a rate parameter, <code class="docutils literal notranslate"><span class="pre">lam=3</span></code>.</p>
+but now we want to know how long it will be until the next goal.
+If we model goal scoring as a Poisson process, the time until the next goal follows an exponential distribution with a rate parameter, <code class="docutils literal notranslate"><span class="pre">lam=3</span></code>.</p>
 <p>Because the exponential distribution is continuous, it has a probability density function (PDF) rather than a probability mass function (PMF).
-We can approximate the distribution by evaluating the PDF of the at a set of equally-spaced times, <code class="docutils literal notranslate"><span class="pre">ts</span></code>.</p>
+We can approximate the distribution by evaluating the exponential PDF at a set of equally-spaced times, <code class="docutils literal notranslate"><span class="pre">ts</span></code>.</p>
 <p>SciPy’s implementation of the exponential distribution does not take <code class="docutils literal notranslate"><span class="pre">lam</span></code> as a parameter, so we have to set <code class="docutils literal notranslate"><span class="pre">scale=1/lam</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -580,7 +597,8 @@ We can approximate the distribution by evaluating the PDF of the at a set of equ
 </div>
 </div>
 </div>
-<p>Here’s what the PDF looks like.</p>
+<p>The PDF is a function of <code class="docutils literal notranslate"><span class="pre">t</span></code> with <code class="docutils literal notranslate"><span class="pre">lam</span></code> as a fixed parameter.
+Here’s what it looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span>
@@ -659,16 +677,16 @@ As we did when we estimated the parameter <code class="docutils literal notransl
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t</span> <span class="o">=</span> <span class="mf">0.5</span>
 
 <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
-    <span class="n">ps</span> <span class="o">=</span> <span class="n">expon</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">lams</span><span class="p">)</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="n">expon</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">lams</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>The result is a likelihood function.
+<p>The result is a likelihood function, which is a function of <code class="docutils literal notranslate"><span class="pre">lam</span></code> with a fixed values of <code class="docutils literal notranslate"><span class="pre">t</span></code>.
 Here’s what it looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lams</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lams</span><span class="p">,</span> <span class="n">ls</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Scoring rate (lam)&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Likelihood&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -677,10 +695,10 @@ Here’s what it looks like.</p>
 <img alt="_images/fc8285d286f6d688ba0e7a20ead4d886ec602e86239d7676193e3f5be6ff27ab.png" src="_images/fc8285d286f6d688ba0e7a20ead4d886ec602e86239d7676193e3f5be6ff27ab.png" />
 </div>
 </div>
-<p>Again, we can use <code class="docutils literal notranslate"><span class="pre">argmax</span></code> to find the index where the value of <code class="docutils literal notranslate"><span class="pre">ps</span></code> is maximized, and look up the corresponding value of <code class="docutils literal notranslate"><span class="pre">lams</span></code>.</p>
+<p>Again, we can use <code class="docutils literal notranslate"><span class="pre">argmax</span></code> to find the index where the value of <code class="docutils literal notranslate"><span class="pre">ls</span></code> is maximized, and look up the corresponding value of <code class="docutils literal notranslate"><span class="pre">lams</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span>
 <span class="n">lams</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -692,10 +710,11 @@ Here’s what it looks like.</p>
 </div>
 </div>
 <p>If the first goal is scored at <code class="docutils literal notranslate"><span class="pre">t=0.5</span></code>, the value of <code class="docutils literal notranslate"><span class="pre">lam</span></code> that maximizes the likelihood of this observation is 2.</p>
-<p>If we select the corresponding element of <code class="docutils literal notranslate"><span class="pre">ps</span></code>, the result is a probability density.</p>
+<p>Now let’s look more closely at those likelihoods.
+If we select the corresponding element of <code class="docutils literal notranslate"><span class="pre">ls</span></code>, the result is a probability density.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ls</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -718,7 +737,7 @@ Here’s what it looks like.</p>
 </div>
 </div>
 </div>
-<p>So, some likelihoods are probability densities – but not all.</p>
+<p>So, some likelihoods are probability densities – but as we’ve already seen, not all.</p>
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
