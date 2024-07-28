@@ -184,6 +184,7 @@
 <li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pmf_and_pdf.html">PMFs and PDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="poisson_process.html">Poisson Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standard_dev.html">Which Standard Deviation?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
@@ -355,7 +356,10 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood">Likelihood</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#density">Density</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-and-density">Likelihood and Density</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-note">Technical Note</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -761,9 +765,18 @@ A common use of a likelihood function is finding a maximum likelihood estimator.
 <li><p>A likelihood can be a probability density, but not all likelihoods are densities.</p></li>
 </ul>
 <p>I hope that helps!</p>
+<section id="technical-note">
+<h3>Technical Note<a class="headerlink" href="#technical-note" title="Link to this heading">#</a></h3>
+<p>In the scenarios so far, we have observed a single outcome – the number of goals in a single game or the time until the first goal.
+So we’ve computed likelihoods by evaluating a PMF or PDF at a single point, and the result has been either a probability mass or a density.</p>
+<p>More generally, if a dataset has more than one observation, and the observations are independent, we compute a likelihood function for each observation and then multiply them together.
+In that case, the product is neither a probability mass or a density.</p>
+<p>And there are other cases where it is computationally efficient to compute likelihoods that are <em>proportional</em> to probability masses or densities, but not actually either one.</p>
+<p>So a likelihood can be a probability mass or a density, but it can also be neither.</p>
 <p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+</section>
 </section>
 </section>
 
@@ -835,7 +848,10 @@ A common use of a likelihood function is finding a maximum likelihood estimator.
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood">Likelihood</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#density">Density</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood-and-density">Likelihood and Density</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-note">Technical Note</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
