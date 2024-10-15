@@ -356,6 +356,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pallor-and-probability">Pallor and Probability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size">Sample Size</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximations">Approximations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
@@ -390,7 +391,7 @@ But in follow-up responses, a few related questions were raised:</p>
 </ol>
 <p>I don’t think resampling is really necessary here, and I’ll show some alternatives.
 And I’ll answer the other questions along the way.</p>
-<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/XXX.ipynb">Click here to run this notebook on Colab</a>.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/examples/proportions.ipynb">Click here to run this notebook on Colab</a>.</p>
 <p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -411,11 +412,6 @@ And I’ll answer the other questions along the way.</p>
     <span class="k">return</span> <span class="n">filename</span>
 
 <span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;utils.py&#39;
 </pre></div>
 </div>
 </div>
@@ -514,7 +510,7 @@ And I’ll answer the other questions along the way.</p>
     <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
             <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">return</span> <span class="n">count</span>
 </pre></div>
@@ -567,8 +563,11 @@ And I’ll answer the other questions along the way.</p>
 </div>
 </div>
 <p>So the estimated proportion is about 0.0036.
-To quantify the precision of that estimate, we’ll compute a 90% confidence interval.</p>
-<p>First we’ll use what OP called A, resampling the lines of the file.
+To quantify the precision of that estimate, we’ll compute a confidence interval.</p>
+</section>
+<section id="resampling">
+<h2>Resampling<a class="headerlink" href="#resampling" title="Link to this heading">#</a></h2>
+<p>First we’ll use the method OP called A – literally resampling the lines of the file.
 The following function takes a list of lines and selects a sample, with replacement, that has the same size.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -578,9 +577,9 @@ The following function takes a list of lines and selects a sample, with replacem
 </div>
 </div>
 </div>
-<p>In a resampling, the same line can appear more than once, and some lines might not appear at all.
+<p>In a resampled list, the same line can appear more than once, and some lines might not appear at all.
 So in any resampling, the forbidden words might appear more times than in the original text, or fewer.
-Here’s an example</p>
+Here’s an example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -594,7 +593,7 @@ Here’s an example</p>
 </div>
 </div>
 </div>
-<p>In this resampling, the words appear in 201 lines, fewer than in the original (223), but not by much.</p>
+<p>In this resampling, the words appear in 201 lines, fewer than in the original (223).</p>
 <p>If we repeat this process many times, we can compute a sample of possible values of <code class="docutils literal notranslate"><span class="pre">k</span></code>.
 Because this method is slow, we’ll only repeat it 101 times.</p>
 <div class="cell docutils container">
@@ -626,13 +625,38 @@ Because this method is slow, we’ll only repeat it 101 times.</p>
 <img alt="_images/18348fdf80046564628819e688e7b0f1432d4192fd4abe3d4866e2b8cb887416.png" src="_images/18348fdf80046564628819e688e7b0f1432d4192fd4abe3d4866e2b8cb887416.png" />
 </div>
 </div>
-<p>So that’s the sampling distribution of the proportion.
-We could use it to compute a confidence interval, but let’s try the other method first.</p>
-<p>Resampling the lines and searching them to see which ones contain the forbidden words is not very efficient.
-We already know that <code class="docutils literal notranslate"><span class="pre">k</span></code> out of <code class="docutils literal notranslate"><span class="pre">n</span></code> of them contain the words, so we can use the binomial distribution to compute the sampling distribution more directly.</p>
-<p>Suppose we draw lines from a large population where the proportion that contain the words is <code class="docutils literal notranslate"><span class="pre">k/n</span></code>, which is <code class="docutils literal notranslate"><span class="pre">p_est</span></code>.
-If we draw another sample with size <code class="docutils literal notranslate"><span class="pre">n</span></code>, the value of <code class="docutils literal notranslate"><span class="pre">k</span></code> follows a binomial distribution with parameters <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">p_est</span></code>.
-We can draw a sample from this distribution like this:</p>
+<p>So that’s the slow way to compute the sampling distribution of the proportion.
+The method OP calls B is to simulate a Bernoulli trial with size <code class="docutils literal notranslate"><span class="pre">n</span></code> and probability of success <code class="docutils literal notranslate"><span class="pre">p_est</span></code>.
+One way to do that is to draw random numbers from 0 to 1 and count how many are less than <code class="docutils literal notranslate"><span class="pre">p_est</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">p_est</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>229
+</pre></div>
+</div>
+</div>
+</div>
+<p>Equivalently, we can draw a sample from a Bernoulli distribution and add it up.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">bernoulli</span>
+
+<span class="n">bernoulli</span><span class="p">(</span><span class="n">p_est</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>232
+</pre></div>
+</div>
+</div>
+</div>
+<p>These values follow a binomial distribution with parameters <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">p_est</span></code>.
+So we can simulate a large number of trials quickly by drawing values from a binomial distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">binom</span>
@@ -642,7 +666,7 @@ We can draw a sample from this distribution like this:</p>
 </div>
 </div>
 </div>
-<p>And compute the corresponding sample of proportions.</p>
+<p>Dividing by <code class="docutils literal notranslate"><span class="pre">n</span></code>, we can compute the corresponding sample of proportions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps_binom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ks_binom</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
@@ -650,6 +674,8 @@ We can draw a sample from this distribution like this:</p>
 </div>
 </div>
 </div>
+<p>Because this method is so much faster, we can generate a large number of values, which means we get a more precise picture of the sampling distribution.</p>
+<p>The following figure compares the CDFs of the values we got by resampling and the values we got from the binomial distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ps_resampling</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;resampling&#39;</span><span class="p">)</span>
@@ -659,11 +685,10 @@ We can draw a sample from this distribution like this:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/dcd3b532167d18f66675f56a5c67df77697c33e066c9eb601f8f71bab48e5439.png" src="_images/dcd3b532167d18f66675f56a5c67df77697c33e066c9eb601f8f71bab48e5439.png" />
+<img alt="_images/b3bf340693e077b7e9e3a6286c07c15b71952a5c51fafeb4c268680b7020094f.png" src="_images/b3bf340693e077b7e9e3a6286c07c15b71952a5c51fafeb4c268680b7020094f.png" />
 </div>
 </div>
-<p>The two methods are equivalent.
-If we run the resampling method longer, the two distributions converge.</p>
+<p>If we run the resampling method longer, these CDFs converge, so the two methods are equivalent.</p>
 <p>To compute a 90% confidence interval, we can use the values we sampled from the binomial distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -677,7 +702,8 @@ If we run the resampling method longer, the two distributions converge.</p>
 </div>
 </div>
 </div>
-<p>Or we can use the inverse CDF of the binomial distribution, which is even faster than drawing a sample, and it’s deterministic – that is, we get the same result every time, with no randomness.</p>
+<p>Or we can use the inverse CDF of the binomial distribution, which is even faster than drawing a sample.
+And it’s deterministic – that is, we get the same result every time, with no randomness.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p_est</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span>
@@ -695,35 +721,82 @@ But before we get to that, let’s see how resampling behaves as we increase the
 </section>
 <section id="sample-size">
 <h2>Sample Size<a class="headerlink" href="#sample-size" title="Link to this heading">#</a></h2>
-<p>As the sample size increases, the confidence interval gets smaller.
-In the example, the sample size is more than 60,000, so the CI is very small.
+<p>In the example, the sample size is more than 60,000, so the CI is very small.
 The following figure shows what it looks like for more moderate sample sizes, using <code class="docutils literal notranslate"><span class="pre">p=0.1</span></code> as an example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
-
-<span class="n">p</span> <span class="o">=</span> <span class="mf">0.1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.1</span>
 <span class="n">ns</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">]</span>
+<span class="n">ci_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">ns</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;low&#39;</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">])</span>
 
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ns</span><span class="p">:</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span>
     <span class="n">ks</span> <span class="o">=</span> <span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">10001</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">ks</span> <span class="o">/</span> <span class="n">n</span>
     <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">]))</span>
+    <span class="n">ci_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
     
-<span class="n">decorate</span><span class="p">()</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Proportion&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50 [0.04 0.18]
-500 [0.078 0.122]
-5000 [0.0932 0.1068]
+<img alt="_images/63b75b5582e7e4d3323d0d2a25b34c98c44d510e5881a0aee3417ff4a1dce7f2.png" src="_images/63b75b5582e7e4d3323d0d2a25b34c98c44d510e5881a0aee3417ff4a1dce7f2.png" />
+</div>
+</div>
+<p>As the sample size increases, the spread of the sampling distribution gets smaller, and so does the width of the confidence interval.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci_df</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ci_df</span><span class="p">[</span><span class="s1">&#39;high&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">ci_df</span><span class="p">[</span><span class="s1">&#39;low&#39;</span><span class="p">]</span>
+<span class="n">ci_df</span>
 </pre></div>
 </div>
-<img alt="_images/53cfc01b60025fa71839a8831977fe7b38b757f66a380ef4a9817e452b9b0845.png" src="_images/53cfc01b60025fa71839a8831977fe7b38b757f66a380ef4a9817e452b9b0845.png" />
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>low</th>
+      <th>high</th>
+      <th>width</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>50</th>
+      <td>0.04</td>
+      <td>0.18</td>
+      <td>0.14</td>
+    </tr>
+    <tr>
+      <th>500</th>
+      <td>0.078</td>
+      <td>0.122</td>
+      <td>0.044</td>
+    </tr>
+    <tr>
+      <th>5000</th>
+      <td>0.0932</td>
+      <td>0.1072</td>
+      <td>0.014</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>With resampling methods, it is important to draw samples with the same size as the original dataset – otherwise the result is wrong.</p>
 <p>But the number of iterations doesn’t matter as much.
@@ -735,7 +808,6 @@ The following figure shows the sampling distribution if we run the sampling proc
 <span class="n">iter_seq</span> <span class="o">=</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">100001</span><span class="p">]</span>
 
 <span class="k">for</span> <span class="n">iters</span> <span class="ow">in</span> <span class="n">iter_seq</span><span class="p">:</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span>
     <span class="n">ks</span> <span class="o">=</span> <span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">iters</span><span class="p">)</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">ks</span> <span class="o">/</span> <span class="n">n</span>
     <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;iters = </span><span class="si">{</span><span class="n">iters</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -745,20 +817,20 @@ The following figure shows the sampling distribution if we run the sampling proc
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/144d46de272059e386df62d2754c301b0f534dcb24a38f2c5005f422b74ae807.png" src="_images/144d46de272059e386df62d2754c301b0f534dcb24a38f2c5005f422b74ae807.png" />
+<img alt="_images/ea568dd6d1e0eed6a0e028d048a937a031a87414cd473e588c81e9044ffde8a7.png" src="_images/ea568dd6d1e0eed6a0e028d048a937a031a87414cd473e588c81e9044ffde8a7.png" />
 </div>
 </div>
 <p>The sampling distribution is the same, regardless of how many iterations we run.
-But with more iterations, we get a better picture of the distribution and a more precise estimate of the confidence interval.</p>
-<p>For most problems, 1001 iterations is enough, but you can generate larger samples quickly, go ahead.</p>
+But with more iterations, we get a better picture of the distribution and a more precise estimate of the confidence interval.
+For most problems, 1001 iterations is enough, but if you can generate larger samples fast enough, more is better.</p>
 <p>However, for this problem, resampling isn’t really necessary.
 As we’ve seen, we can use the binomial distribution to compute a CI without drawing a random sample at all.
-Also, for this problem, there are approximations that are even easier to compute, although they come with some caveats.</p>
+And for this problem, there are approximations that are even easier to compute – although they come with some caveats.</p>
 </section>
 <section id="approximations">
 <h2>Approximations<a class="headerlink" href="#approximations" title="Link to this heading">#</a></h2>
-<p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> is large and <code class="docutils literal notranslate"><span class="pre">p</span></code> is not too close to 0 or 1, the sampling distribution of a proportion is well approximated by a normal distribution, and we can approximate a confidence interval with just a few calculation.</p>
-<p>For a given confidence level, we can use the inverse CDF of the normal distribution to compute a <span class="math notranslate nohighlight">\(z\)</span> score, which is the number of standard deviations the CI should span – positive and negative – in order to include the given confidence.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> is large and <code class="docutils literal notranslate"><span class="pre">p</span></code> is not too close to 0 or 1, the sampling distribution of a proportion is well modeled by a normal distribution, and we can approximate a confidence interval with just a few calculations.</p>
+<p>For a given confidence level, we can use the inverse CDF of the normal distribution to compute a <span class="math notranslate nohighlight">\(z\)</span> score, which is the number of standard deviations the CI should span – above and below the observed value of <code class="docutils literal notranslate"><span class="pre">p</span></code> – in order to include the given confidence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
@@ -775,17 +847,14 @@ Also, for this problem, there are approximations that are even easier to compute
 </div>
 </div>
 </div>
-<p>Now we can use the following function, which uses this <code class="docutils literal notranslate"><span class="pre">z</span></code> score, <code class="docutils literal notranslate"><span class="pre">p</span></code>, and <code class="docutils literal notranslate"><span class="pre">n</span></code> to compute the confidence interval.</p>
+<p>A 90% confidence interval spans about 1.64 standard deviations.</p>
+<p>Now we can use the following function, which uses <code class="docutils literal notranslate"><span class="pre">p</span></code>, <code class="docutils literal notranslate"><span class="pre">n</span></code>, and this <code class="docutils literal notranslate"><span class="pre">z</span></code> score to compute the confidence interval.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">confidence_interval_normal_approx</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-    <span class="c1"># Calculate proportion</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">confidence_interval_normal_approx</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span>
-    
-    <span class="c1"># Calculate margin of error</span>
     <span class="n">margin_of_error</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
     
-    <span class="c1"># Confidence interval</span>
     <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">margin_of_error</span>
     <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="n">margin_of_error</span>
     <span class="k">return</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span>
@@ -811,7 +880,7 @@ Also, for this problem, there are approximations that are even easier to compute
 <p>Here’s the confidence interval based on the normal approximation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci_normal</span> <span class="o">=</span> <span class="n">confidence_interval_normal_approx</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci_normal</span> <span class="o">=</span> <span class="n">confidence_interval_normal_approx</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 <span class="n">ci_normal</span>
 </pre></div>
 </div>
@@ -824,23 +893,18 @@ Also, for this problem, there are approximations that are even easier to compute
 </div>
 <p>In the example, <code class="docutils literal notranslate"><span class="pre">n</span></code> is large, which is good for the normal approximation, but <code class="docutils literal notranslate"><span class="pre">p</span></code> is small, which is bad.
 So it’s not obvious whether we can trust the approximation.</p>
-<p>An alternative that’s more robust is the Wilson score interval, which is reliable for value of <code class="docutils literal notranslate"><span class="pre">p</span></code> close to 0 and 1, and sample sizes bigger than about 5.</p>
+<p>An alternative that’s more robust is the Wilson score interval, which is reliable for values of <code class="docutils literal notranslate"><span class="pre">p</span></code> close to 0 and 1, and sample sizes bigger than about 5.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">wilson_score_interval</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-    
-    <span class="c1"># Proportion estimate</span>
-    <span class="n">p_hat</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span>
-    
-    <span class="c1"># Common terms</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">confidence_interval_wilson_score</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>    
+    <span class="n">p</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span>
     <span class="n">factor</span> <span class="o">=</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">n</span>
     <span class="n">denominator</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">factor</span>
-    <span class="n">center_adjustment</span> <span class="o">=</span> <span class="n">p_hat</span> <span class="o">+</span> <span class="n">factor</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="n">margin_adjustment</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">p_hat</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_hat</span><span class="p">)</span> <span class="o">+</span> <span class="n">factor</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="n">factor</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">half_width</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="n">factor</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
     
-    <span class="c1"># Calculate the lower and upper bounds</span>
-    <span class="n">lower_bound</span> <span class="o">=</span> <span class="p">(</span><span class="n">center_adjustment</span> <span class="o">-</span> <span class="n">margin_adjustment</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominator</span>
-    <span class="n">upper_bound</span> <span class="o">=</span> <span class="p">(</span><span class="n">center_adjustment</span> <span class="o">+</span> <span class="n">margin_adjustment</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominator</span>
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="n">half_width</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominator</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="p">(</span><span class="n">center</span> <span class="o">+</span> <span class="n">half_width</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominator</span>
     
     <span class="k">return</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span>
 </pre></div>
@@ -850,30 +914,29 @@ So it’s not obvious whether we can trust the approximation.</p>
 <p>Here’s the 90% CI based on Wilson scores.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci_wilson</span> <span class="o">=</span> <span class="n">confidence_interval_wilson_score</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci_wilson</span> <span class="o">=</span> <span class="n">confidence_interval_wilson_score</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 <span class="n">ci_wilson</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.003258053185411942, 0.0040602593809138865)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.003258660468175958, 0.00405965209814987)
 </pre></div>
 </div>
 </div>
 </div>
-<p>Another alternative is the Clopper-Pearson interval, which is what we computed earlier with the inverse CDF of the binomial distribution.
+<p>Another option is the Clopper-Pearson interval, which is what we computed earlier with the inverse CDF of the binomial distribution.
 Here’s a function that computes it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">binom</span>
 
 <span class="k">def</span> <span class="nf">confidence_interval_exact_binomial</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
-    <span class="c1"># Calculate alpha value for the two-sided interval</span>
     <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span>
-    
-    <span class="c1"># Calculate lower and upper bounds using binom.ppf for exact binomial CI</span>
-    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
-    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="k">else</span> <span class="mi">1</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span>
+
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="k">else</span> <span class="mi">1</span>
     
     <span class="k">return</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span>
 </pre></div>
@@ -888,22 +951,23 @@ Here’s a function that computes it.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.003245800032621106, 0.0040450171260805745)
+</pre></div>
 </div>
-<p>One final alternative is the Jeffreys interval, which is derived from Bayes’s Theorem.
-If we observe <code class="docutils literal notranslate"><span class="pre">k</span></code> successes out of <code class="docutils literal notranslate"><span class="pre">n</span></code> attempts, the sampling distribution of the proportion is a beta distribution with parameters <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">k</span> <span class="pre">+</span> <span class="pre">1/2</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">n</span> <span class="pre">-</span> <span class="pre">k</span> <span class="pre">+</span> <span class="pre">1/2</span></code>.
+</div>
+</div>
+<p>A final alternative is the Jeffreys interval, which is derived from Bayes’s Theorem.
+If we start with a Jeffreys prior and observe <code class="docutils literal notranslate"><span class="pre">k</span></code> successes out of <code class="docutils literal notranslate"><span class="pre">n</span></code> attempts, the posterior distribution of <code class="docutils literal notranslate"><span class="pre">p</span></code> is a beta distribution with parameters <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">k</span> <span class="pre">+</span> <span class="pre">1/2</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">n</span> <span class="pre">-</span> <span class="pre">k</span> <span class="pre">+</span> <span class="pre">1/2</span></code>.
 So we can use the inverse CDF of the beta distribution to compute a CI.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
 
-<span class="k">def</span> <span class="nf">bayesian_confidence_interval_beta</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-    <span class="c1"># Alpha for the two-tailed interval</span>
-    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span>
+<span class="k">def</span> <span class="nf">bayesian_confidence_interval_beta</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span>    
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
     
-    <span class="c1"># Beta posterior parameters (assuming a uniform prior, Beta(1, 1))</span>
-    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span>
-    
-    <span class="c1"># Calculate lower and upper bounds</span>
     <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">beta</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
     <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">beta</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
     
@@ -921,7 +985,7 @@ So we can use the inverse CDF of the beta distribution to compute a CI.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0032620765334407924, 0.004063218038466101)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.003254420914221609, 0.004054683138668112)
 </pre></div>
 </div>
 </div>
@@ -937,54 +1001,49 @@ So we can use the inverse CDF of the beta distribution to compute a CI.</p>
 <span class="p">}</span>
 <span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="p">))</span>
 
-<span class="c1"># Create horizontal error bars for each interval</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
     <span class="n">middle</span> <span class="o">=</span> <span class="p">(</span><span class="n">lower</span> <span class="o">+</span> <span class="n">upper</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
     <span class="n">xerr</span> <span class="o">=</span> <span class="p">[[(</span><span class="n">middle</span> <span class="o">-</span> <span class="n">lower</span><span class="p">)],</span> <span class="p">[(</span><span class="n">upper</span> <span class="o">-</span> <span class="n">middle</span><span class="p">)]]</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">middle</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">xerr</span><span class="o">=</span><span class="n">xerr</span><span class="p">,</span>
-                <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">middle</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">xerr</span><span class="o">=</span><span class="n">xerr</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
     
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">3.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
-<span class="n">decorate</span><span class="p">()</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Proportion&#39;</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">3.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">],</span> <span class="n">yticks</span><span class="o">=</span><span class="p">[])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/83e79b7ea8189cc2d86eadf4c640de158000c5241c6fab77c20982c232c7fcbc.png" src="_images/83e79b7ea8189cc2d86eadf4c640de158000c5241c6fab77c20982c232c7fcbc.png" />
+<img alt="_images/7b6c1c2881f2d76d5902237436f03152e449807309b2acf7a791be891c166139.png" src="_images/7b6c1c2881f2d76d5902237436f03152e449807309b2acf7a791be891c166139.png" />
 </div>
 </div>
 <p>In this example, because <code class="docutils literal notranslate"><span class="pre">n</span></code> is so large, the intervals are all similar – the differences are too small to matter in practice.
 For smaller values of <code class="docutils literal notranslate"><span class="pre">n</span></code>, the normal approximation becomes unreliable, and for very small values, none of them are reliable.</p>
-<p>The normal approximation and Wilson scores are easy and fast to compute.
-On my modest old laptop, they take 1-2 microseconds.</p>
+<p>The normal approximation and Wilson score interval are easy and fast to compute.
+On my old laptop, they take 1-2 microseconds.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> confidence_interval_normal_approx(k, n)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> confidence_interval_normal_approx(k, n, z)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.02 µs ± 9.69 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.04 µs ± 4.04 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> confidence_interval_wilson_score(k, n)
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> confidence_interval_wilson_score(k, n, z)
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.91 µs ± 10.1 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.64 µs ± 28.6 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)
 </pre></div>
 </div>
 </div>
 </div>
-<p>Evaluating the inverse CDF of the binomial and beta distributions is a more complex computation, taking about 100  longer.</p>
+<p>Evaluating the inverse CDF of the binomial and beta distributions are more complex computations – they take about 100 times longer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> confidence_interval_exact_binomial(k, n)
@@ -992,7 +1051,7 @@ On my modest old laptop, they take 1-2 microseconds.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>184 µs ± 5.4 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>195 µs ± 7.53 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
 </pre></div>
 </div>
 </div>
@@ -1004,25 +1063,24 @@ On my modest old laptop, they take 1-2 microseconds.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>247 µs ± 2.79 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>269 µs ± 4.6 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
 </pre></div>
 </div>
 </div>
 </div>
-<p>But 100 times longer is still less than 3 microseconds, so unless you need to compute millions of confidence intervals per second, the difference in computation time doesn’t matter.</p>
+<p>But they still take less than 300 microseconds, so unless you need to compute millions of confidence intervals per second, the difference in computation time doesn’t matter.</p>
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
-<p>If you took a statistics class and learned one of these method, you probably learned the normal approximation.
-The reason is that it is easy to explain and it’s pedagogically tempting because it makes use of the Central Limit Theorem (or a form of it).
-But in my opinion it should never be used in practice because it is dominated by the Wilson score interval – that is, it is worse than Wilson in several ways and better in none.</p>
-<p>In my opinion, the Clopper-Pearson interval is also easy to explain, but the binomial distribution is discrete, so when <code class="docutils literal notranslate"><span class="pre">n</span></code> is small, there are few possible values of <code class="docutils literal notranslate"><span class="pre">k</span></code>, and therefore few possible values of <code class="docutils literal notranslate"><span class="pre">p</span></code> – and the interval can be wider than it needs to be.</p>
-<p>The Jeffreys interval is based on Bayesian statistics, so it takes a little more explaining.
-But it behaves well for all values of <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">p</span></code>.
+<p>If you took a statistics class and learned one of these methods, you probably learned the normal approximation.
+That’s because it is easy to explain and, because it is based on a form of the Central Limit Theorem, it helps to justify time spent learning about the CLT.
+But in my opinion it should never be used in practice because it is dominated by the Wilson score interval – that is, it is worse than Wilson in at least one way and better in none.</p>
+<p>I think the Clopper-Pearson interval is equally easy to explain, but when <code class="docutils literal notranslate"><span class="pre">n</span></code> is small, there are few possible values of <code class="docutils literal notranslate"><span class="pre">k</span></code>, and therefore few possible values of <code class="docutils literal notranslate"><span class="pre">p</span></code> – and the interval can be wider than it needs to be.</p>
+<p>The Jeffreys interval is based on Bayesian statistics, so it takes a little more explaining, but it behaves well for all values of <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">p</span></code>.
 And when <code class="docutils literal notranslate"><span class="pre">n</span></code> is small, it can be extended to take advantage of background information about likely values of <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p>
-<p>For these reasons, the Jeffreys interval is my usual choice, but there is one condition where I would use the Wilson score interval instead – working in a computational environment where I don’t have an implementation of the inverse CDF of the beta distribution.
-Apparently that’s the case for OP, who is working in LiveCode, which doesn’t provide a lot of math and statistics libraries.</p>
-<p>So here’s a LiveCode implementation of the Wilson score interval (generated by ChatGPT).</p>
+<p>For these reasons, the Jeffreys interval is my usual choice, but in a computational environment that doesn’t provide the inverse CDF of the beta distribution, I would use a Wilson score interval.</p>
+<p>OP is working in LiveCode, which doesn’t provide a lot of math and statistics libraries, so Wilson might be a good choice.
+Here’s a LiveCode implementation generated by ChatGPT.</p>
 <div class="highlight-LiveCode notranslate"><div class="highlight"><pre><span></span>-- Function to calculate the z-score for a 95% confidence level (z ≈ 1.96)
 function zScore
     return 1.96
@@ -1122,6 +1180,7 @@ end wilsonScoreInterval
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pallor-and-probability">Pallor and Probability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size">Sample Size</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximations">Approximations</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
