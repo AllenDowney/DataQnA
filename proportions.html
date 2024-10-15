@@ -1,0 +1,1163 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Bootstrapping a Proportion &#8212; Data Q&amp;A</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'proportions';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Q&A</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    Data Q&A
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="combine_risk.html">Combining Risks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauss_bayes.html">Estimation with Small Samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likelihood.html">Density and Likelihood</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likert_mean.html">Likert scale analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_heterosked.html">Logarithms and heteroskedasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pmf_and_pdf.html">PMFs and PDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="poisson_process.html">Poisson Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_dev.html">Which Standard Deviation?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/AllenDowney/DataQnA" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/proportions.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Bootstrapping a Proportion</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pallor-and-probability">Pallor and Probability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size">Sample Size</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximations">Approximations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="bootstrapping-a-proportion">
+<h1>Bootstrapping a Proportion<a class="headerlink" href="#bootstrapping-a-proportion" title="Link to this heading">#</a></h1>
+<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1g2pmfg/comment/lruz2xp">question from the Reddit statistics forum</a>.</p>
+<blockquote>
+<div><p>How do I use bootstrapping to generate confidence intervals for a proportion/ratio? The situation is this:</p>
+<p>I obtain samples of text with differing numbers of lines. From several tens to over a million. I have no control over how many lines there are in any given sample. Each line of each sample may or may not contain a string S. Counting lines according to S presence or S absence generates a ratio of S to S’ for that sample. I want to use bootstrapping to calculate confidence intervals for the found ratio (which of course will vary with sample size).</p>
+<p>To do this I could either:</p>
+<p>A. Literally resample (10,000 times) of size (say) 1,000 from the original sample (with replacement) then categorise S (and S’), and then calculate the ratio for each resample, and finally identify highest and lowest 2.5% (for 95% CI), or</p>
+<p>B. Generate 10,000 samples of 1,000 random numbers between 0 and 1, scoring each stochastically as above or below original sample ratio (equivalent to S or S’). Then calculate CI as in A.</p>
+<p>Programmatically A is slow and B is very fast. Is there anything wrong with doing B? The confidence intervals generated by each are almost identical.</p>
+</div></blockquote>
+<p>The answer to the immediate question is that A and B are equivalent, so there’s nothing wrong with B.
+But in follow-up responses, a few related questions were raised:</p>
+<ol class="arabic simple">
+<li><p>Is resampling a good choice for this problem?</p></li>
+<li><p>What size should the resamplings be?</p></li>
+<li><p>How many resamplings do we need?</p></li>
+</ol>
+<p>I don’t think resampling is really necessary here, and I’ll show some alternatives.
+And I’ll answer the other questions along the way.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/XXX.ipynb">Click here to run this notebook on Colab</a>.</p>
+<p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
+<div class="cell tag_remove-print tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+
+<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+
+        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">filename</span>
+
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;utils.py&#39;
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell tag_remove-print docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># install the empiricaldist library, if necessary</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">empiricaldist</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_remove-print tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section id="pallor-and-probability">
+<h2>Pallor and Probability<a class="headerlink" href="#pallor-and-probability" title="Link to this heading">#</a></h2>
+<p>As an example, let’s use one of the exercises from <em>Think Python</em>:</p>
+<blockquote>
+<div><p><em>The Count of Monte Cristo</em> is a novel by Alexandre Dumas that is considered a classic. Nevertheless, in the introduction of an English translation of the book, the writer Umberto Eco confesses that he found the book to be “one of the most badly written novels of all time”.</p>
+<p>In particular, he says it is “shameless in its repetition of the same adjective,” and mentions in particular the number of times “its characters either shudder or turn pale.”</p>
+<p>To see whether his objection is valid, let’s count the number number of lines that contain the word pale in any form, including pale, pales, paled, and paleness, as well as the related word pallor. Use a single regular expression that matches all of these words and no others.</p>
+</div></blockquote>
+<p>The following cell downloads the text of the book from Project Gutenberg.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://www.gutenberg.org/cache/epub/1184/pg1184.txt&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ll use the following functions to remove the additional material that appears before and after the text of the book.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">is_special_line</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;*** &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clean_file</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">output_file</span><span class="p">):</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">input_file</span><span class="p">)</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">is_special_line</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+            <span class="k">break</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">is_special_line</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        
+    <span class="n">reader</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">clean_file</span><span class="p">(</span><span class="s1">&#39;pg1184.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;pg1184_cleaned.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And we’ll use the following function to count the number of lines that contain a particular pattern of characters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">count_matches</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">count</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">readlines</span></code> reads the file and creates a list of strings, one for each line.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;pg1184_cleaned.txt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+<span class="n">n</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>61310
+</pre></div>
+</div>
+</div>
+</div>
+<p>There are about 61,000 lines in the file.</p>
+<p>The following pattern matches “pale” and several related words.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\b(pale|pales|paled|paleness|pallor)\b&#39;</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">count_matches</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+<span class="n">k</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>223
+</pre></div>
+</div>
+</div>
+</div>
+<p>These words appear in 223 lines of the file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_est</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span>
+<span class="n">p_est</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0036372533028869677
+</pre></div>
+</div>
+</div>
+</div>
+<p>So the estimated proportion is about 0.0036.
+To quantify the precision of that estimate, we’ll compute a 90% confidence interval.</p>
+<p>First we’ll use what OP called A, resampling the lines of the file.
+The following function takes a list of lines and selects a sample, with replacement, that has the same size.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In a resampling, the same line can appear more than once, and some lines might not appear at all.
+So in any resampling, the forbidden words might appear more times than in the original text, or fewer.
+Here’s an example</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">count_matches</span><span class="p">(</span><span class="n">resample</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">pattern</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>201
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this resampling, the words appear in 201 lines, fewer than in the original (223), but not by much.</p>
+<p>If we repeat this process many times, we can compute a sample of possible values of <code class="docutils literal notranslate"><span class="pre">k</span></code>.
+Because this method is slow, we’ll only repeat it 101 times.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ks_resampling</span> <span class="o">=</span> <span class="p">[</span><span class="n">count_matches</span><span class="p">(</span><span class="n">resample</span><span class="p">(</span><span class="n">lines</span><span class="p">),</span> <span class="n">pattern</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With these different values of <code class="docutils literal notranslate"><span class="pre">k</span></code>, we can divide by <code class="docutils literal notranslate"><span class="pre">n</span></code> to get the corresponding values of <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps_resampling</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ks_resampling</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To see what the distribution of those values looks like, we’ll plot the CDF.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
+
+<span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ps_resampling</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;resampling&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Resampled proportion&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Density&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/18348fdf80046564628819e688e7b0f1432d4192fd4abe3d4866e2b8cb887416.png" src="_images/18348fdf80046564628819e688e7b0f1432d4192fd4abe3d4866e2b8cb887416.png" />
+</div>
+</div>
+<p>So that’s the sampling distribution of the proportion.
+We could use it to compute a confidence interval, but let’s try the other method first.</p>
+<p>Resampling the lines and searching them to see which ones contain the forbidden words is not very efficient.
+We already know that <code class="docutils literal notranslate"><span class="pre">k</span></code> out of <code class="docutils literal notranslate"><span class="pre">n</span></code> of them contain the words, so we can use the binomial distribution to compute the sampling distribution more directly.</p>
+<p>Suppose we draw lines from a large population where the proportion that contain the words is <code class="docutils literal notranslate"><span class="pre">k/n</span></code>, which is <code class="docutils literal notranslate"><span class="pre">p_est</span></code>.
+If we draw another sample with size <code class="docutils literal notranslate"><span class="pre">n</span></code>, the value of <code class="docutils literal notranslate"><span class="pre">k</span></code> follows a binomial distribution with parameters <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">p_est</span></code>.
+We can draw a sample from this distribution like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">binom</span>
+
+<span class="n">ks_binom</span> <span class="o">=</span> <span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p_est</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">10001</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And compute the corresponding sample of proportions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps_binom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ks_binom</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ps_resampling</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;resampling&#39;</span><span class="p">)</span>
+<span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ps_binom</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;binomial&#39;</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Resampled proportion&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/dcd3b532167d18f66675f56a5c67df77697c33e066c9eb601f8f71bab48e5439.png" src="_images/dcd3b532167d18f66675f56a5c67df77697c33e066c9eb601f8f71bab48e5439.png" />
+</div>
+</div>
+<p>The two methods are equivalent.
+If we run the resampling method longer, the two distributions converge.</p>
+<p>To compute a 90% confidence interval, we can use the values we sampled from the binomial distribution.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">ps_binom</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.0032458 , 0.00404502])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Or we can use the inverse CDF of the binomial distribution, which is even faster than drawing a sample, and it’s deterministic – that is, we get the same result every time, with no randomness.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p_est</span><span class="p">)</span><span class="o">.</span><span class="n">ppf</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span> <span class="o">/</span> <span class="n">n</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.0032458 , 0.00404502])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using the inverse CDF of the binomial distribution is a good way to compute confidence intervals.
+But before we get to that, let’s see how resampling behaves as we increase the sample size and the number of iterations.</p>
+</section>
+<section id="sample-size">
+<h2>Sample Size<a class="headerlink" href="#sample-size" title="Link to this heading">#</a></h2>
+<p>As the sample size increases, the confidence interval gets smaller.
+In the example, the sample size is more than 60,000, so the CI is very small.
+The following figure shows what it looks like for more moderate sample sizes, using <code class="docutils literal notranslate"><span class="pre">p=0.1</span></code> as an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Cdf</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">ns</span> <span class="o">=</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">ns</span><span class="p">:</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span>
+    <span class="n">ks</span> <span class="o">=</span> <span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">10001</span><span class="p">)</span>
+    <span class="n">ps</span> <span class="o">=</span> <span class="n">ks</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">95</span><span class="p">]))</span>
+    
+<span class="n">decorate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>50 [0.04 0.18]
+500 [0.078 0.122]
+5000 [0.0932 0.1068]
+</pre></div>
+</div>
+<img alt="_images/53cfc01b60025fa71839a8831977fe7b38b757f66a380ef4a9817e452b9b0845.png" src="_images/53cfc01b60025fa71839a8831977fe7b38b757f66a380ef4a9817e452b9b0845.png" />
+</div>
+</div>
+<p>With resampling methods, it is important to draw samples with the same size as the original dataset – otherwise the result is wrong.</p>
+<p>But the number of iterations doesn’t matter as much.
+The following figure shows the sampling distribution if we run the sampling process 101, 1001, and 10,001 times.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">iter_seq</span> <span class="o">=</span> <span class="p">[</span><span class="mi">101</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">100001</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">iters</span> <span class="ow">in</span> <span class="n">iter_seq</span><span class="p">:</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span>
+    <span class="n">ks</span> <span class="o">=</span> <span class="n">binom</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">iters</span><span class="p">)</span>
+    <span class="n">ps</span> <span class="o">=</span> <span class="n">ks</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">Cdf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">ps</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;iters = </span><span class="si">{</span><span class="n">iters</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+<span class="n">decorate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/144d46de272059e386df62d2754c301b0f534dcb24a38f2c5005f422b74ae807.png" src="_images/144d46de272059e386df62d2754c301b0f534dcb24a38f2c5005f422b74ae807.png" />
+</div>
+</div>
+<p>The sampling distribution is the same, regardless of how many iterations we run.
+But with more iterations, we get a better picture of the distribution and a more precise estimate of the confidence interval.</p>
+<p>For most problems, 1001 iterations is enough, but you can generate larger samples quickly, go ahead.</p>
+<p>However, for this problem, resampling isn’t really necessary.
+As we’ve seen, we can use the binomial distribution to compute a CI without drawing a random sample at all.
+Also, for this problem, there are approximations that are even easier to compute, although they come with some caveats.</p>
+</section>
+<section id="approximations">
+<h2>Approximations<a class="headerlink" href="#approximations" title="Link to this heading">#</a></h2>
+<p>If <code class="docutils literal notranslate"><span class="pre">n</span></code> is large and <code class="docutils literal notranslate"><span class="pre">p</span></code> is not too close to 0 or 1, the sampling distribution of a proportion is well approximated by a normal distribution, and we can approximate a confidence interval with just a few calculation.</p>
+<p>For a given confidence level, we can use the inverse CDF of the normal distribution to compute a <span class="math notranslate nohighlight">\(z\)</span> score, which is the number of standard deviations the CI should span – positive and negative – in order to include the given confidence.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="n">confidence</span> <span class="o">=</span> <span class="mf">0.9</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">z</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.6448536269514722
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can use the following function, which uses this <code class="docutils literal notranslate"><span class="pre">z</span></code> score, <code class="docutils literal notranslate"><span class="pre">p</span></code>, and <code class="docutils literal notranslate"><span class="pre">n</span></code> to compute the confidence interval.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">confidence_interval_normal_approx</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="c1"># Calculate proportion</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span>
+    
+    <span class="c1"># Calculate margin of error</span>
+    <span class="n">margin_of_error</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+    
+    <span class="c1"># Confidence interval</span>
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">margin_of_error</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="n">margin_of_error</span>
+    <span class="k">return</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To test it, we’ll compute <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">k</span></code> for the example again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="n">count_matches</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+<span class="n">n</span><span class="p">,</span> <span class="n">k</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(61310, 223)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the confidence interval based on the normal approximation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci_normal</span> <span class="o">=</span> <span class="n">confidence_interval_normal_approx</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">ci_normal</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.003237348046298746, 0.00403715855947519)
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the example, <code class="docutils literal notranslate"><span class="pre">n</span></code> is large, which is good for the normal approximation, but <code class="docutils literal notranslate"><span class="pre">p</span></code> is small, which is bad.
+So it’s not obvious whether we can trust the approximation.</p>
+<p>An alternative that’s more robust is the Wilson score interval, which is reliable for value of <code class="docutils literal notranslate"><span class="pre">p</span></code> close to 0 and 1, and sample sizes bigger than about 5.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">wilson_score_interval</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    
+    <span class="c1"># Proportion estimate</span>
+    <span class="n">p_hat</span> <span class="o">=</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span>
+    
+    <span class="c1"># Common terms</span>
+    <span class="n">factor</span> <span class="o">=</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">n</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">factor</span>
+    <span class="n">center_adjustment</span> <span class="o">=</span> <span class="n">p_hat</span> <span class="o">+</span> <span class="n">factor</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">margin_adjustment</span> <span class="o">=</span> <span class="n">z</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">p_hat</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_hat</span><span class="p">)</span> <span class="o">+</span> <span class="n">factor</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate the lower and upper bounds</span>
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="p">(</span><span class="n">center_adjustment</span> <span class="o">-</span> <span class="n">margin_adjustment</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominator</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="p">(</span><span class="n">center_adjustment</span> <span class="o">+</span> <span class="n">margin_adjustment</span><span class="p">)</span> <span class="o">/</span> <span class="n">denominator</span>
+    
+    <span class="k">return</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s the 90% CI based on Wilson scores.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci_wilson</span> <span class="o">=</span> <span class="n">confidence_interval_wilson_score</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">ci_wilson</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.003258053185411942, 0.0040602593809138865)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Another alternative is the Clopper-Pearson interval, which is what we computed earlier with the inverse CDF of the binomial distribution.
+Here’s a function that computes it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">binom</span>
+
+<span class="k">def</span> <span class="nf">confidence_interval_exact_binomial</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="c1"># Calculate alpha value for the two-sided interval</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span>
+    
+    <span class="c1"># Calculate lower and upper bounds using binom.ppf for exact binomial CI</span>
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="k">else</span> <span class="mi">1</span>
+    
+    <span class="k">return</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And here’s the interval we get.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci_binomial</span> <span class="o">=</span> <span class="n">confidence_interval_exact_binomial</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">ci_binomial</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>One final alternative is the Jeffreys interval, which is derived from Bayes’s Theorem.
+If we observe <code class="docutils literal notranslate"><span class="pre">k</span></code> successes out of <code class="docutils literal notranslate"><span class="pre">n</span></code> attempts, the sampling distribution of the proportion is a beta distribution with parameters <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">k</span> <span class="pre">+</span> <span class="pre">1/2</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span> <span class="pre">=</span> <span class="pre">n</span> <span class="pre">-</span> <span class="pre">k</span> <span class="pre">+</span> <span class="pre">1/2</span></code>.
+So we can use the inverse CDF of the beta distribution to compute a CI.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+
+<span class="k">def</span> <span class="nf">bayesian_confidence_interval_beta</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="c1"># Alpha for the two-tailed interval</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span>
+    
+    <span class="c1"># Beta posterior parameters (assuming a uniform prior, Beta(1, 1))</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span>
+    
+    <span class="c1"># Calculate lower and upper bounds</span>
+    <span class="n">lower_bound</span> <span class="o">=</span> <span class="n">beta</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">beta</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And here’s the interval we get.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci_beta</span> <span class="o">=</span> <span class="n">bayesian_confidence_interval_beta</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="n">ci_beta</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0032620765334407924, 0.004063218038466101)
+</pre></div>
+</div>
+</div>
+</div>
+<p>The following figure shows the four intervals we just computed graphically.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">intervals</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Normal Approximation&#39;</span><span class="p">:</span> <span class="n">ci_normal</span><span class="p">,</span>
+    <span class="s1">&#39;Wilson Score&#39;</span><span class="p">:</span> <span class="n">ci_wilson</span><span class="p">,</span>
+    <span class="s1">&#39;Clopper-Pearson&#39;</span><span class="p">:</span> <span class="n">ci_binomial</span><span class="p">,</span>
+    <span class="s1">&#39;Jeffreys&#39;</span><span class="p">:</span> <span class="n">ci_beta</span>
+<span class="p">}</span>
+<span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="p">))</span>
+
+<span class="c1"># Create horizontal error bars for each interval</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">middle</span> <span class="o">=</span> <span class="p">(</span><span class="n">lower</span> <span class="o">+</span> <span class="n">upper</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">xerr</span> <span class="o">=</span> <span class="p">[[(</span><span class="n">middle</span> <span class="o">-</span> <span class="n">lower</span><span class="p">)],</span> <span class="p">[(</span><span class="n">upper</span> <span class="o">-</span> <span class="n">middle</span><span class="p">)]]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">middle</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">xerr</span><span class="o">=</span><span class="n">xerr</span><span class="p">,</span>
+                <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">3.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+<span class="n">decorate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/83e79b7ea8189cc2d86eadf4c640de158000c5241c6fab77c20982c232c7fcbc.png" src="_images/83e79b7ea8189cc2d86eadf4c640de158000c5241c6fab77c20982c232c7fcbc.png" />
+</div>
+</div>
+<p>In this example, because <code class="docutils literal notranslate"><span class="pre">n</span></code> is so large, the intervals are all similar – the differences are too small to matter in practice.
+For smaller values of <code class="docutils literal notranslate"><span class="pre">n</span></code>, the normal approximation becomes unreliable, and for very small values, none of them are reliable.</p>
+<p>The normal approximation and Wilson scores are easy and fast to compute.
+On my modest old laptop, they take 1-2 microseconds.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> confidence_interval_normal_approx(k, n)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.02 µs ± 9.69 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> confidence_interval_wilson_score(k, n)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.91 µs ± 10.1 ns per loop (mean ± std. dev. of 7 runs, 1,000,000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Evaluating the inverse CDF of the binomial and beta distributions is a more complex computation, taking about 100  longer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> confidence_interval_exact_binomial(k, n)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>184 µs ± 5.4 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> bayesian_confidence_interval_beta(k, n)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>247 µs ± 2.79 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
+</pre></div>
+</div>
+</div>
+</div>
+<p>But 100 times longer is still less than 3 microseconds, so unless you need to compute millions of confidence intervals per second, the difference in computation time doesn’t matter.</p>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p>If you took a statistics class and learned one of these method, you probably learned the normal approximation.
+The reason is that it is easy to explain and it’s pedagogically tempting because it makes use of the Central Limit Theorem (or a form of it).
+But in my opinion it should never be used in practice because it is dominated by the Wilson score interval – that is, it is worse than Wilson in several ways and better in none.</p>
+<p>In my opinion, the Clopper-Pearson interval is also easy to explain, but the binomial distribution is discrete, so when <code class="docutils literal notranslate"><span class="pre">n</span></code> is small, there are few possible values of <code class="docutils literal notranslate"><span class="pre">k</span></code>, and therefore few possible values of <code class="docutils literal notranslate"><span class="pre">p</span></code> – and the interval can be wider than it needs to be.</p>
+<p>The Jeffreys interval is based on Bayesian statistics, so it takes a little more explaining.
+But it behaves well for all values of <code class="docutils literal notranslate"><span class="pre">n</span></code> and <code class="docutils literal notranslate"><span class="pre">p</span></code>.
+And when <code class="docutils literal notranslate"><span class="pre">n</span></code> is small, it can be extended to take advantage of background information about likely values of <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p>
+<p>For these reasons, the Jeffreys interval is my usual choice, but there is one condition where I would use the Wilson score interval instead – working in a computational environment where I don’t have an implementation of the inverse CDF of the beta distribution.
+Apparently that’s the case for OP, who is working in LiveCode, which doesn’t provide a lot of math and statistics libraries.</p>
+<p>So here’s a LiveCode implementation of the Wilson score interval (generated by ChatGPT).</p>
+<div class="highlight-LiveCode notranslate"><div class="highlight"><pre><span></span>-- Function to calculate the z-score for a 95% confidence level (z ≈ 1.96)
+function zScore
+    return 1.96
+end zScore
+
+-- Function to calculate the Wilson Score Interval with distinct bounds
+function wilsonScoreInterval k n
+    -- Calculate proportion of successes
+    put k / n into p
+    put zScore() into z
+    
+    -- Common term for the interval calculation
+    put (z^2 / n) into factor
+    put (p + factor / 2) / (1 + factor) into adjustedCenter
+    
+    -- Asymmetric bounds
+    put sqrt(p * (1 - p) / n + factor / 4) into sqrtTerm
+    
+    -- Lower bound calculation
+    put adjustedCenter - (z * sqrtTerm / (1 + factor)) into lowerBound
+    
+    -- Upper bound calculation
+    put adjustedCenter + (z * sqrtTerm / (1 + factor)) into upperBound
+    
+    return lowerBound &amp; comma &amp; upperBound
+end wilsonScoreInterval
+</pre></div>
+</div>
+<p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
+<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pallor-and-probability">Pallor and Probability</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-size">Sample Size</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximations">Approximations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
