@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>PMFs and PDFs &#8212; Data Q&amp;A</title>
+    <title>Hazard and Survival &#8212; Data Q&amp;A</title>
   
   
   
@@ -57,11 +57,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'pmf_and_pdf';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'hazard';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Poisson Processes" href="poisson_process.html" />
-    <link rel="prev" title="What is a Percentile Rank?" href="percentile_rank.html" />
+    <link rel="prev" title="Testing percentiles" href="test_percentile.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -184,14 +183,14 @@
 <li class="toctree-l1"><a class="reference internal" href="log_heterosked.html">Logarithms and heteroskedasticity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">PMFs and PDFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pmf_and_pdf.html">PMFs and PDFs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="poisson_process.html">Poisson Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="proportions.html">Bootstrapping a Proportion</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standard_dev.html">Which Standard Deviation?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hazard.html">Hazard and Survival</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Hazard and Survival</a></li>
 </ul>
 
     </div>
@@ -261,7 +260,7 @@
       
       
       
-      <li><a href="_sources/pmf_and_pdf.ipynb" target="_blank"
+      <li><a href="_sources/hazard.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -345,7 +344,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>PMFs and PDFs</h1>
+    <h1>Hazard and Survival</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -355,7 +354,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseball">Baseball</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-hazard">Constant Hazard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-is-power">Knowledge is Power</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
             </nav>
@@ -368,19 +368,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="pmfs-and-pdfs">
-<h1>PMFs and PDFs<a class="headerlink" href="#pmfs-and-pdfs" title="Link to this heading">#</a></h1>
-<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1cibmgg/q_comparison_between_pmf_and_pdf_on_a_plot/">question from the Reddit statistics forum</a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="hazard-and-survival">
+<h1>Hazard and Survival<a class="headerlink" href="#hazard-and-survival" title="Link to this heading">#</a></h1>
+<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/AskStatistics/comments/1gzff52/if_i_have_a_tumor_that_ive_been_told_has_a/">question from the Reddit statistics forum</a>.</p>
 <blockquote>
-<div><p>I met a basic problem in pdf and pmf. I perform a grid approximation on bayesian problem. After normalizing the vector, I got a discretized pmf. Then I want to draw pmf and pdf on a plot to check if they are similar distribution. However, the pmf doesn’t resemble the pdf at all. The instruction told me that I need to sample from my pmf then draw a histogram with density for comparison. It really works, but why can’t I directly compare them?</p>
+<div><p>If I have a tumor that I’ve been told has a malignancy rate of 2% per year, does that compound? So after 5 years there’s a 10% chance it will turn malignant?</p>
 </div></blockquote>
-<p>In <em>Think Bayes</em> I used this kind of discrete approximation in almost every chapter, so this issue came up a lot! There are at least two good solutions:</p>
-<ul class="simple">
-<li><p>Normalize the PDF and PMF so they are on the same scale, or</p></li>
-<li><p>Use CDFs.</p></li>
-</ul>
-<p>I’ll demonstrate both.</p>
-<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/pmf_and_pdf.ipynb">Click here to run this notebook on Colab</a>.</p>
+<p>This turns out to be an interesting question, because the answer depends on what that 2% means.
+If we know that it’s the same for everyone, and it doesn’t vary over time, computing the compounded probability after 5 years is a relatively simple.</p>
+<p>But if that 2% is an average across people with different probabilities, the computation is a little more complicated – and the answer turns out to be substantially different, so this is not a negligible effect.</p>
+<p>To demonstrate both computations, I’ll assume that the probability for a given patient doesn’t change over time.
+This assumption is consistent with the <a class="reference external" href="https://en.wikipedia.org/wiki/Armitage%E2%80%93Doll_multistage_model_of_carcinogenesis">multistage model of carcinogenesis</a>, which posits that normal cells become cancerous through a series of mutations, where the probability of any of those mutations is constant over time.</p>
+<p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/hazard.ipynb">Click here to run this notebook on Colab</a>.</p>
 <p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
 <details class="hide above-input">
@@ -400,14 +399,7 @@ document.write(`
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">)</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -431,233 +423,332 @@ document.write(`
 </div>
 </details>
 </div>
-<section id="baseball">
-<h2>Baseball<a class="headerlink" href="#baseball" title="Link to this heading">#</a></h2>
-<p>As an example, I’ll solve an exercise from Chapter 4 of <a class="reference external" href="https://allendowney.github.io/ThinkBayes2/chap04.html#exercises"><em>Think Bayes</em></a>:</p>
-<blockquote>
-<div><p>In Major League Baseball, most players have a batting average between .230 and .300, which means that their probability of getting a hit is between 0.23 and 0.30.</p>
-<p>Suppose a player appearing in their first game gets 3 hits out of 3 attempts. What is the posterior distribution for their probability of getting a hit?</p>
-</div></blockquote>
-<p>To represent the prior distribution, I’ll use a beta distribution with parameters I chose to be consistent with the expected range of batting averages.</p>
-<div class="cell docutils container">
+<div class="cell tag_remove-print tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">110</span>
-<span class="n">beta_prior</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="n">beta_prior</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">beta_prior</span><span class="o">.</span><span class="n">ppf</span><span class="p">([</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">])</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.26666666666666666, array([0.22937673, 0.30411982]))
-</pre></div>
+</details>
 </div>
-</div>
-</div>
-<p>Here’s what the PDF of this distribution looks like.</p>
+<section id="constant-hazard">
+<h2>Constant Hazard<a class="headerlink" href="#constant-hazard" title="Link to this heading">#</a></h2>
+<p>Let’s start with the simpler calculation, where the probability that a tumor progresses to malignancy is known to be 2% per year and constant.
+In that case, we can answer OP’s question by making a constant hazard function and using it to compute a survival function.</p>
+<p><code class="docutils literal notranslate"><span class="pre">empiricaldist</span></code> provides a <code class="docutils literal notranslate"><span class="pre">Hazard</span></code> object that represents a hazard function.
+Here’s one where the hazard is 2% per year for 20 years.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
-<span class="n">ps</span> <span class="o">=</span> <span class="n">beta_prior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;prior&#39;</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Batting average&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;PDF&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/5d6ce5b21057972ba8bbf89f60bd4779387044b24f75bf857bcb93ea73834b9c.png" src="_images/5d6ce5b21057972ba8bbf89f60bd4779387044b24f75bf857bcb93ea73834b9c.png" />
-</div>
-</div>
-<p>Unlike probability masses, probability densities can exceed 1.
-But the area under the curve should be 1, which we can check using <code class="docutils literal notranslate"><span class="pre">trapz</span></code>, which is a NumPy function that computes numerical integrals using the trapezoid rule.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span>
-<span class="n">area</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0
-</pre></div>
-</div>
-</div>
-</div>
-<p>Within floating-point error, the area under the PDF is 1.
-To do the Bayesian update, I’ll put these values in a <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> object and normalize it so the sum of the probability masses is 1.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Pmf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">empiricaldist</span> <span class="kn">import</span> <span class="n">Hazard</span>
 
-<span class="n">pmf_prior</span> <span class="o">=</span> <span class="n">Pmf</span><span class="p">(</span><span class="n">ps</span><span class="p">,</span> <span class="n">qs</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">pmf_prior</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+<span class="n">p</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">ts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">21</span><span class="p">)</span>
+<span class="n">hazard</span> <span class="o">=</span> <span class="n">Hazard</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ts</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hazard1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The probability that a tumor survives a given number of years without progressing is the cumulative product of the complements of the hazard, which we can compute like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_surv</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">hazard</span><span class="p">)</span><span class="o">.</span><span class="n">cumprod</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Hazard</span></code> provides a <code class="docutils literal notranslate"><span class="pre">make_surv</span></code> method that does this computation and returns a <code class="docutils literal notranslate"><span class="pre">Surv</span></code> object that represents the corresponding survival function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv</span> <span class="o">=</span> <span class="n">hazard</span><span class="o">.</span><span class="n">make_surv</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;surv1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s what it looks like.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;P(survival &gt; t)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200.0
+<img alt="_images/6520d3305e45a1d25be58e49729b7a380e68afd2546d79afcd9f462338ec02b0.png" src="_images/6520d3305e45a1d25be58e49729b7a380e68afd2546d79afcd9f462338ec02b0.png" />
+</div>
+</div>
+<p>The y-axis shows the probability that a tumor “survives” for more than a given number of years without progressing.
+The probability of survival past Year 1 is 98%, as you might expect.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-</div>
-<p>Now we can use <code class="docutils literal notranslate"><span class="pre">binom</span></code> to compute the probability of the data for each possible batting average in <code class="docutils literal notranslate"><span class="pre">qs</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">binom</span>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">likelihood</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>To compute the posterior distribution, we multiply the prior by the likelihood and normalize again so the sum of the posterior <code class="docutils literal notranslate"><span class="pre">Pmf</span></code> is 1.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf_posterior</span> <span class="o">=</span> <span class="n">pmf_prior</span> <span class="o">*</span> <span class="n">likelihood</span>
-<span class="n">pmf_posterior</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.020006971070059262
-</pre></div>
-</div>
-</div>
-</div>
-<p>The result is a discrete approximation of the actual posterior distribution – so let’s see how close it is.</p>
-<p>Because the beta distribution is the conjugate prior of the binomial likelihood function, the posterior is also a beta distribution, with parameters updated to reflect the data: 3 successes and 0 failures.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">beta_posterior</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Here’s what this theoretical posterior distribution looks like compared to our numerical approximation.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">beta_posterior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
-<span class="n">pmf_posterior</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">)</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Batting average&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;PDF/PMF&#39;</span><span class="p">)</span>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>probs</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.980000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.960400</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.941192</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>And the probability of going more than 10 years without progressing is about 82%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8ea516ac569c215ea687e04ca4604b96c35310caa60a3435598fe439b5192e72.png" src="_images/8ea516ac569c215ea687e04ca4604b96c35310caa60a3435598fe439b5192e72.png" />
-</div>
-</div>
-<p>Oops! Something has gone wrong. I assume this is what OP meant by “the pmf doesn’t resemble the pdf at all”.</p>
-<p>The problem is that the PMF is normalized so the total of the probability masses is 1, and the PDF is normalized so the area under the curve is 1.
-They are not on the same scale, so the y-axis in this figure is different for the two curves.</p>
-<p>To fix the problem, we can find the area under the PMF.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">area</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">pmf_posterior</span><span class="o">.</span><span class="n">ps</span><span class="p">,</span> <span class="n">pmf_posterior</span><span class="o">.</span><span class="n">qs</span><span class="p">)</span>
-<span class="n">area</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.004999999999999999
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array(0.81707281)
 </pre></div>
 </div>
 </div>
 </div>
-<p>And divide through to create a discrete approximation of the posterior PDF.</p>
+<p>Because of the way the probabilities compound, the survival function drops off with decreasing slope, even though the hazard is constant.</p>
+</section>
+<section id="knowledge-is-power">
+<h2>Knowledge is Power<a class="headerlink" href="#knowledge-is-power" title="Link to this heading">#</a></h2>
+<p>Now let’s add a little more realism to the model.
+Suppose that in the observed population the average rate of progression is 2% per year, but it varies from one person to another.
+As an example, suppose the actual rate is 1% for half the population and 3% for the other half.
+And for a given patient, suppose we don’t know initially which group they are in.</p>
+<p>As in the previous example, the probability that the tumor goes a year without progressing is 2%.
+However, at the end of that year, if it has not progressed, we have evidence in favor of the hypothesis that the patient is in the low-progression group.
+Specifically, the likelihood ratio is 3:1 in favor of that hypothesis.</p>
+<p>Now we can apply <a class="reference external" href="https://en.wikipedia.org/wiki/Bayes'_theorem#Bayes'_rule_in_odds_form">Bayes’s rule in odds form</a>.
+Since the prior odds were 1:1 and the likelihood ratio is 3:1, the posterior odds are 3:1 – so after one year we now believe the probability is 75% that the patient is in the low-progression group.
+In that case we can update the probability that the tumor progresses in the second year:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pdf_posterior</span> <span class="o">=</span> <span class="n">pmf_posterior</span> <span class="o">/</span> <span class="n">area</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Now we can compare density to density.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">beta_posterior</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
-<span class="n">pdf_posterior</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="mf">0.01</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="mf">0.03</span>
 
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Batting average&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;PDF&#39;</span><span class="p">)</span>
+<span class="n">haz</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">p2</span>
+<span class="n">haz</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6c2db3730db46828f19d2eaeec694e252e105822b56f26dc03998202e354fa1b.png" src="_images/6c2db3730db46828f19d2eaeec694e252e105822b56f26dc03998202e354fa1b.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.015
+</pre></div>
 </div>
 </div>
-<p>The curves are visually indistinguishable, and the numerical differences are small.</p>
+</div>
+<p>If the tumor survives a year without progressing, the probability it will progress in the second year is 1.5%, substantially less than the initial estimate of 2%.
+Note that this change is due to evidence that the patient is in the low progression group.
+It does not assume that anything has changed in the world – only that we have more information about which world we’re in.</p>
+<p>If the tumor lasts another year without progressing, we would do the same update again.
+The posterior odds would be 9:1, or a 90% chance that the patient is in the low-progression group, which implies that the hazard in the third year is 1.2%.
+The following loop repeats this computation for 20 years.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">diff</span> <span class="o">=</span> <span class="n">ps</span> <span class="o">-</span> <span class="n">pdf_posterior</span><span class="o">.</span><span class="n">ps</span>
-<span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.973799150320701e-14
-</pre></div>
-</div>
-</div>
-</div>
-<p>As an aside, note that the posterior and prior distributions are not very different.
-The prior mean is 0.267 and the posterior mean is 0.281.
-If a rookie goes 3 for 3 in their first game, that’s a good start, but it doesn’t mean they are the next Ted Williams.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pmf_prior</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">pmf_posterior</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.2666666666666667, 0.28104575163398693)
-</pre></div>
-</div>
-</div>
-</div>
-<p>As an alternative to comparing PDFs, we could convert the PMF to a CDF, which contains the cumulative sum of the probability masses.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cdf_posterior</span> <span class="o">=</span> <span class="n">pmf_posterior</span><span class="o">.</span><span class="n">make_cdf</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>And compare to the mathematical CDF of the beta distribution.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">beta_posterior</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;beta&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">odds</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">cdf_posterior</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;posterior&#39;</span><span class="p">)</span>
-
-<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Batting average&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;CDF&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">hazard</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+    <span class="n">p_low</span> <span class="o">=</span> <span class="n">odds</span> <span class="o">/</span> <span class="p">(</span><span class="n">odds</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">haz</span> <span class="o">=</span> <span class="n">p_low</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p_low</span><span class="p">)</span> <span class="o">*</span> <span class="n">p2</span>
+    <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">p_low</span><span class="p">,</span> <span class="n">haz</span><span class="p">))</span>
+    <span class="n">odds</span> <span class="o">*=</span> <span class="n">ratio</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here are the results in percentages.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Prob(low)&#39;</span><span class="p">,</span> <span class="s1">&#39;Hazard&#39;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">hazard</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="p">(</span><span class="n">df</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6df58b1cd4936cd7bd5183d4b928228604cbbc8a753ef8c82e14e1371eed3288.png" src="_images/6df58b1cd4936cd7bd5183d4b928228604cbbc8a753ef8c82e14e1371eed3288.png" />
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Prob(low)</th>
+      <th>Hazard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>50.00</td>
+      <td>2.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>75.00</td>
+      <td>1.50</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>90.00</td>
+      <td>1.20</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>96.43</td>
+      <td>1.07</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>98.78</td>
+      <td>1.02</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>If we put the hazard rates in a <code class="docutils literal notranslate"><span class="pre">Hazard</span></code> object, we can compare them to the constant hazard model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hazard2</span> <span class="o">=</span> <span class="n">Hazard</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Hazard&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hazard2&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
-<p>In this example, I plotted the discrete approximation of the CDF as a step function – which is technically what it is – to highlight how it overlaps with the beta distribution.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hazard</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">hazard2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Hazard&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7d8c7c180b0ce9462e68bd03bd4a31575d4a5f52fd769e03e2f01fde32e77180.png" src="_images/7d8c7c180b0ce9462e68bd03bd4a31575d4a5f52fd769e03e2f01fde32e77180.png" />
+</div>
+</div>
+<p>After only a few years, the probability is near certain that the patient is in the low-progress group, so the inferred hazard is close to 1%.</p>
+<p>Here’s what the corresponding survival function looks like.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv2</span> <span class="o">=</span> <span class="n">hazard2</span><span class="o">.</span><span class="n">make_surv</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;surv2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">surv2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;P(survival &gt; t)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1d39e118837c5ac27b86bb093a9ee8f9b6c9a42471e0a08d82ac5fc9d6f115d4.png" src="_images/1d39e118837c5ac27b86bb093a9ee8f9b6c9a42471e0a08d82ac5fc9d6f115d4.png" />
+</div>
+</div>
+<p>In the second model, survival times are substantially longer.
+For example, the probability of going more than 10 years without progression increases from 82% to 89%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">surv2</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array(0.81707281), array(0.88795586))
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, there are only two groups with different probabilities of progression.
+But we would see the same effect in a more realistic model with a range of probabilities.
+As time passes without progression, it becomes more likely that the patient is in a low-progression group, so their hazard during the next period is lower.
+The more variability there is in the probability of progression, the stronger this effect.</p>
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
-<p>Probability density is hard to define – the best I can do is usually, “It’s something that you can integrate to get a probability mass”.
-And when you work with probability densities computationally, you often have to discretize them, which can add another layer of confusion.</p>
-<p>One way to distinguish PMFs and PDFs is to remember that PMFs are normalized so sum of the probability masses is 1, and PDFs are normalized so the area under the curve is 1.
-In general, you can’t plot PMFs and PDFs on the same axes because they are not in the same units.</p>
+<p>This example demonstrates a subtle point about a probability and uncertainty about probability.
+To explain it, let’s consider a more abstract scenario.
+Suppose you have coin-flipping devices:</p>
+<ul class="simple">
+<li><p>One of them is known to flips head and tails with equal probability.</p></li>
+<li><p>The other is know to be miscalibrated so it flips heads with either 60% probability or 40% probability – and we don’t know which, but they are equally likely.</p></li>
+</ul>
+<p>If we flip the first coin, the probability of heads is 50%.
+If we flip the second coin, the probability of heads is 50%.
+So it might seem like there is no difference between them – and more generally, it might seem like we can always collapse a distribution of probabilities down to a single probability.</p>
+<p>But that’s not true, as we can demonstrate by flipping the coins twice.
+For the first coin, the probability of two heads is 25%.
+For the second coin, it’s either 36% or 16% with equal probability – so the total probability is 26%.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span>
+<span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">p1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">p2</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.26
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now here’s an exercise.
+Suppose you flip the second coin and get heads.
+If you flip it again, what’s the chance you get heads?</p>
 <p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
@@ -695,22 +786,13 @@ In general, you can’t plot PMFs and PDFs on the same axes because they are not
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="percentile_rank.html"
+       href="test_percentile.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">What is a Percentile Rank?</p>
+        <p class="prev-next-title">Testing percentiles</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="poisson_process.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Poisson Processes</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -728,7 +810,8 @@ In general, you can’t plot PMFs and PDFs on the same axes because they are not
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#baseball">Baseball</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#constant-hazard">Constant Hazard</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-is-power">Knowledge is Power</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
   </nav></div>
