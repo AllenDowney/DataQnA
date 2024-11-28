@@ -565,8 +565,7 @@ In that case we can update the probability that the tumor progresses in the seco
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="mf">0.01</span>
 <span class="n">p2</span> <span class="o">=</span> <span class="mf">0.03</span>
 
-<span class="n">haz</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">p2</span>
-<span class="n">haz</span>
+<span class="mf">0.75</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">p2</span>
 </pre></div>
 </div>
 </div>
@@ -600,7 +599,7 @@ The following loop repeats this computation for 20 years.</p>
 <p>Here are the results in percentages.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Prob(low)&#39;</span><span class="p">,</span> <span class="s1">&#39;Hazard&#39;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">hazard</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;p_low&#39;</span><span class="p">,</span> <span class="s1">&#39;hazard&#39;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="n">hazard</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 <span class="p">(</span><span class="n">df</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -624,8 +623,8 @@ The following loop repeats this computation for 20 years.</p>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Prob(low)</th>
-      <th>Hazard</th>
+      <th>p_low</th>
+      <th>hazard</th>
     </tr>
   </thead>
   <tbody>
@@ -661,21 +660,21 @@ The following loop repeats this computation for 20 years.</p>
 <p>If we put the hazard rates in a <code class="docutils literal notranslate"><span class="pre">Hazard</span></code> object, we can compare them to the constant hazard model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hazard2</span> <span class="o">=</span> <span class="n">Hazard</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Hazard&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hazard2&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hazard2</span> <span class="o">=</span> <span class="n">Hazard</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hazard&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;hazard2&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hazard</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">hazard2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">hazard</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Known probability&#39;</span><span class="p">)</span>
+<span class="n">hazard2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uncertain probability&#39;</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Hazard&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/7d8c7c180b0ce9462e68bd03bd4a31575d4a5f52fd769e03e2f01fde32e77180.png" src="_images/7d8c7c180b0ce9462e68bd03bd4a31575d4a5f52fd769e03e2f01fde32e77180.png" />
+<img alt="_images/289d321669564a4b77d6b043b4b43ed2112cd3d1251a1c3c9aaddac98472d249.png" src="_images/289d321669564a4b77d6b043b4b43ed2112cd3d1251a1c3c9aaddac98472d249.png" />
 </div>
 </div>
 <p>After only a few years, the probability is near certain that the patient is in the low-progress group, so the inferred hazard is close to 1%.</p>
@@ -689,14 +688,14 @@ The following loop repeats this computation for 20 years.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">surv2</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uncertain probability&#39;</span><span class="p">)</span>
+<span class="n">surv</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Known probability&#39;</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;P(survival &gt; t)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1d39e118837c5ac27b86bb093a9ee8f9b6c9a42471e0a08d82ac5fc9d6f115d4.png" src="_images/1d39e118837c5ac27b86bb093a9ee8f9b6c9a42471e0a08d82ac5fc9d6f115d4.png" />
+<img alt="_images/3aa5294c0d9e1d7f9afbc7b190865beefccb6f705dab717b101f3b0c269fec82.png" src="_images/3aa5294c0d9e1d7f9afbc7b190865beefccb6f705dab717b101f3b0c269fec82.png" />
 </div>
 </div>
 <p>In the second model, survival times are substantially longer.
@@ -720,19 +719,19 @@ The more variability there is in the probability of progression, the stronger th
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
-<p>This example demonstrates a subtle point about a probability and uncertainty about probability.
+<p>This example demonstrates a subtle point about a distribution of probabilities.
 To explain it, let’s consider a more abstract scenario.
-Suppose you have coin-flipping devices:</p>
+Suppose you have two coin-flipping devices:</p>
 <ul class="simple">
 <li><p>One of them is known to flips head and tails with equal probability.</p></li>
-<li><p>The other is know to be miscalibrated so it flips heads with either 60% probability or 40% probability – and we don’t know which, but they are equally likely.</p></li>
+<li><p>The other is known to be miscalibrated so it flips heads with either 60% probability or 40% probability – and we don’t know which, but they are equally likely.</p></li>
 </ul>
-<p>If we flip the first coin, the probability of heads is 50%.
-If we flip the second coin, the probability of heads is 50%.
+<p>If we use the first device, the probability of heads is 50%.
+If we use the second device, the probability of heads is 50%.
 So it might seem like there is no difference between them – and more generally, it might seem like we can always collapse a distribution of probabilities down to a single probability.</p>
-<p>But that’s not true, as we can demonstrate by flipping the coins twice.
-For the first coin, the probability of two heads is 25%.
-For the second coin, it’s either 36% or 16% with equal probability – so the total probability is 26%.</p>
+<p>But that’s not true, as we can demonstrate by running the coin-flippers twice.
+For the first, the probability of two heads is 25%.
+For the second, it’s either 36% or 16% with equal probability – so the total probability is 26%.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span> <span class="o">=</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span>
@@ -746,9 +745,7 @@ For the second coin, it’s either 36% or 16% with equal probability – so the 
 </div>
 </div>
 </div>
-<p>Now here’s an exercise.
-Suppose you flip the second coin and get heads.
-If you flip it again, what’s the chance you get heads?</p>
+<p>In general, there’s a difference between a scenario where a probability is known precisely and a scenario where there is uncertainty about the probability.</p>
 <p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
 <p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
