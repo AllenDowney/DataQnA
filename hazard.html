@@ -554,37 +554,50 @@ The probability of survival past Year 1 is 98%, as you might expect.</p>
 Suppose that in the observed population the average rate of progression is 2% per year, but it varies from one person to another.
 As an example, suppose the actual rate is 1% for half the population and 3% for the other half.
 And for a given patient, suppose we don’t know initially which group they are in.</p>
-<p>As in the previous example, the probability that the tumor goes a year without progressing is 2%.
+<p>[UPDATE: If you read an earlier version of this article, there was an error in this section – I had the likelihood ratio wrong and it had a substantial effect on the results.]</p>
+<p>As in the previous example, the probability that the tumor goes a year without progressing is 98%.
 However, at the end of that year, if it has not progressed, we have evidence in favor of the hypothesis that the patient is in the low-progression group.
-Specifically, the likelihood ratio is 3:1 in favor of that hypothesis.</p>
+Specifically, the likelihood ratio is 99/97 in favor of that hypothesis.</p>
 <p>Now we can apply <a class="reference external" href="https://en.wikipedia.org/wiki/Bayes'_theorem#Bayes'_rule_in_odds_form">Bayes’s rule in odds form</a>.
-Since the prior odds were 1:1 and the likelihood ratio is 3:1, the posterior odds are 3:1 – so after one year we now believe the probability is 75% that the patient is in the low-progression group.
-In that case we can update the probability that the tumor progresses in the second year:</p>
+Since the prior odds were 1:1 and the likelihood ratio is 99/97, the posterior odds are 99:97 – so after one year we now believe the probability is 50.5% that the patient is in the low-progression group.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_low</span> <span class="o">=</span> <span class="mi">99</span> <span class="o">/</span> <span class="p">(</span><span class="mi">99</span> <span class="o">+</span> <span class="mi">97</span><span class="p">)</span>
+<span class="n">p_low</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5051020408163265
+</pre></div>
+</div>
+</div>
+</div>
+<p>In that case we can update the probability that the tumor progresses in the second year:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="mf">0.01</span>
 <span class="n">p2</span> <span class="o">=</span> <span class="mf">0.03</span>
 
-<span class="mf">0.75</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">p2</span>
+<span class="n">p_low</span> <span class="o">*</span> <span class="n">p1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p_low</span><span class="p">)</span> <span class="o">*</span> <span class="n">p2</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.015
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.019897959183673472
 </pre></div>
 </div>
 </div>
 </div>
-<p>If the tumor survives a year without progressing, the probability it will progress in the second year is 1.5%, substantially less than the initial estimate of 2%.
+<p>If the tumor survives a year without progressing, the probability it will progress in the second year is 1.99%, slightly less than the initial estimate of 2%.
 Note that this change is due to evidence that the patient is in the low progression group.
 It does not assume that anything has changed in the world – only that we have more information about which world we’re in.</p>
 <p>If the tumor lasts another year without progressing, we would do the same update again.
-The posterior odds would be 9:1, or a 90% chance that the patient is in the low-progression group, which implies that the hazard in the third year is 1.2%.
 The following loop repeats this computation for 20 years.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">odds</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">ratio</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="mi">99</span><span class="o">/</span><span class="mi">97</span>
 <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">hazard</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
@@ -635,23 +648,23 @@ The following loop repeats this computation for 20 years.</p>
     </tr>
     <tr>
       <th>2</th>
-      <td>75.00</td>
-      <td>1.50</td>
+      <td>50.51</td>
+      <td>1.99</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>90.00</td>
-      <td>1.20</td>
+      <td>51.02</td>
+      <td>1.98</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>96.43</td>
-      <td>1.07</td>
+      <td>51.53</td>
+      <td>1.97</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>98.78</td>
-      <td>1.02</td>
+      <td>52.04</td>
+      <td>1.96</td>
     </tr>
   </tbody>
 </table>
@@ -674,10 +687,10 @@ The following loop repeats this computation for 20 years.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/289d321669564a4b77d6b043b4b43ed2112cd3d1251a1c3c9aaddac98472d249.png" src="_images/289d321669564a4b77d6b043b4b43ed2112cd3d1251a1c3c9aaddac98472d249.png" />
+<img alt="_images/5d7cb2951f8e4a949b31295ba14ad3f1c7353887e065b451b35488e1e943f5ff.png" src="_images/5d7cb2951f8e4a949b31295ba14ad3f1c7353887e065b451b35488e1e943f5ff.png" />
 </div>
 </div>
-<p>After only a few years, the probability is near certain that the patient is in the low-progress group, so the inferred hazard is close to 1%.</p>
+<p>Each year, the probability increases that the patient is in the low-progression group, so the probability of progressing in the next year is a little lower.</p>
 <p>Here’s what the corresponding survival function looks like.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -688,17 +701,17 @@ The following loop repeats this computation for 20 years.</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uncertain probability&#39;</span><span class="p">)</span>
-<span class="n">surv</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Known probability&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surv</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Known probability&#39;</span><span class="p">)</span>
+<span class="n">surv2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Uncertain probability&#39;</span><span class="p">)</span>
 <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;P(survival &gt; t)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3aa5294c0d9e1d7f9afbc7b190865beefccb6f705dab717b101f3b0c269fec82.png" src="_images/3aa5294c0d9e1d7f9afbc7b190865beefccb6f705dab717b101f3b0c269fec82.png" />
+<img alt="_images/30ecc5edc2c3c2fc40fb64a4110f570177450b0f2e5fa819f0404a4064c651fb.png" src="_images/30ecc5edc2c3c2fc40fb64a4110f570177450b0f2e5fa819f0404a4064c651fb.png" />
 </div>
 </div>
-<p>In the second model, survival times are substantially longer.
+<p>The difference in survival is smal
 For example, the probability of going more than 10 years without progression increases from 82% to 89%.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -707,7 +720,7 @@ For example, the probability of going more than 10 years without progression inc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array(0.81707281), array(0.88795586))
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array(0.81707281), array(0.8209031))
 </pre></div>
 </div>
 </div>
