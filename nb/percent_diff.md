@@ -32,7 +32,7 @@ Update the link...
 <!-- #endregion -->
 
 <!-- #region tags=["remove-print"] -->
-[Click here to run this notebook on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/XXX.ipynb).
+[Click here to run this notebook on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/percent_diff.ipynb).
 <!-- #endregion -->
 
 <!-- #region tags=["remove-print"] -->
@@ -52,14 +52,6 @@ def download(url):
     return filename
 
 download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py')
-
-import numpy as np
-np.set_printoptions(legacy='1.25')
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-
-from utils import decorate
 ```
 
 ```python tags=["hide-cell", "remove-print"]
@@ -69,6 +61,16 @@ try:
     import empiricaldist
 except ImportError:
     !pip install empiricaldist
+```
+
+```python tags=["remove-print", "hide-cell"]
+import numpy as np
+np.set_printoptions(legacy='1.25')
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+from utils import decorate
 ```
 
 ## Answer
@@ -168,6 +170,6 @@ pval
 
 [*Data Q&A: Answering the real questions with Python*](https://allendowney.github.io/DataQnA/index.html)
 
-Copyright 2024 [Allen B. Downey](https://allendowney.com)
+Copyright 2024–2026 [Allen B. Downey](https://allendowney.com)
 
 License: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)

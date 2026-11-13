@@ -264,6 +264,6 @@ Credit: I borrowed Frank and Betsy from my friend Ted Bunn. They first appeared 
 
 *Data Q&A: Answering the real questions with Python*
 
-Copyright 2024 [Allen B. Downey](https://allendowney.com)
+Copyright 2024–2026 [Allen B. Downey](https://allendowney.com)
 
 License: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)

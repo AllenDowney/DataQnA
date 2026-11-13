@@ -51,14 +51,6 @@ def download(url):
     return filename
 
 download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py')
-
-import numpy as np
-np.set_printoptions(legacy='1.25')
-import matplotlib.pyplot as plt
-import pandas as pd
-import seaborn as sns
-
-from utils import decorate
 ```
 
 ```python tags=["hide-cell", "remove-print"]
@@ -68,6 +60,16 @@ try:
     import empiricaldist
 except ImportError:
     !pip install empiricaldist
+```
+
+```python tags=["remove-print", "hide-cell"]
+import numpy as np
+np.set_printoptions(legacy='1.25')
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+from utils import decorate
 ```
 
 ## Happiness
@@ -387,6 +389,6 @@ If you want to use the parameters of the model to quantify the importance of the
 
 [*Data Q&A: Answering the real questions with Python*](https://allendowney.github.io/DataQnA/index.html)
 
-Copyright 2024 [Allen B. Downey](https://allendowney.com)
+Copyright 2024–2026 [Allen B. Downey](https://allendowney.com)
 
 License: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)

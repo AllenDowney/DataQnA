@@ -40,7 +40,7 @@ So it is possible to have small p-values and small $R^2$ at the same time.
 In fact, it is quite common, especially when sample sizes are large.
 
 <!-- #region tags=["remove-print"] -->
-[Click here to run this notebook on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/XXX.ipynb).
+[Click here to run this notebook on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/good_model.ipynb).
 <!-- #endregion -->
 
 <!-- #region tags=["remove-print"] -->
@@ -234,6 +234,6 @@ A statistically significant effect can be too small to be important, and with a 
 
 [*Data Q&A: Answering the real questions with Python*](https://allendowney.github.io/DataQnA/index.html)
 
-Copyright 2024 [Allen B. Downey](https://allendowney.com)
+Copyright 2024–2026 [Allen B. Downey](https://allendowney.com)
 
 License: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)

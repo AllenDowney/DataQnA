@@ -43,7 +43,7 @@ I don't think resampling is really necessary here, and I'll show some alternativ
 And I'll answer the other questions along the way.
 
 <!-- #region tags=["remove-print"] -->
-[Click here to run this notebook on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/examples/proportions.ipynb).
+[Click here to run this notebook on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/proportions.ipynb).
 <!-- #endregion -->
 
 <!-- #region tags=["remove-print"] -->
@@ -534,6 +534,6 @@ end wilsonScoreInterval
 
 [*Data Q&A: Answering the real questions with Python*](https://allendowney.github.io/DataQnA/index.html)
 
-Copyright 2024 [Allen B. Downey](https://allendowney.com)
+Copyright 2024–2026 [Allen B. Downey](https://allendowney.com)
 
 License: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)

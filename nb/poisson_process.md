@@ -316,7 +316,7 @@ It's hard to write a definition for something so abstract -- usually the best wa
 
 [*Data Q&A: Answering the real questions with Python*](https://allendowney.github.io/DataQnA/index.html)
 
-Copyright 2024 [Allen B. Downey](https://allendowney.com)
+Copyright 2024–2026 [Allen B. Downey](https://allendowney.com)
 
 License: [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
