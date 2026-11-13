@@ -50,7 +50,7 @@ def download(url):
         print("Downloaded " + str(local))
     return filename
 
-download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py')
+download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py');
 ```
 
 ```python tags=["remove-print", "hide-cell"]
@@ -282,7 +282,7 @@ ax.spines[["top", "right", "left"]].set_visible(False);
 
 What the comparison shows:
 
-- **Ignoring litters overstates certainty.** The model that treats pups as independent gives the narrowest interval, but the narrowness is not real: it counts 60 pups when the treatment was assigned to 12 litters. This is the pseudoreplication problem, and the frequentist `survdiff` on pup rows has it too.
+- **Ignoring litters overstates certainty.** The model that treats pups as independent gives the narrowest interval, but the narrowness is not real: it counts 60 pups when the treatment was assigned to 12 litters. This is an example of [pseudoreplication](https://en.wikipedia.org/wiki/Pseudoreplication).
 - **The cumulative maximum underestimates how fast pups develop** ($c$ too low), because missed displays delay events.
 - **Modeling the misses** recovers both $b$ and $c$, and estimates the detection probability $p$ from the data, with no hand-editing.
 

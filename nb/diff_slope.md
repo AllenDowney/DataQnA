@@ -49,7 +49,7 @@ def download(url):
         print("Downloaded " + str(local))
     return filename
 
-download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py')
+download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py');
 ```
 
 ```python tags=["hide-cell", "remove-print"]

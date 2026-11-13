@@ -56,7 +56,7 @@ def download(url):
         print("Downloaded " + str(local))
     return filename
 
-download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py')
+download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py');
 ```
 
 ```python tags=["remove-print"]
@@ -72,18 +72,18 @@ from utils import decorate
 ## The Data
 
 As an example, I'll use data from the General Social Survey (GSS).
-I'll download an HDF file from the *Elements of Data Science* repository, which contains a subset of the GSS data that has been resampled to correct for stratified sampling.
+I'll download an extract of the GSS data I prepared for *Elements of Data Science*, which has been resampled to correct for stratified sampling, reduced to the variables we need.
 
 ```python
-download('https://github.com/AllenDowney/ElementsOfDataScience/raw/master/data/gss_eda.hdf')
+download('https://github.com/AllenDowney/DataQnA/raw/main/data/resample_logit_gss.csv.gz')
 ```
 
 ```python
-gss = pd.read_hdf('gss_eda.hdf', 'gss')
+gss = pd.read_csv('resample_logit_gss.csv.gz')
 gss.shape
 ```
 
-It includes 64,814 respondents and 8 variables for each respondent.
+It includes 64,814 respondents and 5 variables for each respondent.
 
 ```python
 gss.head()

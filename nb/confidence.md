@@ -179,7 +179,7 @@ If we define terms like "height", "adult", "male", and "resident of the United S
 If we collect a representative sample from the population and measure their heights, we can use the sample mean to estimate the population mean and compute a confidence interval.
 
 To demonstrate, I'll use data from the Behavioral Risk Factor Surveillance System (BRFSS).
-Here's an extract I prepared for [*Elements of Data Science*](https://allendowney.github.io/ElementsOfDataScience), based on BRFSS data from 2021.
+Here's an extract I prepared for [*Elements of Data Science*](https://allendowney.github.io/ElementsOfDataScience), based on BRFSS data from 2021, reduced to the two variables we need, sex and height.
 
 ```python tags=["hide-cell"]
 from os.path import basename, exists
@@ -193,11 +193,11 @@ def download(url):
         print("Downloaded " + str(local))
     return filename
 
-download('https://github.com/AllenDowney/ElementsOfDataScience/raw/v1/data/brfss_2021.hdf')
+download('https://github.com/AllenDowney/DataQnA/raw/main/data/confidence_brfss.csv.gz')
 ```
 
 ```python
-brfss = pd.read_hdf('brfss_2021.hdf', 'brfss')
+brfss = pd.read_csv('confidence_brfss.csv.gz')
 ```
 
 It includes data from 203,760 male respondents.

@@ -52,7 +52,7 @@ def download(url):
         print("Downloaded " + str(local))
     return filename
 
-download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py')
+download('https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py');
 ```
 
 ```python tags=["hide-cell"]
@@ -79,11 +79,11 @@ from utils import decorate
 As an example, I'll use data from the General Social Survey (GSS), which I have resampled to correct for stratified sampling.
 
 ```python
-download('https://github.com/AllenDowney/DataQnA/raw/main/data/gss_qna_extract.hdf')
+download('https://github.com/AllenDowney/DataQnA/raw/main/data/likert_mean_gss.csv.gz')
 ```
 
 ```python
-gss = pd.read_hdf('gss_qna_extract.hdf', 'gss')
+gss = pd.read_csv('likert_mean_gss.csv.gz')
 ```
 
 The variable we'll start with is `polviews`, which contains responses to this question:

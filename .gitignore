@@ -173,3 +173,7 @@ nb/*.csv
 nb/*.txt
 nb/*.xls
 nb/*.png
+
+# Downloaded sources for data/make_extracts.py
+data/sources/
+nb/*.csv.gz

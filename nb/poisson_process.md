@@ -91,16 +91,21 @@ Raw data downloaded from <https://www.hockey-reference.com/leagues/NHL_2024_game
 <!-- #endregion -->
 
 ```python
-download("https://github.com/AllenDowney/DataQnA/raw/main/data/nhl_2023_2024.hdf");
+download("https://github.com/AllenDowney/DataQnA/raw/main/data/poisson_process_nhl.csv.gz");
 ```
 
-The results are in an HDF file with one key for each game and a list of times when a goal was scored, recorded in seconds since the beginning of the game.
+The results are in a CSV file with one row for each goal: the game ID and the time when the goal was scored, recorded in seconds since the beginning of the game.
+A game with no goals has one row with no time.
+I'll make a dictionary that maps from each game to an array of goal times.
 
 ```python
-filename = "nhl_2023_2024.hdf"
+nhl = pd.read_csv("poisson_process_nhl.csv.gz")
 
-with pd.HDFStore(filename, "r") as store:
-    keys = store.keys()
+times_by_game = {
+    game: group["time"].dropna().astype(int).to_numpy()
+    for game, group in nhl.groupby("game", sort=False)
+}
+keys = list(times_by_game)
 len(keys)
 ```
 
@@ -110,7 +115,7 @@ The following loop reads the file and collects the time in seconds, since the be
 all_times = []
 
 for key in keys:
-    times = pd.read_hdf(filename, key=key)
+    times = times_by_game[key]
     all_times.extend(times)
     
 len(all_times)
@@ -148,7 +153,7 @@ The following loop reads the data file and collects the number of goals scored i
 goals = []
 
 for key in keys:
-    times = pd.read_hdf(filename, key=key)
+    times = times_by_game[key]
     n = len(times)
     goals.append(n)
 ```
@@ -211,7 +216,7 @@ To see whether it does, we can extract the intervals from the data.
 intervals = []
 
 for key in keys:
-    times = pd.read_hdf(filename, key=key)
+    times = times_by_game[key]
     diffs = np.diff(times, prepend=0) / 60
     
     if len(diffs) > 0:
@@ -279,7 +284,7 @@ To see whether that's true, we can select pairs of successive intervals.
 pairs = []
 
 for key in keys:
-    times = pd.read_hdf(filename, key=key)
+    times = times_by_game[key]
     diffs = np.diff(times, prepend=0) / 60
     
     for i in range(len(diffs) - 1):
