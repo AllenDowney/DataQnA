@@ -27,3 +27,4 @@ parts:
   - file: diff_slope.ipynb
   - file: good_model.ipynb
   - file: gambler.ipynb
+  - file: unlabeled_litters.ipynb
