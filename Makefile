@@ -1,13 +1,15 @@
 PROJECT_NAME = DataQnA
-PYTHON_VERSION = 3.10
 PYTHON_INTERPRETER = python
 
 create_environment:
-	conda create --name $(PROJECT_NAME) python=$(PYTHON_VERSION) -y
-	@echo ">>> conda env created. Activate with:\nconda activate $(PROJECT_NAME)"
+	mamba env create -f environment.yml
+	@echo ">>> env created. Activate with:\nconda activate $(PROJECT_NAME)"
+
+update_environment:
+	mamba env update -f environment.yml --prune
 
 delete_environment:
-	conda env remove --name $(PROJECT_NAME)
+	mamba env remove --name $(PROJECT_NAME)
 
 requirements:
 	$(PYTHON_INTERPRETER) -m pip install -U pip setuptools wheel

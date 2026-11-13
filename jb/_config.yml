@@ -1,0 +1,15 @@
+# Book settings
+title: Data Q&A
+author: Allen B. Downey
+
+latex:
+  latex_documents:
+    targetname: book.tex
+
+execute:
+  execute_notebooks: 'off'
+
+repository:
+  url: https://github.com/AllenDowney/DataQnA
+html:
+  use_repository_button: true

@@ -1,0 +1,25 @@
+format: jb-book
+root: index
+parts:
+- caption: Chapters
+  chapters:
+  - file: bernoulli.ipynb
+  - file: combine_risk.ipynb
+  - file: confidence.ipynb
+  - file: corr_trend.ipynb
+  - file: count_data.ipynb
+  - file: gauss_bayes.ipynb
+  - file: harmonic.ipynb
+  - file: likelihood.ipynb
+  - file: likert_mean.ipynb
+  - file: log_heterosked.ipynb
+  - file: low_percentile.ipynb
+  - file: percentile_rank.ipynb
+  - file: pmf_and_pdf.ipynb
+  - file: poisson_process.ipynb
+  - file: proportions.ipynb
+  - file: sample_size.ipynb
+  - file: standard_dev.ipynb
+  - file: standardize.ipynb
+  - file: test_percentile.ipynb
+  - file: hazard.ipynb

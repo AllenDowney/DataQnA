@@ -1,0 +1,34 @@
+name: DataQnA
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - jupyter
+  - jupytext
+  - numpy
+  - pandas
+  - matplotlib<3.11
+  - seaborn
+  - plotly
+  - scipy
+  - scikit-learn
+  - statsmodels
+  - pytables
+  - xlrd
+  # Bayesian examples (PyMC 6 needs Python >= 3.12)
+  - pymc>=6
+  - arviz>=1.1
+  - preliz
+  - nutpie
+  - python-graphviz
+  # for testing
+  - pytest
+  - nbmake
+  # for building the site (jb/build.sh)
+  - jupyter-book<2
+  - sphinx-sitemap
+  - sphinxext-opengraph
+  - ghp-import
+  - pip
+  - pip:
+    - empiricaldist

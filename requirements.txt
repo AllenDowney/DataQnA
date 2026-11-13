@@ -8,3 +8,4 @@ scipy
 scikit-learn
 statsmodels
 tables
+xlrd

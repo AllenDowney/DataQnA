@@ -14,12 +14,16 @@ from IPython.core.magic_arguments import argument, magic_arguments, parse_argstr
 from os.path import basename, exists
 from statsmodels.nonparametric.smoothers_lowess import lowess
 
+from IPython.display import display
+from statsmodels.iolib.table import SimpleTable
+
 
 # Make the figures smaller to save some screen real estate.
 # The figures generated for the book have DPI 400, so scaling
 # them by a factor of 4 restores them to the size in the notebooks.
 plt.rcParams['figure.dpi'] = 75
 plt.rcParams['figure.figsize'] = [6, 3.5]
+
 
 class FixedWidthVariables(object):
     """Represents a set of variables in a fixed width file."""
@@ -360,6 +364,24 @@ def read_gss(dict_file='GSS.dct', data_file='GSS.dat.gz'):
                       colspecs=stata_dict.colspecs)
     return gss
 
+
+def display_summary(result):
+    """Prints summary statistics from a regression model.
+    
+    result: RegressionResults object
+    """
+    params = result.summary().tables[1]
+    display(params)
+
+    if hasattr(result, "rsquared"):
+        row = ["R-squared:", f"{result.rsquared:0.4}"]
+    elif hasattr(result, "prsquared"):
+        row = ["Pseudo R-squared:", f"{result.prsquared:0.4}"]
+    else:
+        return   
+    table = SimpleTable([row])
+    display(table)
+    
 
 def traceback(mode):
     """Set the traceback mode.

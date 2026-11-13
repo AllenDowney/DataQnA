@@ -158,3 +158,18 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# Local planning files (kept out of the public repo)
+PROJECT_BOARD.md
+CLAUDE.md
+
+# Jupyter Book: build output and the notebooks build.sh copies from nb/
+jb/_build/
+jb/*.ipynb
+
+# Data and figures the notebooks download or generate in nb/
+nb/*.hdf
+nb/*.csv
+nb/*.txt
+nb/*.xls
+nb/*.png
