@@ -23,3 +23,7 @@ parts:
   - file: standardize.ipynb
   - file: test_percentile.ipynb
   - file: hazard.ipynb
+  - file: resample_logit.ipynb
+  - file: diff_slope.ipynb
+  - file: good_model.ipynb
+  - file: gambler.ipynb
