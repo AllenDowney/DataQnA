@@ -27,4 +27,4 @@ format:
 	black --config pyproject.toml code
 
 tests:
-	pytest --nbmake [01]*.ipynb
+	pytest --nbmake nb/*.ipynb
