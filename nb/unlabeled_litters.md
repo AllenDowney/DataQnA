@@ -80,7 +80,14 @@ BLUE, ORANGE, AQUA = "#2a78d6", "#eb6834", "#1baf7a"
 
 ## Simulated data
 
-Twelve litters of five pups, six per treatment, observed from P3 to P10. Each pup reaches the milestone on some day; the daily chance of reaching it (the hazard) rises with age, is higher under treatment, and varies from litter to litter. A pup that has reached the milestone shows it on a given day with probability 0.85. Other pups score 0 or 1.
+Twelve litters of five pups, six per treatment, observed from P3 to P10. Each pup reaches the milestone on some day; the daily chance of reaching it (the hazard) rises with age, is higher under treatment, and varies from litter to litter. 
+
+Each day, a pup's score depends on whether it has reached the milestone:
+
+- A pup that has reached it scores 2 with probability 0.85; otherwise it scores 1 (probability 0.06) or 0 (probability 0.09).
+- A pup that hasn't reached it scores 1 with probability 0.4 or 0 with probability 0.6.
+
+So a 2 always means the pup has reached the milestone, but a 0 or 1 doesn't mean it hasn't. The models below use only the count of 2s, so the partial scores don't matter here.
 
 ```python
 rng = np.random.default_rng(17)
