@@ -94,10 +94,10 @@ The dependent variable, happiness, is the national average of responses to the "
 The top of the ladder represents the best possible life for you and the bottom of the ladder represents the worst possible life for you.
 On which step of the ladder would you say you personally feel you stand at this time?  
 
-The data they used is [available here](https://happiness-report.s3.amazonaws.com/2020/WHR20_DataForFigure2.1.xls).
+The data they used was published with the report, but the original link no longer works, so I've put [a copy](https://github.com/AllenDowney/DataQnA/raw/main/data/WHR20_DataForFigure2.1.xls) in this book's repository.
 
 ```python
-download('https://happiness-report.s3.amazonaws.com/2020/WHR20_DataForFigure2.1.xls')
+download('https://github.com/AllenDowney/DataQnA/raw/main/data/WHR20_DataForFigure2.1.xls')
 ```
 
 We can read the data into a Pandas `DataFrame`.

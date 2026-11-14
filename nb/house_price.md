@@ -305,6 +305,10 @@ plot_percentile_fits(homosked, xs)
 > This dataset contains house sale prices for King County, which includes Seattle. It includes homes sold between May 2014 and May 2015.
 
 ```python
+download('https://github.com/AllenDowney/DataQnA/raw/main/data/kc_house_data.csv');
+```
+
+```python
 df = pd.read_csv('kc_house_data.csv')
 df.shape
 ```
