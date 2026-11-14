@@ -24,9 +24,9 @@ To restate the setup: a researcher compares two treatments by the age at which a
 
 Three questions come up:
 
-1. **Do we need individual identities?** For time to a first event, no: the count of pups that have reached the milestone in each litter on each day is enough.
-2. **What is the unit of analysis?** The treatment is assigned to litters, so this is a cluster-randomized design. Treating pups as independent overstates the evidence.
-3. **What about the pups that "go back"?** They are measurement errors in an outcome that, in reality, only moves forward. We can model the measurement process instead of editing the data.
+1. **Do we need individual identities?** For time to a first event, no: the count of pups that have reached the milestone in each litter on each day is enough. (What we actually observe is the count that show it on a given day, which can be lower -- that's question 3.)
+2. **What is the unit of analysis?** The treatment is assigned to litters, so this is a cluster-randomized design. Treating pups as independent can overstate the evidence.
+3. **What about the pups that "go back"?** We'll assume that once a pup acquires the ability, it keeps it during the observation period, but it might not demonstrate it every day. Under that assumption, a pup that "goes back" is a missed observation, not a real reversal, and we can model the observation process instead of editing the data. (If pups could really lose the ability, the model would need transitions in both directions.)
 
 A Bayesian model handles all three at once. I'll use simulated data, so we can check whether the models recover the true values.
 
@@ -87,7 +87,7 @@ Each day, a pup's score depends on whether it has reached the milestone:
 - A pup that has reached it scores 2 with probability 0.85; otherwise it scores 1 (probability 0.06) or 0 (probability 0.09).
 - A pup that hasn't reached it scores 1 with probability 0.4 or 0 with probability 0.6.
 
-So a 2 always means the pup has reached the milestone, but a 0 or 1 doesn't mean it hasn't. The models below use only the count of 2s, so the partial scores don't matter here.
+So a 2 always means the pup has reached the milestone, but a 0 or 1 doesn't mean it hasn't. The models below use only the count of 2s. In this simulation, the partial scores carry no information, but in real data they might -- a pup that scores 1 might be close to the milestone. Using them would take a model of how partial scores relate to development, which is a simplification I'll leave out.
 
 ```python
 rng = np.random.default_rng(17)
@@ -137,7 +137,9 @@ y = (scores == 2).sum(axis=2)
 pd.DataFrame(y, columns=[f"P{d}" for d in days], index=pd.Index(treatment, name="treatment"))
 ```
 
-In a few places the count goes down, because a pup didn't show the behavior that day. If we assume pups don't really lose the milestone, the number that have reached it by day $t$ is at least the largest count seen so far (the cumulative maximum). That gives the number of new events each day and the number still at risk, which is all a discrete-time survival analysis needs.
+In a few places the count goes down, because a pup didn't show the behavior that day. If we knew which pup was which, we could record the first day each one scored 2. Without identities, we can't always reconstruct those event times. As an approximation, we'll take the cumulative maximum of the daily counts. If pups don't lose the milestone, that's the minimum number that must have reached it by each day -- but it can be too low. For example, if one pup scores 2 on P5 and doesn't show it on P6, and a different pup scores 2 for the first time on P6, two pups have reached the milestone, but the count is 1 on both days.
+
+From the reconstructed counts, we get the number of new events each day and the number still at risk, which is what a discrete-time survival analysis needs.
 
 ```python
 reached = np.maximum.accumulate(y, axis=1)
@@ -146,7 +148,7 @@ new = reached - before
 at_risk = n_pups - before
 ```
 
-The Kaplan-Meier estimate from these counts is the same as the one from individual records would be (with the cumulative maximum standing in for "first time scored 2"):
+With these counts, we can compute an approximate Kaplan-Meier curve for each treatment. Later, we'll develop a model that avoids the approximation.
 
 ```python
 def km(arm):
@@ -167,15 +169,21 @@ ax.legend(frameon=False)
 ax.spines[["top", "right"]].set_visible(False);
 ```
 
-The curves can't tell us how sure to be that treatment speeds development, because they treat the 60 pups as independent. The treatment was given to 12 litters.
+The curves suggest that treated pups reach the milestone sooner. Setting the approximation aside for now, they are a reasonable description of the data. The problem comes when we ask how strong the evidence is. Treatment was assigned to litters, not pups, and pups in the same litter share a mother and a nest, so their development is likely to be correlated: if one pup in a litter is early, its littermates probably are too. So six litters of five pups provide less information than 30 independent pups would. Confidence intervals for the curves, and tests like `survdiff`, treat the pups as independent, so they can make us more confident about the treatment effect than the experiment justifies.
+
+To account for the clustering, we'll build a model of the daily probability that a pup reaches the milestone. We'll fit it first with the pups treated as independent, then with litter effects that let the pace of development vary from litter to litter, and compare the results.
 
 ## Model 1: discrete-time hazard, litter as the unit
 
-On day $t$, each pup in litter $i$ that hasn't reached the milestone reaches it with probability $h_{it}$:
+The model is a discrete-time survival analysis: each day, every pup that hasn't reached the milestone has some chance of reaching it, and that chance depends on age, treatment, and litter. On day $t$, a pup in litter $i$ reaches it with probability $h_{it}$:
 
 $$\text{logit}(h_{it}) = a + c\,(t - 3) + b\,\text{treatment}_i + u_i, \qquad u_i \sim \text{Normal}(0, \sigma)$$
 
-and the new events are $\text{Binomial}(\text{at risk}_{it}, h_{it})$. The litter effects $u_i$ are what make litters, not pups, the unit of analysis. To see what they do, we fit the model with and without them.
+where $a$ is the log odds on P3 in the control group, $c$ is how much the log odds increase per day, and $b$ is the treatment effect. The new events in each litter on each day are $\text{Binomial}(\text{at risk}_{it}, h_{it})$.
+
+The litter effect $u_i$ makes all the pups in litter $i$ faster or slower together, which is how the model represents the correlation between littermates, and $\sigma$ is how much litters vary. The model estimates $\sigma$ from the data. If litters vary a lot, the difference between the treatment groups is judged against the differences between litters -- and 6 litters per group is a much smaller sample than 30 pups. If they don't vary much, $\sigma$ is close to 0 and the result is about the same as treating the pups as independent.
+
+Leaving out $u_i$ gives the model that treats the pups as independent; we'll fit both.
 
 ```python
 day_offset = days - 3
@@ -208,7 +216,9 @@ with pm.Model() as clustered:
 
 ## Model 2: model the misses instead of correcting them
 
-The cumulative maximum fixes the "go back" problem only partly: when a pup reaches the milestone but doesn't show it that day, the event is recorded late, which biases the daily increase $c$ down. Instead we can treat the true number of pups that have reached the milestone, $N_{it}$, as unobserved:
+Model 1 deals with the clustering, but it uses event counts reconstructed with the cumulative maximum, which is a lower bound on the number of pups that have reached the milestone. A pup that reaches the milestone and doesn't show it that day is recorded late, on the first day it does show it -- and as the example above shows, a miss can also hide another pup's first appearance. Late events make development look slower than it is, so we expect Model 1 to underestimate the daily increase, $c$. They could bias the estimated treatment effect, too.
+
+The cumulative maximum treats what we see as the truth, corrected by hand. Instead, we can model the difference between the truth and what we see. Let $N_{it}$ be the true number of pups in litter $i$ that have reached the milestone by day $t$, which we don't observe:
 
 - $N_{it}$ only goes up: $N_{it} = N_{i,t-1} + \text{Binomial}(5 - N_{i,t-1},\ h_{it})$, with the same hazard as before.
 - What we see is how many of them show it that day: $y_{it} \sim \text{Binomial}(N_{it},\ p)$.
@@ -265,12 +275,13 @@ for name, idata in fits.items():
         "b 95%": np.quantile(b, 0.95),
         "P(b > 0)": (b > 0).mean(),
         "c mean": post["c"].values.mean(),
+        "p mean": post["p"].values.mean() if "p" in post else np.nan,
     })
 results = pd.DataFrame(rows).set_index("model").round(2)
 results
 ```
 
-The true values are $b = 0.8$ and $c = 0.45$.
+The true values are $b = 0.8$, $c = 0.45$, and $p = 0.85$. Only the last model estimates $p$.
 
 ```python
 fig, ax = plt.subplots(figsize=(7, 3))
@@ -289,9 +300,9 @@ ax.spines[["top", "right", "left"]].set_visible(False);
 
 What the comparison shows:
 
-- **Ignoring litters overstates certainty.** The model that treats pups as independent gives the narrowest interval, but the narrowness is not real: it counts 60 pups when the treatment was assigned to 12 litters. This is an example of [pseudoreplication](https://en.wikipedia.org/wiki/Pseudoreplication).
-- **The cumulative maximum underestimates how fast pups develop** ($c$ too low), because missed displays delay events.
-- **Modeling the misses** recovers both $b$ and $c$, and estimates the detection probability $p$ from the data, with no hand-editing.
+- **In this simulation, all three estimates of the treatment effect are close to the true value**, and all three intervals contain it, so the conclusion -- treatment probably speeds development -- is the same either way. That's not guaranteed: because the first two models use reconstructed counts, missed displays could bias their estimates of $b$.
+- **They differ in how much uncertainty they report.** The model that treats pups as independent gives the narrowest interval, but the design doesn't justify that precision, because the treatment was assigned to 12 litters, not 60 pups. Treating them as 60 is an example of [pseudoreplication](https://en.wikipedia.org/wiki/Pseudoreplication). A single simulated dataset can't show that the narrow interval is too narrow, but the models with litter effects are the ones that match how the experiment was run.
+- **The misses matter for the pace of development.** With the cumulative maximum, both models underestimate how fast the hazard increases with age ($c$ is about 0.26 and 0.31, against a true value of 0.45), because missed displays delay events. In this simulation, modeling the misses gives 0.42, much closer to the true value, and it estimates the detection probability $p$ from the data (0.86, against a true value of 0.85).
 
 What we can report is a posterior probability that treatment speeds development, $P(b > 0)$, and an interval for its size, from a model that matches how the experiment was run.
 
@@ -306,11 +317,12 @@ Running `survfit` on the rows of the table treats each row as an individual, whi
 The count of pups that have reached the milestone in each litter on each day is enough: it gives the number of new events and the number at risk, which is all a survival analysis uses.
 
 The bigger problem is that the treatment was assigned to litters, not pups.
-`survdiff` on pup rows treats every pup as independent, so it overstates the evidence.
-A model with litter effects makes litters the unit of analysis, and with only 6 litters per treatment, that makes a real difference in how sure we can be.
+`survdiff` on pup rows treats every pup as independent, which the design doesn't justify.
+A model with litter effects makes litters the unit of analysis.
+In this example, all of the models estimate the treatment effect well, but the ones with litter effects report more uncertainty, which is what the design calls for.
 
 The pups that "go back" can be handled by taking the running maximum of the counts, but that makes development look slower than it is.
-Modeling the observation process -- pups that have the milestone show it with some probability -- recovers the true values without editing the data.
+Modeling the observation process -- pups that have the milestone show it with some probability -- gets closer to the true pace of development, without editing the data.
 
 This structure -- cluster randomization, event times known only to the day, and an imperfect assessment of a state that only moves forward -- is also common in clinical trials, where clinics or wards play the role of litters.
 
