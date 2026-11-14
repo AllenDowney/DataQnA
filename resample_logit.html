@@ -14,45 +14,48 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=6a604523" />
   
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
     <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script data-sd-tabs-storage-prefix="sphinx-design-tab-id-" src="_static/design-tabs.js?v=fcb327ea"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
@@ -62,8 +65,11 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'resample_logit';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Testing a Difference in Slopes" href="diff_slope.html" />
+    <link rel="prev" title="Hazard and Survival" href="hazard.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -71,31 +77,16 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="search.html"
       method="get">
@@ -103,7 +94,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -111,10 +101,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -123,9 +118,8 @@
       
       
       
-        
-      
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -140,6 +134,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="index.html">
   
@@ -153,15 +149,11 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
@@ -173,7 +165,7 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bernoulli.html">Bernoulli’s Sample Size</a></li>
 <li class="toctree-l1"><a class="reference internal" href="combine_risk.html">Combining Risks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
@@ -194,6 +186,11 @@
 <li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
 <li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hazard.html">Hazard and Survival</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Resampling and Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diff_slope.html">Testing a Difference in Slopes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="good_model.html">How Good is This Model?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gambler.html">Gamblers and Large Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unlabeled_litters.html">Time to a Milestone When You Can’t Tell the Subjects Apart</a></li>
 </ul>
 
     </div>
@@ -202,14 +199,19 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -218,14 +220,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -302,7 +304,7 @@
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -316,27 +318,19 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -359,11 +353,12 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data">The Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boostrap-sampling">Boostrap sampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrap-sampling">Bootstrap sampling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-resampling-framework">The Resampling Framework</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parametric-bootstrap">Parametric bootstrap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-model">The Hybrid Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-one-is-right">Which One Is Right?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
             </nav>
         </div>
@@ -395,25 +390,31 @@ And the models they are based on are only two of many possible models.</p>
 <p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
 <div class="cell tag_remove-print docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
 
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">urllib.request</span><span class="w"> </span><span class="kn">import</span> <span class="n">urlretrieve</span>
 
         <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloaded &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Downloaded "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">local</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">filename</span>
 
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py&#39;</span><span class="p">)</span>
+<span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/AllenDowney/DataQnA/raw/main/nb/utils.py'</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_remove-print docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">'1.25'</span><span class="p">)</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-
-<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">decorate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">decorate</span>
 </pre></div>
 </div>
 </div>
@@ -421,38 +422,33 @@ And the models they are based on are only two of many possible models.</p>
 <section id="the-data">
 <h2>The Data<a class="headerlink" href="#the-data" title="Link to this heading">#</a></h2>
 <p>As an example, I’ll use data from the General Social Survey (GSS).
-I’ll download an HDF file from the <em>Elements of Data Science</em> repository, which contains a subset of the GSS data that has been resampled to correct for stratified sampling.</p>
+I’ll download an extract of the GSS data I prepared for <em>Elements of Data Science</em>, which has been resampled to correct for stratified sampling, reduced to the variables we need.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">exists</span>
-
-<span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
-        <span class="n">local</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Downloaded &#39;</span> <span class="o">+</span> <span class="n">local</span><span class="p">)</span>
-    
-<span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://github.com/AllenDowney/&#39;</span> <span class="o">+</span>
-         <span class="s1">&#39;ElementsOfDataScience/raw/master/data/gss_eda.hdf&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/AllenDowney/DataQnA/raw/main/data/resample_logit_gss.csv.gz'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>'resample_logit_gss.csv.gz'
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s1">&#39;gss_eda.hdf&#39;</span><span class="p">,</span> <span class="s1">&#39;gss&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'resample_logit_gss.csv.gz'</span><span class="p">)</span>
 <span class="n">gss</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(64814, 8)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(64814, 5)
 </pre></div>
 </div>
 </div>
 </div>
-<p>It includes 64,814 respondents and 8 variables for each respondent.</p>
+<p>It includes 64,814 respondents and 5 variables for each respondent.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -478,71 +474,53 @@ I’ll download an HDF file from the <em>Elements of Data Science</em> repositor
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>YEAR</th>
-      <th>ID_</th>
       <th>AGE</th>
       <th>EDUC</th>
       <th>SEX</th>
       <th>GUNLAW</th>
       <th>GRASS</th>
-      <th>REALINC</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>1972</td>
-      <td>1</td>
       <td>23.0</td>
       <td>16.0</td>
       <td>2</td>
       <td>1.0</td>
       <td>NaN</td>
-      <td>18951.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>1972</td>
-      <td>2</td>
       <td>70.0</td>
       <td>10.0</td>
       <td>1</td>
       <td>1.0</td>
       <td>NaN</td>
-      <td>24366.0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>1972</td>
-      <td>3</td>
       <td>48.0</td>
       <td>12.0</td>
       <td>2</td>
       <td>1.0</td>
       <td>NaN</td>
-      <td>24366.0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>1972</td>
-      <td>4</td>
       <td>27.0</td>
       <td>17.0</td>
       <td>2</td>
       <td>1.0</td>
       <td>NaN</td>
-      <td>30458.0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1972</td>
-      <td>5</td>
       <td>61.0</td>
       <td>12.0</td>
       <td>2</td>
       <td>1.0</td>
       <td>NaN</td>
-      <td>50763.0</td>
     </tr>
   </tbody>
 </table>
@@ -552,7 +530,7 @@ I’ll download an HDF file from the <em>Elements of Data Science</em> repositor
 The responses are in a column called <code class="docutils literal notranslate"><span class="pre">GRASS</span></code> – here are the values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">&#39;GRASS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">'GRASS'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -569,7 +547,7 @@ Name: count, dtype: int64
 First we have to recode the dependent variable so <code class="docutils literal notranslate"><span class="pre">1</span></code> means “yes” and <code class="docutils literal notranslate"><span class="pre">0</span></code> means “no”.  We can do that by replacing <code class="docutils literal notranslate"><span class="pre">2</span></code> with <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">&#39;GRASS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gss</span><span class="p">[</span><span class="s1">&#39;GRASS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">'GRASS'</span><span class="p">]</span> <span class="o">=</span> <span class="n">gss</span><span class="p">[</span><span class="s1">'GRASS'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -577,8 +555,8 @@ First we have to recode the dependent variable so <code class="docutils literal 
 <p>To model quadratic relationships, I’ll add columns that contain the values of <code class="docutils literal notranslate"><span class="pre">AGE</span></code> and <code class="docutils literal notranslate"><span class="pre">EDUC</span></code> squared.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">&#39;AGE2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gss</span><span class="p">[</span><span class="s1">&#39;AGE&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">gss</span><span class="p">[</span><span class="s1">&#39;EDUC2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gss</span><span class="p">[</span><span class="s1">&#39;EDUC&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gss</span><span class="p">[</span><span class="s1">'AGE2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">gss</span><span class="p">[</span><span class="s1">'AGE'</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">gss</span><span class="p">[</span><span class="s1">'EDUC2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">gss</span><span class="p">[</span><span class="s1">'EDUC'</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
 </pre></div>
 </div>
 </div>
@@ -586,7 +564,7 @@ First we have to recode the dependent variable so <code class="docutils literal 
 <p>And I’ll drop the rows that have missing values for the variables we’ll need.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">gss</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;AGE&#39;</span><span class="p">,</span> <span class="s1">&#39;EDUC&#39;</span><span class="p">,</span> <span class="s1">&#39;SEX&#39;</span><span class="p">,</span> <span class="s1">&#39;GUNLAW&#39;</span><span class="p">,</span> <span class="s1">&#39;GRASS&#39;</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">gss</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">'AGE'</span><span class="p">,</span> <span class="s1">'EDUC'</span><span class="p">,</span> <span class="s1">'SEX'</span><span class="p">,</span> <span class="s1">'GUNLAW'</span><span class="p">,</span> <span class="s1">'GRASS'</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -597,9 +575,9 @@ First we have to recode the dependent variable so <code class="docutils literal 
 <p>Here are the results of logistic regression with these variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">statsmodels.formula.api</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">smf</span>
 
-<span class="n">formula</span> <span class="o">=</span> <span class="s1">&#39;GRASS ~ AGE + AGE2 + EDUC + EDUC2 + C(SEX)&#39;</span>
+<span class="n">formula</span> <span class="o">=</span> <span class="s1">'GRASS ~ AGE + AGE2 + EDUC + EDUC2 + C(SEX)'</span>
 <span class="n">result_hat</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
 <span class="n">result_hat</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
@@ -623,10 +601,10 @@ First we have to recode the dependent variable so <code class="docutils literal 
   <th>Method:</th>                 <td>MLE</td>       <th>  Df Model:          </th>   <td>     5</td>  
 </tr>
 <tr>
-  <th>Date:</th>            <td>Wed, 08 May 2024</td> <th>  Pseudo R-squ.:     </th>   <td>0.05003</td> 
+  <th>Date:</th>            <td>Fri, 13 Nov 2026</td> <th>  Pseudo R-squ.:     </th>   <td>0.05003</td> 
 </tr>
 <tr>
-  <th>Time:</th>                <td>15:30:02</td>     <th>  Log-Likelihood:    </th>  <td> -12151.</td> 
+  <th>Time:</th>                <td>15:19:24</td>     <th>  Log-Likelihood:    </th>  <td> -12151.</td> 
 </tr>
 <tr>
   <th>converged:</th>             <td>True</td>       <th>  LL-Null:           </th>  <td> -12791.</td> 
@@ -663,54 +641,55 @@ First we have to recode the dependent variable so <code class="docutils literal 
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;AGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">89</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;EDUC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">16</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'AGE'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">89</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'EDUC'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">16</span>
 
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;AGE2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;AGE&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;EDUC2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;EDUC&#39;</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'AGE2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'AGE'</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'EDUC2'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'EDUC'</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
 
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;SEX&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'SEX'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">pred1</span> <span class="o">=</span> <span class="n">result_hat</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">pred1</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;AGE&#39;</span><span class="p">]</span>
+<span class="n">pred1</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'AGE'</span><span class="p">]</span>
 
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;SEX&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'SEX'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">pred2</span> <span class="o">=</span> <span class="n">result_hat</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">pred2</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;AGE&#39;</span><span class="p">]</span>
+<span class="n">pred2</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'AGE'</span><span class="p">]</span>
 
-<span class="n">pred1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Male&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-<span class="n">pred2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Female&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">pred1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'Male'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">pred2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">'Female'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Fraction&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Support for legal marijuana&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Age'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Fraction'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Support for legal marijuana'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/07138025c0480c40f40c34065dfbcedbd4543f14e6550bc571ecf4c574c7b1cd.png" src="_images/07138025c0480c40f40c34065dfbcedbd4543f14e6550bc571ecf4c574c7b1cd.png" />
+<img alt="_images/e37b500e7ece734148ace6482c75bce429ee014ae05a4b9b282429fd7cdc31fc.png" src="_images/e37b500e7ece734148ace6482c75bce429ee014ae05a4b9b282429fd7cdc31fc.png" />
 </div>
 </div>
 <p>Men are more likely to support legalization than women, and younger people more likely than older people.</p>
 </section>
-<section id="boostrap-sampling">
-<h2>Boostrap sampling<a class="headerlink" href="#boostrap-sampling" title="Link to this heading">#</a></h2>
+<section id="bootstrap-sampling">
+<h2>Bootstrap sampling<a class="headerlink" href="#bootstrap-sampling" title="Link to this heading">#</a></h2>
 <p>Now let’s implement the method characterized as non-parametric, which is based on bootstrap resampling.
 The following function samples the rows of <code class="docutils literal notranslate"><span class="pre">data</span></code> with replacement and runs the regression model on the resampled data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start_params</span><span class="o">=</span><span class="n">result_hat</span><span class="o">.</span><span class="n">params</span><span class="p">)</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start_params</span><span class="o">=</span><span class="n">result_hat</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">bootstrapped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">bootstrap</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">bootstrapped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">bootstrapped</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">params</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>The options sent to <code class="docutils literal notranslate"><span class="pre">fit</span></code> make it run faster, but don’t affect the results by much.</p>
+<p>The options sent to <code class="docutils literal notranslate"><span class="pre">fit</span></code> make it run faster, but don’t affect the results by much.
+Each call makes its own random number generator, seeded with <code class="docutils literal notranslate"><span class="pre">i</span></code>, so the results are reproducible.</p>
 <p>Each time we run this process, the result represents a single draw from the sampling distribution of the parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -719,39 +698,28 @@ The following function samples the rows of <code class="docutils literal notrans
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.861770
-C(SEX)[T.2]   -0.380758
-AGE           -0.021963
-AGE2           0.000034
-EDUC           0.209531
-EDUC2         -0.002996
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.347471
+C(SEX)[T.2]   -0.361745
+AGE           -0.036144
+AGE2           0.000200
+EDUC           0.172461
+EDUC2         -0.001746
 dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
-<p>By running it many times, we generate a sample from the sampling distribution. <code class="docutils literal notranslate"><span class="pre">pqdm</span></code> runs the sampling process in multiple threads.</p>
+<p>By running it many times, we generate a sample from the sampling distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pqdm.threads</span> <span class="kn">import</span> <span class="n">pqdm</span>
-<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pqdm
-    <span class="kn">from</span> <span class="nn">pqdm.threads</span> <span class="kn">import</span> <span class="n">pqdm</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">estimates</span> <span class="o">=</span> <span class="n">pqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">),</span> <span class="n">bootstrap</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">estimates</span> <span class="o">=</span> <span class="p">[</span><span class="n">bootstrap</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">)]</span>
 <span class="n">sampling_dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">estimates</span><span class="p">)</span>
 <span class="n">sampling_dist</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "982eb036ebff47448ecc0ee6afe386ad", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "431c3f67b9fe452da06242ceb139897f", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "7bc57e4d369a4c598c44ba4c5b633b90", "version_major": 2, "version_minor": 0}</script><div class="output text_html"><div>
+<div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -780,48 +748,48 @@ dtype: float64
   <tbody>
     <tr>
       <th>0</th>
-      <td>-1.861770</td>
-      <td>-0.380758</td>
-      <td>-0.021963</td>
-      <td>0.000034</td>
-      <td>0.209531</td>
-      <td>-0.002996</td>
+      <td>-1.347471</td>
+      <td>-0.361745</td>
+      <td>-0.036144</td>
+      <td>0.000200</td>
+      <td>0.172461</td>
+      <td>-0.001746</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-1.870006</td>
-      <td>-0.343399</td>
-      <td>-0.024615</td>
-      <td>0.000093</td>
-      <td>0.211290</td>
-      <td>-0.003338</td>
+      <td>-1.690755</td>
+      <td>-0.373477</td>
+      <td>-0.024200</td>
+      <td>0.000079</td>
+      <td>0.193770</td>
+      <td>-0.002776</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-1.550265</td>
-      <td>-0.422493</td>
-      <td>-0.031421</td>
-      <td>0.000166</td>
-      <td>0.196451</td>
-      <td>-0.002947</td>
+      <td>-1.796937</td>
+      <td>-0.432300</td>
+      <td>-0.021396</td>
+      <td>0.000053</td>
+      <td>0.203183</td>
+      <td>-0.003036</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-1.913072</td>
-      <td>-0.342552</td>
-      <td>-0.022696</td>
-      <td>0.000073</td>
-      <td>0.208549</td>
-      <td>-0.002995</td>
+      <td>-1.875725</td>
+      <td>-0.349515</td>
+      <td>-0.033108</td>
+      <td>0.000169</td>
+      <td>0.239424</td>
+      <td>-0.003984</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-1.709399</td>
-      <td>-0.385184</td>
-      <td>-0.025895</td>
-      <td>0.000106</td>
-      <td>0.193661</td>
-      <td>-0.002584</td>
+      <td>-1.681279</td>
+      <td>-0.377101</td>
+      <td>-0.024528</td>
+      <td>0.000073</td>
+      <td>0.189952</td>
+      <td>-0.002343</td>
     </tr>
   </tbody>
 </table>
@@ -830,22 +798,22 @@ dtype: float64
 <p>Here’s what the sampling distribution looks like for one of the parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci90</span> <span class="o">=</span> <span class="n">sampling_dist</span><span class="p">[</span><span class="s1">&#39;C(SEX)[T.2]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sampling_dist</span><span class="p">[</span><span class="s1">&#39;C(SEX)[T.2]&#39;</span><span class="p">])</span>
-<span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ci90</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sampling distribution of a parameter&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci90</span> <span class="o">=</span> <span class="n">sampling_dist</span><span class="p">[</span><span class="s1">'C(SEX)[T.2]'</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sampling_dist</span><span class="p">[</span><span class="s1">'C(SEX)[T.2]'</span><span class="p">])</span>
+<span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">':'</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ci90</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Sampling distribution of a parameter'</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6f0e815552ff35fa354b3cff531c99f18bdb1cb28bfbaa6b2cf5f80cd3e25642.png" src="_images/6f0e815552ff35fa354b3cff531c99f18bdb1cb28bfbaa6b2cf5f80cd3e25642.png" />
+<img alt="_images/19e40801beef95d0dfc57983db75659f305c45f7e5c790f9d5fcbfe8f90d29d9.png" src="_images/19e40801beef95d0dfc57983db75659f305c45f7e5c790f9d5fcbfe8f90d29d9.png" />
 </div>
 </div>
 <p>The mean of the sampling distribution should be close to the parameters we estimated with the original dataset, and it is.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Sampling mean&quot;</span><span class="p">:</span> <span class="n">sampling_dist</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> 
-              <span class="s2">&quot;Estimates&quot;</span><span class="p">:</span> <span class="n">result_hat</span><span class="o">.</span><span class="n">params</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"Sampling mean"</span><span class="p">:</span> <span class="n">sampling_dist</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> 
+              <span class="s2">"Estimates"</span><span class="p">:</span> <span class="n">result_hat</span><span class="o">.</span><span class="n">params</span><span class="p">})</span>
 </pre></div>
 </div>
 </div>
@@ -875,32 +843,32 @@ dtype: float64
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>-1.699398</td>
+      <td>-1.670238</td>
       <td>-1.678838</td>
     </tr>
     <tr>
       <th>C(SEX)[T.2]</th>
-      <td>-0.379244</td>
+      <td>-0.384022</td>
       <td>-0.384919</td>
     </tr>
     <tr>
       <th>AGE</th>
-      <td>-0.027387</td>
+      <td>-0.027559</td>
       <td>-0.027825</td>
     </tr>
     <tr>
       <th>AGE2</th>
-      <td>0.000110</td>
+      <td>0.000113</td>
       <td>0.000116</td>
     </tr>
     <tr>
       <th>EDUC</th>
-      <td>0.201980</td>
+      <td>0.198035</td>
       <td>0.200002</td>
     </tr>
     <tr>
       <th>EDUC2</th>
-      <td>-0.002937</td>
+      <td>-0.002782</td>
       <td>-0.002855</td>
     </tr>
   </tbody>
@@ -911,11 +879,11 @@ dtype: float64
 Most of them are close enough that the difference probably doesn’t matter in practice.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">standard_errors</span><span class="p">(</span><span class="n">sampling_dist</span><span class="p">,</span> <span class="n">result_hat</span><span class="p">):</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;Sampling std&quot;</span><span class="p">:</span> <span class="n">sampling_dist</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> 
-                       <span class="s2">&quot;Standard error&quot;</span><span class="p">:</span> <span class="n">result_hat</span><span class="o">.</span><span class="n">bse</span><span class="p">})</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">standard_errors</span><span class="p">(</span><span class="n">sampling_dist</span><span class="p">,</span> <span class="n">result_hat</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"Sampling std"</span><span class="p">:</span> <span class="n">sampling_dist</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> 
+                       <span class="s2">"Standard error"</span><span class="p">:</span> <span class="n">result_hat</span><span class="o">.</span><span class="n">bse</span><span class="p">})</span>
     <span class="n">num</span><span class="p">,</span> <span class="n">den</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Percent diff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">den</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">'Percent diff'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="n">den</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
     <span class="k">return</span> <span class="n">df</span>
 </pre></div>
 </div>
@@ -954,39 +922,39 @@ Most of them are close enough that the difference probably doesn’t matter in p
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>0.256191</td>
+      <td>0.228133</td>
       <td>0.240243</td>
-      <td>6.638413</td>
+      <td>-5.040882</td>
     </tr>
     <tr>
       <th>C(SEX)[T.2]</th>
-      <td>0.036286</td>
+      <td>0.030654</td>
       <td>0.031057</td>
-      <td>16.838207</td>
+      <td>-1.297909</td>
     </tr>
     <tr>
       <th>AGE</th>
-      <td>0.004992</td>
+      <td>0.004592</td>
       <td>0.005153</td>
-      <td>-3.141741</td>
+      <td>-10.894334</td>
     </tr>
     <tr>
       <th>AGE2</th>
-      <td>0.000052</td>
+      <td>0.000045</td>
       <td>0.000053</td>
-      <td>-1.399085</td>
+      <td>-15.560466</td>
     </tr>
     <tr>
       <th>EDUC</th>
-      <td>0.034325</td>
+      <td>0.028614</td>
       <td>0.031193</td>
-      <td>10.041461</td>
+      <td>-8.265602</td>
     </tr>
     <tr>
       <th>EDUC2</th>
-      <td>0.001263</td>
+      <td>0.001061</td>
       <td>0.001166</td>
-      <td>8.386875</td>
+      <td>-8.964858</td>
     </tr>
   </tbody>
 </table>
@@ -1036,15 +1004,16 @@ dtype: float64
 <p>Now we can use these probabilities to generate a biased coin toss for each respondent.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">bernoulli</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">bernoulli</span>
 
-<span class="n">simulated</span> <span class="o">=</span> <span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">pi_hat</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">simulated</span> <span class="o">=</span> <span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">pi_hat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
 <span class="n">simulated</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.3184371184371184
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.31697191697191696
 </pre></div>
 </div>
 </div>
@@ -1053,9 +1022,9 @@ dtype: float64
 The following function shows how.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bootstrap2</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">flipped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">GRASS</span><span class="o">=</span><span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">pi_hat</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bootstrap2</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">flipped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">GRASS</span><span class="o">=</span><span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">pi_hat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">))</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">flipped</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">params</span>
 </pre></div>
@@ -1070,12 +1039,12 @@ The following function shows how.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.441101
-C(SEX)[T.2]   -0.337146
-AGE           -0.025234
-AGE2           0.000088
-EDUC           0.155658
-EDUC2         -0.001490
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.352450
+C(SEX)[T.2]   -0.353542
+AGE           -0.028940
+AGE2           0.000125
+EDUC           0.146890
+EDUC2         -0.000743
 dtype: float64
 </pre></div>
 </div>
@@ -1084,14 +1053,10 @@ dtype: float64
 <p>If we run it many times, we get a sample from the sampling distribution.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pqdm.threads</span> <span class="kn">import</span> <span class="n">pqdm</span>
-
-<span class="n">estimates</span> <span class="o">=</span> <span class="n">pqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">),</span> <span class="n">bootstrap2</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">estimates</span> <span class="o">=</span> <span class="p">[</span><span class="n">bootstrap2</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "db155459cf7d45039a57df608eba9015", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "01ee89c1f2334429b0c065db43ab62a1", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "81aedbf31ee54d76b0b221b253be5439", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1130,48 +1095,48 @@ dtype: float64
   <tbody>
     <tr>
       <th>0</th>
-      <td>-1.607550</td>
-      <td>-0.337807</td>
-      <td>-0.030948</td>
-      <td>0.000152</td>
-      <td>0.194980</td>
-      <td>-0.002592</td>
+      <td>-1.352450</td>
+      <td>-0.353542</td>
+      <td>-0.028940</td>
+      <td>0.000125</td>
+      <td>0.146890</td>
+      <td>-0.000743</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-1.744398</td>
-      <td>-0.371315</td>
-      <td>-0.030606</td>
-      <td>0.000140</td>
-      <td>0.214210</td>
-      <td>-0.003249</td>
+      <td>-1.456744</td>
+      <td>-0.448893</td>
+      <td>-0.025884</td>
+      <td>0.000093</td>
+      <td>0.168376</td>
+      <td>-0.001801</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-2.028428</td>
-      <td>-0.382518</td>
-      <td>-0.023002</td>
-      <td>0.000059</td>
-      <td>0.247973</td>
-      <td>-0.004799</td>
+      <td>-1.637793</td>
+      <td>-0.360753</td>
+      <td>-0.024891</td>
+      <td>0.000087</td>
+      <td>0.185653</td>
+      <td>-0.002341</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-1.888331</td>
-      <td>-0.388846</td>
-      <td>-0.028548</td>
-      <td>0.000146</td>
-      <td>0.234939</td>
-      <td>-0.004520</td>
+      <td>-1.652210</td>
+      <td>-0.329753</td>
+      <td>-0.030035</td>
+      <td>0.000130</td>
+      <td>0.196996</td>
+      <td>-0.002660</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-1.488713</td>
-      <td>-0.391091</td>
-      <td>-0.028701</td>
-      <td>0.000100</td>
-      <td>0.187119</td>
-      <td>-0.002527</td>
+      <td>-1.761716</td>
+      <td>-0.381501</td>
+      <td>-0.025078</td>
+      <td>0.000090</td>
+      <td>0.202911</td>
+      <td>-0.002841</td>
     </tr>
   </tbody>
 </table>
@@ -1180,15 +1145,15 @@ dtype: float64
 <p>Here’s the sampling distribution for a single parameter.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci90</span> <span class="o">=</span> <span class="n">sampling_dist2</span><span class="p">[</span><span class="s1">&#39;C(SEX)[T.2]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sampling_dist2</span><span class="p">[</span><span class="s1">&#39;C(SEX)[T.2]&#39;</span><span class="p">])</span>
-<span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ci90</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sampling distribution of a parameter&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci90</span> <span class="o">=</span> <span class="n">sampling_dist2</span><span class="p">[</span><span class="s1">'C(SEX)[T.2]'</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sampling_dist2</span><span class="p">[</span><span class="s1">'C(SEX)[T.2]'</span><span class="p">])</span>
+<span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">':'</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ci90</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Sampling distribution of a parameter'</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c20acf887c6c597aa098870c4585408ea7630731bc3a27b746d07af8d5a725df.png" src="_images/c20acf887c6c597aa098870c4585408ea7630731bc3a27b746d07af8d5a725df.png" />
+<img alt="_images/0ad2c43ef72a4e176782714004f9d8ef2d14aa89db9fcd239ad3dd376ce09c45.png" src="_images/0ad2c43ef72a4e176782714004f9d8ef2d14aa89db9fcd239ad3dd376ce09c45.png" />
 </div>
 </div>
 <p>Again, the standard deviations should be close to the standard errors, and they are.</p>
@@ -1225,39 +1190,39 @@ dtype: float64
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>0.213665</td>
+      <td>0.206074</td>
       <td>0.240243</td>
-      <td>-11.062937</td>
+      <td>-14.222576</td>
     </tr>
     <tr>
       <th>C(SEX)[T.2]</th>
-      <td>0.028567</td>
+      <td>0.032719</td>
       <td>0.031057</td>
-      <td>-8.015624</td>
+      <td>5.353656</td>
     </tr>
     <tr>
       <th>AGE</th>
-      <td>0.004358</td>
+      <td>0.004533</td>
       <td>0.005153</td>
-      <td>-15.429475</td>
+      <td>-12.041518</td>
     </tr>
     <tr>
       <th>AGE2</th>
-      <td>0.000047</td>
+      <td>0.000049</td>
       <td>0.000053</td>
-      <td>-10.980252</td>
+      <td>-8.057084</td>
     </tr>
     <tr>
       <th>EDUC</th>
-      <td>0.030602</td>
+      <td>0.028321</td>
       <td>0.031193</td>
-      <td>-1.892655</td>
+      <td>-9.207391</td>
     </tr>
     <tr>
       <th>EDUC2</th>
+      <td>0.001036</td>
       <td>0.001166</td>
-      <td>0.001166</td>
-      <td>-0.006701</td>
+      <td>-11.163580</td>
     </tr>
   </tbody>
 </table>
@@ -1271,11 +1236,11 @@ dtype: float64
 <p>The following function uses bootstrap sampling to simulate surveying different people; then it uses the parametric method to simulate their responses.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bootstrap3</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-    <span class="n">bootstrapped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">bootstrap3</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">bootstrapped</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
     <span class="n">pi_hat</span> <span class="o">=</span> <span class="n">result_hat</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">bootstrapped</span><span class="p">)</span>
-    <span class="n">flipped</span> <span class="o">=</span> <span class="n">bootstrapped</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">GRASS</span><span class="o">=</span><span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">pi_hat</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+    <span class="n">flipped</span> <span class="o">=</span> <span class="n">bootstrapped</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">GRASS</span><span class="o">=</span><span class="n">bernoulli</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">pi_hat</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">rng</span><span class="p">))</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">logit</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">flipped</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">params</span>
 </pre></div>
@@ -1289,12 +1254,12 @@ dtype: float64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.175861
-C(SEX)[T.2]   -0.381466
-AGE           -0.037683
-AGE2           0.000208
-EDUC           0.153999
-EDUC2         -0.001051
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept     -1.551940
+C(SEX)[T.2]   -0.376630
+AGE           -0.032640
+AGE2           0.000185
+EDUC           0.191625
+EDUC2         -0.002668
 dtype: float64
 </pre></div>
 </div>
@@ -1302,14 +1267,10 @@ dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pqdm.threads</span> <span class="kn">import</span> <span class="n">pqdm</span>
-
-<span class="n">estimates</span> <span class="o">=</span> <span class="n">pqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">),</span> <span class="n">bootstrap3</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">estimates</span> <span class="o">=</span> <span class="p">[</span><span class="n">bootstrap3</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">101</span><span class="p">)]</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<script type="application/vnd.jupyter.widget-view+json">{"model_id": "2cf41f196bb944cfbbdc2aa6eaa0449e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "78949c367a6d4dbea7693291419ecb48", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "c01bb4a2a8854fcbaf0711fc5b2acd29", "version_major": 2, "version_minor": 0}</script></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1348,48 +1309,48 @@ dtype: float64
   <tbody>
     <tr>
       <th>0</th>
-      <td>-1.292261</td>
-      <td>-0.415617</td>
-      <td>-0.029380</td>
-      <td>0.000135</td>
-      <td>0.150813</td>
-      <td>-0.001118</td>
+      <td>-1.551940</td>
+      <td>-0.376630</td>
+      <td>-0.032640</td>
+      <td>0.000185</td>
+      <td>0.191625</td>
+      <td>-0.002668</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-1.703202</td>
-      <td>-0.351606</td>
-      <td>-0.028947</td>
-      <td>0.000139</td>
-      <td>0.209984</td>
-      <td>-0.003611</td>
+      <td>-1.229125</td>
+      <td>-0.395335</td>
+      <td>-0.032061</td>
+      <td>0.000143</td>
+      <td>0.151259</td>
+      <td>-0.001144</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-1.236159</td>
-      <td>-0.417756</td>
-      <td>-0.034266</td>
-      <td>0.000176</td>
-      <td>0.154023</td>
-      <td>-0.000940</td>
+      <td>-1.603553</td>
+      <td>-0.441659</td>
+      <td>-0.029464</td>
+      <td>0.000138</td>
+      <td>0.198617</td>
+      <td>-0.002947</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-1.894601</td>
-      <td>-0.314302</td>
-      <td>-0.018581</td>
-      <td>0.000029</td>
-      <td>0.183858</td>
-      <td>-0.001909</td>
+      <td>-1.547859</td>
+      <td>-0.418746</td>
+      <td>-0.034902</td>
+      <td>0.000193</td>
+      <td>0.199077</td>
+      <td>-0.002552</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-1.290408</td>
-      <td>-0.425398</td>
-      <td>-0.036473</td>
-      <td>0.000200</td>
-      <td>0.169032</td>
-      <td>-0.001666</td>
+      <td>-1.777864</td>
+      <td>-0.369527</td>
+      <td>-0.024098</td>
+      <td>0.000081</td>
+      <td>0.192934</td>
+      <td>-0.002342</td>
     </tr>
   </tbody>
 </table>
@@ -1398,15 +1359,15 @@ dtype: float64
 <p>Here’s the sampling distribution for one of the parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci90</span> <span class="o">=</span> <span class="n">sampling_dist3</span><span class="p">[</span><span class="s1">&#39;C(SEX)[T.2]&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sampling_dist3</span><span class="p">[</span><span class="s1">&#39;C(SEX)[T.2]&#39;</span><span class="p">])</span>
-<span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ci90</span><span class="p">]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sampling distribution of a parameter&#39;</span><span class="p">);</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ci90</span> <span class="o">=</span> <span class="n">sampling_dist3</span><span class="p">[</span><span class="s1">'C(SEX)[T.2]'</span><span class="p">]</span><span class="o">.</span><span class="n">quantile</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">sampling_dist3</span><span class="p">[</span><span class="s1">'C(SEX)[T.2]'</span><span class="p">])</span>
+<span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">':'</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ci90</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Sampling distribution of a parameter'</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5e43ba56bbd241dfa31e790177809e90afb171e4c68b2ba96eeec2679a99b8d5.png" src="_images/5e43ba56bbd241dfa31e790177809e90afb171e4c68b2ba96eeec2679a99b8d5.png" />
+<img alt="_images/1432c5614c8d0995ba109c400914671215d21a3c958d4013ee04ba9580cc6d1d.png" src="_images/1432c5614c8d0995ba109c400914671215d21a3c958d4013ee04ba9580cc6d1d.png" />
 </div>
 </div>
 <p>Again, the standard errors are comparable to the ones computed by StatsModels.</p>
@@ -1443,39 +1404,39 @@ dtype: float64
   <tbody>
     <tr>
       <th>Intercept</th>
-      <td>0.219808</td>
+      <td>0.208610</td>
       <td>0.240243</td>
-      <td>-8.506060</td>
+      <td>-13.167209</td>
     </tr>
     <tr>
       <th>C(SEX)[T.2]</th>
-      <td>0.033729</td>
+      <td>0.031765</td>
       <td>0.031057</td>
-      <td>8.604600</td>
+      <td>2.281332</td>
     </tr>
     <tr>
       <th>AGE</th>
-      <td>0.005016</td>
+      <td>0.004920</td>
       <td>0.005153</td>
-      <td>-2.659318</td>
+      <td>-4.523673</td>
     </tr>
     <tr>
       <th>AGE2</th>
       <td>0.000050</td>
       <td>0.000053</td>
-      <td>-5.090008</td>
+      <td>-5.422065</td>
     </tr>
     <tr>
       <th>EDUC</th>
-      <td>0.027835</td>
+      <td>0.029686</td>
       <td>0.031193</td>
-      <td>-10.764824</td>
+      <td>-4.829487</td>
     </tr>
     <tr>
       <th>EDUC2</th>
-      <td>0.001079</td>
+      <td>0.001111</td>
       <td>0.001166</td>
-      <td>-7.466320</td>
+      <td>-4.700429</td>
     </tr>
   </tbody>
 </table>
@@ -1496,8 +1457,18 @@ If they were substantially different, we would need to think more carefully abou
 So we are free to choose whichever is easiest to implement, or fastest to compute, or convenient in some other way.</p>
 <p>It is a common error to presume that the result of an analytic method is uniquely correct, and that results from computational methods like resampling are approximations to it.
 Analytic methods are often fast to compute, but they are always based on modeling assumptions and usually based on approximations, so they are no more correct than computational methods.</p>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p>To answer the original question: in a parametric bootstrap for linear regression, we simulate a dataset by adding random errors, drawn from a normal distribution, to the predicted values.
+Logistic regression has no additive error term.
+The model predicts a probability for each respondent, and the randomness is in the outcome: each response is a Bernoulli trial with that probability.
+So to simulate a dataset, we compute the predicted probabilities and flip a biased coin for each row, as in <code class="docutils literal notranslate"><span class="pre">bootstrap2</span></code>.</p>
+<p>But the more important point is that the parametric bootstrap is not a better or worse version of the non-parametric one.
+Each method is based on a different model of the sampling process, so they answer different questions: what if we surveyed different people, what if the same people gave different answers, or both.
+When the results differ, the question is not which method is right, but which model best describes the data-generating process – and whether the differences are big enough to matter.</p>
 <p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
-<p>Copyright 2024 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
+<p>Copyright 2024–2026 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
 </section>
 </section>
@@ -1529,9 +1500,27 @@ Analytic methods are often fast to compute, but they are always based on modelin
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="hazard.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Hazard and Survival</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="diff_slope.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Testing a Difference in Slopes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1539,22 +1528,25 @@ Analytic methods are often fast to compute, but they are always based on modelin
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
-  <nav class="bd-toc-nav page-toc">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data">The Data</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">Logistic Regression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boostrap-sampling">Boostrap sampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bootstrap-sampling">Bootstrap sampling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-resampling-framework">The Resampling Framework</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parametric-bootstrap">Parametric bootstrap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-hybrid-model">The Hybrid Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#which-one-is-right">Which One Is Right?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
   </nav></div>
 
@@ -1603,8 +1595,8 @@ By Allen B. Downey
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
 
   <footer class="bd-footer">
   </footer>
