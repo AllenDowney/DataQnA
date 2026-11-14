@@ -19,12 +19,5 @@ clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 
-lint:
-	flake8 code
-	black --check --config pyproject.toml code
-
-format:
-	black --config pyproject.toml code
-
 tests:
 	pytest --nbmake nb/*.ipynb

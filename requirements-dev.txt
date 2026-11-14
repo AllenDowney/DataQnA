@@ -1,7 +1,5 @@
+# For running the tests (make tests) and the CI workflow.
 -r requirements.txt
-black
-flake8
-nbclassic
-nbformat
+jupytext
 nbmake
 pytest

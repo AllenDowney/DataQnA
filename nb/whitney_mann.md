@@ -262,7 +262,7 @@ s = 0.1
 error_func(2, s, seed)
 ```
 
-For a given value of `s`, we can use a root-finder to search for the value of `m2` that makes the p-value 0.5.
+For a given value of `s`, we can use a root-finder to search for the value of `m2` that makes the p-value 0.05.
 
 ```python
 from scipy.optimize import brentq
@@ -295,7 +295,7 @@ def run_loop(seed=1):
 ```
 
 ```python
-res_df = run_loop(2)
+res_df = run_loop(1)  # with seed 2, the samples differ significantly even when m2 = m1, so there's no root
 ```
 
 ```python
@@ -323,7 +323,7 @@ for s in np.linspace(0.001, 1):
     group1 = dist1.rvs(n)
 
     dist2 = make_lognormal(1, s)
-    group2 = dist1.rvs(n)
+    group2 = dist2.rvs(n)
     
     diff = p_value_diff(group1, group2)
     print(s, diff)

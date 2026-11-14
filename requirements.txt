@@ -1,11 +1,14 @@
-empiricaldist
-jupyter
+# Packages the notebooks use, for running them with pip.
+# On Colab, the notebooks install what's missing themselves.
 numpy
+pandas
 matplotlib
-plotly
 seaborn
 scipy
-scikit-learn
 statsmodels
-tables
+empiricaldist
 xlrd
+pymc>=6
+arviz>=1.1
+nutpie
+jupyter

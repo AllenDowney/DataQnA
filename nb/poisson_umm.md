@@ -97,7 +97,7 @@ decorate()
 ```
 
 ```python
-from empiricaldist import Pmf
+from empiricaldist import Pmf, Surv
 
 def make_surv(seq):
     """Make a non-standard survival function, P(X>=x)"""
