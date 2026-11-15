@@ -29,3 +29,4 @@ parts:
   - file: gambler.ipynb
   - file: unlabeled_litters.ipynb
   - file: dual_choice.ipynb
+  - file: poisson_umm.ipynb

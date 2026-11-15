@@ -36,6 +36,7 @@ Read the articles at **[allendowney.github.io/DataQnA](https://allendowney.githu
 | [Gamblers and Large Numbers](https://allendowney.github.io/DataQnA/gambler.html) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/gambler.ipynb) |
 | [Time to a Milestone When You Can't Tell the Subjects Apart](https://allendowney.github.io/DataQnA/unlabeled_litters.html) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/unlabeled_litters.ipynb) |
 | [Up or Down? Three Experiments, One Question](https://allendowney.github.io/DataQnA/dual_choice.html) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/dual_choice.ipynb) |
+| [Do People Um at Random?](https://allendowney.github.io/DataQnA/poisson_umm.html) | [Run on Colab](https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/poisson_umm.ipynb) |
 
 ## Running the notebooks
 

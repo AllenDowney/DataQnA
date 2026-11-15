@@ -6,7 +6,7 @@ matplotlib
 seaborn
 scipy
 statsmodels
-empiricaldist
+empiricaldist>=0.10
 xlrd
 pymc>=6
 arviz>=1.1

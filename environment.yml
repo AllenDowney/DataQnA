@@ -31,4 +31,4 @@ dependencies:
   - ghp-import
   - pip
   - pip:
-    - empiricaldist
+    - empiricaldist>=0.10
