@@ -1,6 +1,6 @@
 # Data Q&A
 
-*Data Q&A* is a series of articles where I answer questions from Reddit's statistics forum, using Python code in a Jupyter notebook.
+*Data Q&A* is a series of articles where I answer questions from Reddit's statistics forum and Cross Validated, the statistics Q&A site, using Python code in a Jupyter notebook.
 
 At the beginning of each article, there's a link you can use to run the notebooks on Colab.
 

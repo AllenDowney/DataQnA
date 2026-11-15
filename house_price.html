@@ -192,6 +192,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gambler.html">Gamblers and Large Numbers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unlabeled_litters.html">Time to a Milestone When You Can’t Tell the Subjects Apart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dual_choice.html">Up or Down? Three Experiments, One Question</a></li>
+<li class="toctree-l1"><a class="reference internal" href="poisson_umm.html">Do People Um at Random?</a></li>
 </ul>
 
     </div>
@@ -878,6 +879,13 @@ If the model instance has been used for another fit with different fit parameter
 <blockquote>
 <div><p>This dataset contains house sale prices for King County, which includes Seattle. It includes homes sold between May 2014 and May 2015.</p>
 </div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">'https://github.com/AllenDowney/DataQnA/raw/main/data/kc_house_data.csv'</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'kc_house_data.csv'</span><span class="p">)</span>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Title &#8212; Data Q&amp;A</title>
+    <title>Do People Um at Random? &#8212; Data Q&amp;A</title>
   
   
   
@@ -60,9 +60,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'poisson_umm';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Up or Down? Three Experiments, One Question" href="dual_choice.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -114,8 +117,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -163,7 +164,7 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="bernoulli.html">Bernoulli’s Sample Size</a></li>
 <li class="toctree-l1"><a class="reference internal" href="combine_risk.html">Combining Risks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
@@ -190,6 +191,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gambler.html">Gamblers and Large Numbers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="unlabeled_litters.html">Time to a Milestone When You Can’t Tell the Subjects Apart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dual_choice.html">Up or Down? Three Experiments, One Question</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Do People Um at Random?</a></li>
 </ul>
 
     </div>
@@ -340,7 +342,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Title</h1>
+    <h1>Do People Um at Random?</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -350,7 +352,17 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answer">Answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data">The data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-deviation-versus-mean">Standard Deviation Versus Mean</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-coefficient-of-variation">The coefficient of variation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tail-distributions-on-a-log-y-scale">Tail distributions on a log-y scale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-much-variation-should-we-expect">How much variation should we expect?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all-the-speakers">All the speakers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ways-the-data-might-deviate">Ways the data might deviate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-between-consecutive-intervals">Correlation between consecutive intervals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-a-sessions">The Q&amp;A sessions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
             </nav>
@@ -363,17 +375,23 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="title">
-<h1>Title<a class="headerlink" href="#title" title="Link to this heading">#</a></h1>
-<p>Here’s a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1cqg0d6/q_youtube_video_where_the_creator_attended_a/">question from the Reddit statistics forum</a>.</p>
-<blockquote>
-<div><p>A while ago I watched a YouTube video where the creator told the story that he went to a science conference and he was bored so he started measuring the number of times and the intervals between when the speakers said “ehhh” or “emmm”. He discovered the mean was equal to the variance, and spent the latter part of the video explaining why he thought this was a Poisson process and what can be learnt from it.</p>
-</div></blockquote>
-<blockquote>
-<div><p>I can’t find it anywhere, I don’t remember the title or the name of the channel. Does anyone know?</p>
-</div></blockquote>
-<p><a class="reference internal" href="#"><span class="xref myst">It’s here</span></a></p>
-<p>Update the link…</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="do-people-um-at-random">
+<h1>Do People Um at Random?<a class="headerlink" href="#do-people-um-at-random" title="Link to this heading">#</a></h1>
+<p>In May 2023, a YouTuber called Not David posted a video called <a class="reference external" href="https://www.youtube.com/watch?v=anSjZS63T7s">“I Found a Weird Pattern in How People `UHMMM’”</a>, which has been watched more than a million times.
+Here’s the story: as a PhD student, bored at a conference, he wrote a program that recorded the time between clicks, and he clicked every time a speaker said “um”.
+Then he did the same for friends, for his own talks, and for science communicators on YouTube.</p>
+<p>For each speaker, he computed the mean and standard deviation of the times between ums, and plotted one against the other.
+Here’s what he found:</p>
+<ul class="simple">
+<li><p>Most speakers fall close to the line where the standard deviation equals the mean. That’s what we expect if ums are a Poisson process, so he concluded that ums arrive at random, independently of each other – “a window into how the brain works”.</p></li>
+<li><p>Professional communicators have longer gaps between ums.</p></li>
+<li><p>Some of the professionals are above the line: they “um like platoon buses”, with long stretches without ums, then bursts. The video attributes this to a difference in how practiced speakers string words together, citing their experience speaking off the cuff. In a comment on the video, Matt Parker, one of those speakers, offered a more specific theory: that he and Tom Scott switch between material they’ve presented many times and new material they’re talking about for the first time.</p></li>
+<li><p>In Q&amp;A sessions, where speakers can’t rehearse, the differences disappear, and “all statistical tests now suggest these are truly Poisson”.</p></li>
+</ul>
+<p>I found the video because of a <a class="reference external" href="https://www.reddit.com/r/statistics/comments/1cqg0d6/q_youtube_video_where_the_creator_attended_a/">question on Reddit’s statistics forum</a>, from someone who half-remembered it and asked where to find it.</p>
+<p>The video raises a general question: if we think a process might be well modeled by a Poisson process, how can we check?
+The video uses one method; I’ll explain why it’s not the best one, and demonstrate some alternatives.
+Fortunately, Not David made his data public, so we can try them out.</p>
 <p><a class="reference external" href="https://colab.research.google.com/github/AllenDowney/DataQnA/blob/main/nb/poisson_umm.ipynb">Click here to run this notebook on Colab</a>.</p>
 <p>I’ll download a utilities module with some of my frequently-used functions, and then import the usual libraries.</p>
 <div class="cell tag_remove-print tag_hide-cell docutils container">
@@ -407,12 +425,12 @@
 <p class="expanded admonition-title">Hide code cell content</p>
 </summary>
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># install the empiricaldist library, if necessary</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># install the empiricaldist library, if necessary (TailDist needs version 0.10 or later)</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">empiricaldist</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">TailDist</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>empiricaldist
+    <span class="o">%</span><span class="k">pip</span> install -q "empiricaldist&gt;=0.10"
 </pre></div>
 </div>
 </div>
@@ -429,356 +447,64 @@
 <span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">legacy</span><span class="o">=</span><span class="s1">'1.25'</span><span class="p">)</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">binom</span><span class="p">,</span> <span class="n">expon</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Surv</span><span class="p">,</span> <span class="n">TailDist</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">decorate</span>
+
+<span class="n">BLUE</span><span class="p">,</span> <span class="n">ORANGE</span><span class="p">,</span> <span class="n">GRAY</span> <span class="o">=</span> <span class="s2">"#2a78d6"</span><span class="p">,</span> <span class="s2">"#eb6834"</span><span class="p">,</span> <span class="s2">"0.6"</span>
 </pre></div>
 </div>
 </div>
 </details>
 </div>
-<section id="answer">
-<h2>Answer<a class="headerlink" href="#answer" title="Link to this heading">#</a></h2>
+<section id="the-data">
+<h2>The data<a class="headerlink" href="#the-data" title="Link to this heading">#</a></h2>
+<p>The data are in <a class="reference external" href="https://github.com/notDavidsGit/uhmmmsData">a repository on GitHub</a>.
+There’s one column for each of 40 talks, identified by number.
+The first row indicates whether the speaker is a professional communicator; the rest are the times between ums, in seconds, as recorded by the clicker.
+Two speakers were recorded twice (4a/4b and 35a/35b), and column 10 is Not David himself.
+A second file contains the times between ums during the Q&amp;A sessions after 18 of the talks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">download</span><span class="p">(</span><span class="s1">'https://raw.githubusercontent.com/notDavidsGit/uhmmmsData/main/uhmms_publicVersion.csv'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_url</span> <span class="o">=</span> <span class="s1">'https://raw.githubusercontent.com/notDavidsGit/uhmmmsData/main/'</span>
+<span class="n">download</span><span class="p">(</span><span class="n">data_url</span> <span class="o">+</span> <span class="s1">'uhmms_publicVersion.csv'</span><span class="p">)</span>
+<span class="n">download</span><span class="p">(</span><span class="n">data_url</span> <span class="o">+</span> <span class="s1">'uhmmsQ_public.csv'</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'uhmms_publicVersion.csv'</span><span class="p">)</span>
+<span class="n">professional</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+
+<span class="c1"># the lists have different lengths, padded with zeros</span>
+<span class="n">intervals</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">speaker</span><span class="p">:</span> <span class="n">raw</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="n">speaker</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">speaker</span> <span class="ow">in</span> <span class="n">raw</span><span class="o">.</span><span class="n">columns</span>
+<span class="p">}</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="p">),</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">intervals</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloaded uhmms_publicVersion.csv
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>'uhmms_publicVersion.csv'
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(40, 3982)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'uhmms_publicVersion.csv'</span><span class="p">)</span>
-<span class="n">professional</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-<span class="n">df</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4a</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>10</th>
-      <th>...</th>
-      <th>30</th>
-      <th>31</th>
-      <th>32</th>
-      <th>33</th>
-      <th>34</th>
-      <th>35a</th>
-      <th>35b</th>
-      <th>36</th>
-      <th>37</th>
-      <th>38</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>1</th>
-      <td>156.189129</td>
-      <td>18.287924</td>
-      <td>5.716667</td>
-      <td>8.566563</td>
-      <td>11.007572</td>
-      <td>10.880978</td>
-      <td>9.684331</td>
-      <td>2.427521</td>
-      <td>4.158846</td>
-      <td>3.273735</td>
-      <td>...</td>
-      <td>2.625</td>
-      <td>7.6650</td>
-      <td>9.1305</td>
-      <td>109.000005</td>
-      <td>77.900004</td>
-      <td>3.850001</td>
-      <td>12.874485</td>
-      <td>15.687501</td>
-      <td>24.354284</td>
-      <td>7.507038</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2.416570</td>
-      <td>4.756356</td>
-      <td>2.636593</td>
-      <td>28.591272</td>
-      <td>5.203077</td>
-      <td>1.333333</td>
-      <td>0.935780</td>
-      <td>1.026989</td>
-      <td>3.207831</td>
-      <td>11.775922</td>
-      <td>...</td>
-      <td>9.225</td>
-      <td>26.3608</td>
-      <td>47.3818</td>
-      <td>8.450001</td>
-      <td>18.200001</td>
-      <td>15.300002</td>
-      <td>11.874525</td>
-      <td>2.520834</td>
-      <td>102.931744</td>
-      <td>18.381962</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>15.799369</td>
-      <td>2.534259</td>
-      <td>6.110195</td>
-      <td>21.399258</td>
-      <td>15.192085</td>
-      <td>23.163785</td>
-      <td>0.650880</td>
-      <td>7.854320</td>
-      <td>17.613728</td>
-      <td>0.801862</td>
-      <td>...</td>
-      <td>1.050</td>
-      <td>11.3028</td>
-      <td>14.3960</td>
-      <td>110.450006</td>
-      <td>9.075000</td>
-      <td>8.524857</td>
-      <td>19.199233</td>
-      <td>1.979166</td>
-      <td>74.065260</td>
-      <td>12.151900</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>225.597393</td>
-      <td>1.573624</td>
-      <td>12.175269</td>
-      <td>6.800000</td>
-      <td>1.553463</td>
-      <td>16.436520</td>
-      <td>0.684817</td>
-      <td>1.203545</td>
-      <td>2.706110</td>
-      <td>1.670329</td>
-      <td>...</td>
-      <td>5.250</td>
-      <td>48.3742</td>
-      <td>94.5109</td>
-      <td>1.475000</td>
-      <td>105.173298</td>
-      <td>2.649894</td>
-      <td>6.499740</td>
-      <td>7.541667</td>
-      <td>3.228572</td>
-      <td>15.213512</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>10.966667</td>
-      <td>33.813675</td>
-      <td>4.216213</td>
-      <td>2.550000</td>
-      <td>31.027056</td>
-      <td>0.851981</td>
-      <td>19.476464</td>
-      <td>6.464309</td>
-      <td>42.143022</td>
-      <td>3.524489</td>
-      <td>...</td>
-      <td>2.450</td>
-      <td>6.1283</td>
-      <td>17.6890</td>
-      <td>41.000003</td>
-      <td>47.048119</td>
-      <td>5.974761</td>
-      <td>4.699812</td>
-      <td>8.876984</td>
-      <td>10.047942</td>
-      <td>339.787670</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>294</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>2.179838</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>295</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>10.648887</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>296</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>8.368250</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>297</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>20.796852</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-    <tr>
-      <th>298</th>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>14.030208</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>298 rows × 40 columns</p>
-</div></div></div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
-<span class="n">summary</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"professional"</span><span class="p">:</span> <span class="n">professional</span><span class="p">,</span>
+    <span class="s2">"n"</span><span class="p">:</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+    <span class="s2">"mean"</span><span class="p">:</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+    <span class="s2">"std"</span><span class="p">:</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+<span class="p">})</span>
+<span class="n">summary</span><span class="p">[</span><span class="s2">"cv"</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s2">"std"</span><span class="p">]</span> <span class="o">/</span> <span class="n">summary</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">]</span>
+<span class="n">summary</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -801,447 +527,1400 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4a</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>10</th>
-      <th>...</th>
-      <th>30</th>
-      <th>31</th>
-      <th>32</th>
-      <th>33</th>
-      <th>34</th>
-      <th>35a</th>
-      <th>35b</th>
-      <th>36</th>
-      <th>37</th>
-      <th>38</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>56.000000</td>
-      <td>73.000000</td>
-      <td>74.000000</td>
-      <td>35.000000</td>
-      <td>160.000000</td>
-      <td>117.000000</td>
-      <td>27.000000</td>
-      <td>298.000000</td>
-      <td>56.000000</td>
-      <td>202.000000</td>
-      <td>...</td>
-      <td>154.000000</td>
-      <td>92.000000</td>
-      <td>65.000000</td>
-      <td>11.000000</td>
-      <td>68.000000</td>
-      <td>117.000000</td>
-      <td>111.000000</td>
-      <td>53.000000</td>
-      <td>32.000000</td>
-      <td>21.000000</td>
-    </tr>
-    <tr>
+      <th>professional</th>
+      <th>n</th>
       <th>mean</th>
-      <td>54.381078</td>
-      <td>88.080670</td>
-      <td>18.643189</td>
-      <td>46.086570</td>
-      <td>13.167455</td>
-      <td>15.622566</td>
-      <td>50.658060</td>
-      <td>10.285966</td>
-      <td>80.489897</td>
-      <td>6.740673</td>
-      <td>...</td>
-      <td>15.943382</td>
-      <td>21.456296</td>
-      <td>31.209854</td>
-      <td>75.043487</td>
-      <td>47.415831</td>
-      <td>16.982779</td>
-      <td>20.617316</td>
-      <td>19.366259</td>
-      <td>62.384678</td>
-      <td>177.234046</td>
-    </tr>
-    <tr>
       <th>std</th>
-      <td>68.213970</td>
-      <td>129.539939</td>
-      <td>16.101857</td>
-      <td>57.920293</td>
-      <td>10.722984</td>
-      <td>16.568828</td>
-      <td>101.853630</td>
-      <td>9.864809</td>
-      <td>124.836447</td>
-      <td>5.922070</td>
-      <td>...</td>
-      <td>17.120249</td>
-      <td>23.938341</td>
-      <td>39.714742</td>
-      <td>85.659932</td>
-      <td>44.066733</td>
-      <td>14.835323</td>
-      <td>21.187480</td>
-      <td>21.695768</td>
-      <td>74.938951</td>
-      <td>269.034938</td>
+      <th>cv</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>56</td>
+      <td>54.38</td>
+      <td>68.21</td>
+      <td>1.25</td>
     </tr>
     <tr>
-      <th>min</th>
-      <td>0.966628</td>
-      <td>0.436783</td>
-      <td>0.666667</td>
-      <td>2.383333</td>
-      <td>0.668400</td>
-      <td>0.851981</td>
-      <td>0.650880</td>
-      <td>0.726123</td>
-      <td>1.177242</td>
-      <td>0.484528</td>
-      <td>...</td>
-      <td>0.250000</td>
-      <td>1.539800</td>
-      <td>3.104900</td>
-      <td>1.475000</td>
-      <td>0.825000</td>
-      <td>2.074917</td>
-      <td>0.149994</td>
-      <td>1.979166</td>
-      <td>2.769348</td>
-      <td>1.431176</td>
+      <th>2</th>
+      <td>True</td>
+      <td>73</td>
+      <td>88.08</td>
+      <td>129.54</td>
+      <td>1.47</td>
     </tr>
     <tr>
-      <th>25%</th>
-      <td>10.528745</td>
-      <td>5.979781</td>
-      <td>6.613955</td>
-      <td>11.107318</td>
-      <td>5.424506</td>
-      <td>5.002729</td>
-      <td>1.069221</td>
-      <td>3.639449</td>
-      <td>3.320004</td>
-      <td>2.898027</td>
-      <td>...</td>
-      <td>4.881050</td>
-      <td>6.548550</td>
-      <td>9.130500</td>
-      <td>25.948964</td>
-      <td>16.624335</td>
-      <td>6.499740</td>
-      <td>8.249670</td>
-      <td>7.562197</td>
-      <td>10.644649</td>
-      <td>15.213512</td>
+      <th>3</th>
+      <td>False</td>
+      <td>74</td>
+      <td>18.64</td>
+      <td>16.10</td>
+      <td>0.86</td>
     </tr>
     <tr>
-      <th>50%</th>
-      <td>26.590604</td>
-      <td>31.897432</td>
-      <td>14.090931</td>
-      <td>25.981860</td>
-      <td>10.873960</td>
-      <td>10.122434</td>
-      <td>11.876020</td>
-      <td>6.877769</td>
-      <td>30.079056</td>
-      <td>4.919313</td>
-      <td>...</td>
-      <td>10.199800</td>
-      <td>13.395850</td>
-      <td>16.859100</td>
-      <td>34.173634</td>
-      <td>35.236092</td>
-      <td>12.474501</td>
-      <td>14.574417</td>
-      <td>10.395418</td>
-      <td>33.805298</td>
-      <td>66.143024</td>
+      <th>4a</th>
+      <td>False</td>
+      <td>35</td>
+      <td>46.09</td>
+      <td>57.92</td>
+      <td>1.26</td>
     </tr>
     <tr>
-      <th>75%</th>
-      <td>73.702118</td>
-      <td>94.795536</td>
-      <td>25.339174</td>
-      <td>44.052650</td>
-      <td>17.129621</td>
-      <td>21.561545</td>
-      <td>32.781098</td>
-      <td>14.166334</td>
-      <td>117.109292</td>
-      <td>8.339405</td>
-      <td>...</td>
-      <td>20.655450</td>
-      <td>28.144725</td>
-      <td>38.056200</td>
-      <td>109.725005</td>
-      <td>70.553431</td>
-      <td>21.924125</td>
-      <td>25.548980</td>
-      <td>27.519734</td>
-      <td>75.629401</td>
-      <td>213.780126</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>317.920630</td>
-      <td>565.585517</td>
-      <td>90.938504</td>
-      <td>288.772003</td>
-      <td>54.837179</td>
-      <td>107.956325</td>
-      <td>440.000000</td>
-      <td>87.769520</td>
-      <td>610.216277</td>
-      <td>33.340575</td>
-      <td>...</td>
-      <td>90.196400</td>
-      <td>156.649700</td>
-      <td>221.900500</td>
-      <td>291.788869</td>
-      <td>261.939532</td>
-      <td>100.170997</td>
-      <td>127.094922</td>
-      <td>126.849097</td>
-      <td>320.123082</td>
-      <td>1061.342106</td>
+      <th>5</th>
+      <td>False</td>
+      <td>160</td>
+      <td>13.17</td>
+      <td>10.72</td>
+      <td>0.81</td>
     </tr>
   </tbody>
 </table>
-<p>8 rows × 40 columns</p>
+</div></div></div>
+</div>
+<p>There are 3,982 intervals in all, from 11 to 298 per talk.</p>
+</section>
+<section id="standard-deviation-versus-mean">
+<h2>Standard Deviation Versus Mean<a class="headerlink" href="#standard-deviation-versus-mean" title="Link to this heading">#</a></h2>
+<p>If events happen at a constant rate, <span class="math notranslate nohighlight">\(\lambda\)</span>, independently of each other, they form a <a class="reference external" href="https://en.wikipedia.org/wiki/Poisson_point_process">Poisson process</a>.
+In that case, the number of events in any window follows a Poisson distribution, and the times between events follow an <a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">exponential distribution</a> with mean <span class="math notranslate nohighlight">\(1/\lambda\)</span>.
+The standard deviation of an exponential distribution equals its mean, which suggests a way to check whether the data are consistent with a Poisson process: a scatter plot of standard deviation versus mean.</p>
+<p>Here’s my version of the plot shown in the video, with the mean and standard deviation for each talk on log-log axes, and the diagonal for reference.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_mean_std</span><span class="p">(</span><span class="n">summary</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">prof</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="p">[(</span><span class="kc">False</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">,</span> <span class="s2">"Others"</span><span class="p">),</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">ORANGE</span><span class="p">,</span> <span class="s2">"Professionals"</span><span class="p">)]:</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[</span><span class="s2">"professional"</span><span class="p">]</span> <span class="o">==</span> <span class="n">prof</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">],</span> <span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rows</span><span class="p">,</span> <span class="s2">"std"</span><span class="p">],</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">summary</span><span class="p">[[</span><span class="s2">"mean"</span><span class="p">,</span> <span class="s2">"std"</span><span class="p">]]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">GRAY</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"Mean time between ums (s)"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Standard deviation (s)"</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+
+<span class="n">plot_mean_std</span><span class="p">(</span><span class="n">summary</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/53b96063f3cdef172e4829767b2c3957b333cdcbbe0541b4760d1c35733ae1c3.png" src="_images/53b96063f3cdef172e4829767b2c3957b333cdcbbe0541b4760d1c35733ae1c3.png" />
+</div>
+</div>
+<p>Consistent with conclusions in the the video, most points are close to the diagonal, and the professionals (orange) have longer gaps between ums, on average.</p>
+<p>But on log-log axes, departures from the diagonal look small.
+If we plot the same data on linear axes, they are easier to see.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_mean_std</span><span class="p">(</span><span class="n">summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1c62057ac3c9ab153bd5535c7a7858c1b956ab36a3f6f69a1a23cd6bf07c8257.png" src="_images/1c62057ac3c9ab153bd5535c7a7858c1b956ab36a3f6f69a1a23cd6bf07c8257.png" />
+</div>
+</div>
+<p>Several of the professionals are above the line, which means their intervals are more variable than an exponential distribution with the same mean.
+That’s one indication that the data might deviate from a Poisson model – but the real world is never perfect.
+So let’s see how much deviation we should expect by chance.</p>
+</section>
+<section id="the-coefficient-of-variation">
+<h2>The coefficient of variation<a class="headerlink" href="#the-coefficient-of-variation" title="Link to this heading">#</a></h2>
+<p>To summarize each speaker’s data, we’ll compute the ratio of the standard deviation to the mean, which is the <a class="reference external" href="https://en.wikipedia.org/wiki/Coefficient_of_variation">coefficient of variation</a> (CV).</p>
+<p>For values from an exponential distribution, the CV should be 1, but in a finite sample we don’t expect it to be exactly 1.
+To see how much deviation we should expect, we’ll simulate exponential samples with the same samples sizes we see in the data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">17</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cv_range</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">iters</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">samples</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">iters</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">cvs</span> <span class="o">=</span> <span class="n">samples</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">samples</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cvs</span>
+
+
+<span class="n">sims</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">cv_range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">summary</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">summary</span><span class="p">[</span><span class="s2">"cv 5%"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">summary</span><span class="p">[</span><span class="s2">"cv 95%"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">sims</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="mi">95</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">summary</span><span class="p">[</span><span class="s2">"p (cv high)"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">sims</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="s2">"cv"</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ordered</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"cv"</span><span class="p">)</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ordered</span><span class="p">))</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">ordered</span><span class="p">[</span><span class="s2">"professional"</span><span class="p">],</span> <span class="n">ORANGE</span><span class="p">,</span> <span class="n">BLUE</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ordered</span><span class="p">[</span><span class="s2">"cv 5%"</span><span class="p">],</span> <span class="n">ordered</span><span class="p">[</span><span class="s2">"cv 95%"</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">GRAY</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ordered</span><span class="p">[</span><span class="s2">"cv"</span><span class="p">],</span> <span class="n">ys</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GRAY</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">ys</span><span class="p">,</span> <span class="n">ordered</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"Coefficient of variation (gray: 90</span><span class="si">% r</span><span class="s2">ange for exponential)"</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f177b3ce10aa7e7668d54845fb0dab72ac4d34ed978395705cc5e34683afdebe.png" src="_images/f177b3ce10aa7e7668d54845fb0dab72ac4d34ed978395705cc5e34683afdebe.png" />
+</div>
+</div>
+<p>For each speaker, the dot shows the CV and the gray line shows the range we’d expect from an exponential sample of the same size.
+Many CVs are within the range, but a substantial number are above it, and a few are below.</p>
+<p>Here’s the number of speakers whose CV is higher than 95% of the simulated values, for non-professionals (<code class="docutils literal notranslate"><span class="pre">False</span></code>) and professionals (<code class="docutils literal notranslate"><span class="pre">True</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">high</span><span class="o">=</span><span class="n">summary</span><span class="p">[</span><span class="s2">"p (cv high)"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"professional"</span><span class="p">)[</span><span class="s2">"high"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"sum"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sum</th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>professional</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>False</th>
+      <td>8</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>True</th>
+      <td>7</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>If all 40 talks came from exponential distributions, we’d expect about 2 of them to exceed this threshold by chance.
+In fact, 8 of 25 non-professionals and 7 of 15 professionals do.
+So the CVs suggest that the exponential model doesn’t fit many of the speakers, especially the professionals.</p>
+<p>But the CV is not the best way to check, for several reasons:</p>
+<ul class="simple">
+<li><p>It’s a single number, so it can’t tell us <em>where</em> a distribution departs from exponential, and a distribution can have a CV near 1 without being exponential.</p></li>
+<li><p>It’s sensitive to the largest values, which are few and noisy.</p></li>
+<li><p>It ignores the order of the intervals, so it can’t tell us whether they are independent.</p></li>
+</ul>
+<p>A better way to check whether data fit a particular distribution is to plot the whole distribution.</p>
+</section>
+<section id="tail-distributions-on-a-log-y-scale">
+<h2>Tail distributions on a log-y scale<a class="headerlink" href="#tail-distributions-on-a-log-y-scale" title="Link to this heading">#</a></h2>
+<p>For some common distributions, there’s a way to transform the distribution so it appears as a straight line.
+For an exponential distribution, the probability of a value greater than or equal to <span class="math notranslate nohighlight">\(x\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[P(X \ge x) = e^{-\lambda x}\]</div>
+<p>If we take the log of both sides, we get</p>
+<div class="math notranslate nohighlight">
+\[\log P(X \ge x) = -\lambda x\]</div>
+<p>So if we plot these probabilities on a log-y scale, the result should be a straight line with slope <span class="math notranslate nohighlight">\(-\lambda\)</span>.
+Departures from a straight line are easy to see, and the shape of the departure tells us something.
+If the curve bends up on the right, there are more long gaps than an exponential distribution predicts; if it bends down, there are fewer.</p>
+<p>To compute these probabilities, I’ll use a <code class="docutils literal notranslate"><span class="pre">TailDist</span></code> object from <code class="docutils literal notranslate"><span class="pre">empiricaldist</span></code>, which represents <span class="math notranslate nohighlight">\(P(X \ge x)\)</span>.</p>
+<p>To demonstrate the method, I’ll start with two speakers: speaker 8, who has a CV near 1 and a lot of data, and speaker 27, a professional with a high CV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">examples</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'8'</span><span class="p">,</span> <span class="s1">'27'</span><span class="p">]</span>
+<span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">examples</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>professional</th>
+      <th>n</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>cv</th>
+      <th>cv 5%</th>
+      <th>cv 95%</th>
+      <th>p (cv high)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>8</th>
+      <td>False</td>
+      <td>298</td>
+      <td>10.29</td>
+      <td>9.86</td>
+      <td>0.96</td>
+      <td>0.91</td>
+      <td>1.09</td>
+      <td>0.72</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>True</td>
+      <td>63</td>
+      <td>54.37</td>
+      <td>85.62</td>
+      <td>1.57</td>
+      <td>0.81</td>
+      <td>1.19</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table>
 </div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ms</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">'mean'</span><span class="p">]</span>
-<span class="n">ss</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">'std'</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_tail</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="n">tail</span> <span class="o">=</span> <span class="n">TailDist</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">tail</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="o">**</span><span class="n">options</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tail</span>
 
-<span class="n">high</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ms</span><span class="p">,</span> <span class="n">ss</span><span class="p">,</span> <span class="s1">'.'</span><span class="p">)</span>
-<span class="n">decorate</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">201</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">qs</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">GRAY</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">speaker</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">examples</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">intervals</span><span class="p">[</span><span class="n">speaker</span><span class="p">]</span>
+    <span class="n">plot_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"exponential"</span><span class="p">)</span>
+    <span class="n">plot_tail</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"speaker </span><span class="si">{</span><span class="n">speaker</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"Time between ums (s)"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"P(X ≥ x)"</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8ad85a45553a46175053d47ec9193dfeb66060b0870a3edf1bb8976f06abaf4c.png" src="_images/8ad85a45553a46175053d47ec9193dfeb66060b0870a3edf1bb8976f06abaf4c.png" />
+<img alt="_images/30a440e8a649e576c483b810b6e1aa2ff71133fe86b6564dd5765e43d5179d28.png" src="_images/30a440e8a649e576c483b810b6e1aa2ff71133fe86b6564dd5765e43d5179d28.png" />
 </div>
 </div>
+<p>The gray lines show exponential distributions with the same mean as the data.
+For speaker 8, the data follow the straight line closely, down to about <span class="math notranslate nohighlight">\(10^{-1}\)</span> on the y-axis, which means that it covers all but 10% of the data. After that, the data depart from the model.
+For speaker 27, the model doesn’t fit the data well.</p>
+<p>But just looking at these figures, it’s not clear how much deviation from the exponential distribution we should expect.</p>
+</section>
+<section id="how-much-variation-should-we-expect">
+<h2>How much variation should we expect?<a class="headerlink" href="#how-much-variation-should-we-expect" title="Link to this heading">#</a></h2>
+<p>To decide whether a departure from the straight line is meaningful, we need to know how much a sample from an exponential distribution would vary by chance.
+The tail is where the variation is biggest, because it’s based on the fewest data points.</p>
+<p>One way to find out is to simulate.
+The following function generates exponential samples with the same mean and size as the data, and plots their tail distributions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">empiricaldist</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pmf</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">make_surv</span><span class="p">(</span><span class="n">seq</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Make a non-standard survival function, P(X&gt;=x)"""</span>
-    <span class="n">pmf</span> <span class="o">=</span> <span class="n">Pmf</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
-    <span class="n">surv</span> <span class="o">=</span> <span class="n">pmf</span><span class="o">.</span><span class="n">make_surv</span><span class="p">()</span> <span class="o">+</span> <span class="n">pmf</span>
-
-    <span class="c1"># correct for numerical error</span>
-    <span class="n">surv</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">Surv</span><span class="p">(</span><span class="n">surv</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_simulated</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">iters</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iters</span><span class="p">):</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">exponential</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">TailDist</span><span class="o">.</span><span class="n">from_seq</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">GRAY</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="n">sf</span> <span class="o">=</span> <span class="n">make_surv</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
-    <span class="n">sf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
-    
-<span class="n">decorate</span><span class="p">(</span><span class="n">yscale</span><span class="o">=</span><span class="s1">'log'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">speaker</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">examples</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">intervals</span><span class="p">[</span><span class="n">speaker</span><span class="p">]</span>
+    <span class="n">plot_simulated</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">plot_tail</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"speaker </span><span class="si">{</span><span class="n">speaker</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"Time between ums (s)"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"P(X ≥ x)"</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/287f8d614a390529572a5cbdf2f1c63bb55ab38a1f093520695ff5f056cb5e63.png" src="_images/287f8d614a390529572a5cbdf2f1c63bb55ab38a1f093520695ff5f056cb5e63.png" />
+<img alt="_images/b920ab925594d9464c1172b9bc4208412c96e4ef4cff97b96c9c5c3830157ec0.png" src="_images/b920ab925594d9464c1172b9bc4208412c96e4ef4cff97b96c9c5c3830157ec0.png" />
 </div>
 </div>
+<p>The gray lines show 100 simulated samples.
+Speaker 8’s data are mostly inside the range of the simulations, but the longest interval is longer than in most of them.
+With 298 intervals and a mean of about 10 seconds, the chance of an interval as long as 88 seconds is only about 6%, so this is a little surprising, but not much evidence against the model.
+Speaker 27’s data are outside the range of the simulations, in both the short and long intervals.</p>
+<p>Simulation is easy to understand, but it’s slow if we want to do it for all 40 talks, and the result is noisy.
+Instead we can compute analytically the interval we expect the distribution of the sample to fall in.</p>
+<p>If the data are a sample of size <span class="math notranslate nohighlight">\(n\)</span> from an exponential distribution, the number of values greater than or equal to <span class="math notranslate nohighlight">\(x\)</span> follows a binomial distribution with parameters <span class="math notranslate nohighlight">\(n\)</span> and <span class="math notranslate nohighlight">\(p = P(X \ge x)\)</span>.
+So we can use the binomial distribution to compute percentiles of the tail distribution at each <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<p>This calculation makes a simplifying assumption: that the mean of the exponential distribution is known, and equal to the sample mean.
+In fact, we estimated it from the same data we’re checking.
+(The simulations in the previous section make the same assumption.)
+We’ll come back to the consequences of this assumption below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">binom</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">sf_error_bounds</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">qs</span><span class="p">,</span> <span class="n">con_level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Find the bounds on a normal CDF analytically.</span>
-
-<span class="sd">    dist: scipy.stats distribution object</span>
-<span class="sd">    n: sample size</span>
-<span class="sd">    qs: quantities</span>
-<span class="sd">    alpha: fraction excluded from the CI</span>
-
-<span class="sd">    returns: tuple of arrays (low, high)</span>
-<span class="sd">    """</span>
-    <span class="c1"># find the correct probabilities</span>
-    <span class="n">ps</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
-
-    <span class="c1"># find the upper and lower percentiles of</span>
-    <span class="c1"># a binomial distribution</span>
-    <span class="n">p_low</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">con_level</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="n">p_high</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_low</span>
-
-    <span class="n">low</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">p_low</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
-    <span class="n">low</span><span class="p">[</span><span class="n">ps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">high</span> <span class="o">=</span> <span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">p_high</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">tail_bounds</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">con_level</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">201</span><span class="p">)</span>
+    <span class="n">ps</span> <span class="o">=</span> <span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">qs</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">con_level</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">TailDist</span><span class="p">(</span><span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">TailDist</span><span class="p">(</span><span class="n">binom</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ps</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_bounds</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">tail_bounds</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">low</span><span class="o">.</span><span class="n">qs</span><span class="p">,</span> <span class="n">low</span><span class="o">.</span><span class="n">ps</span><span class="p">,</span> <span class="n">high</span><span class="o">.</span><span class="n">ps</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">GRAY</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Here are the 90% bounds for the two example speakers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'1'</span><span class="p">]</span>
-<span class="n">ts</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">speaker</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">examples</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">intervals</span><span class="p">[</span><span class="n">speaker</span><span class="p">]</span>
+    <span class="n">plot_bounds</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"90% bounds"</span><span class="p">)</span>
+    <span class="n">plot_tail</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"speaker </span><span class="si">{</span><span class="n">speaker</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">"Time between ums (s)"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"P(X ≥ x)"</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>count     56.000000
-mean      54.381078
-std       68.213970
-min        0.966628
-25%       10.528745
-50%       26.590604
-75%       73.702118
-max      317.920630
-Name: 1, dtype: float64
-</pre></div>
+<img alt="_images/4461f0186c3279cdd2956fa6217c119db407f60ef16d18a5d1adaca7ac1cf5a1.png" src="_images/4461f0186c3279cdd2956fa6217c119db407f60ef16d18a5d1adaca7ac1cf5a1.png" />
 </div>
 </div>
-</div>
+<p>The bounds agree with the simulations: speaker 8 is consistent with an exponential distribution, except for the longest interval, and speaker 27 is not.
+Where the lower bound is 0, the shaded area extends to the bottom of the plot.</p>
+<p>Because of the simplifying assumption, these bounds are approximate.
+The model is fitted to the data, so the data tend to be closer to it than a sample from a known distribution would be, which means the bounds are wider than they need to be.
+In simulations, a sample from an exponential distribution, compared with an exponential model that has the same mean as the sample, stays inside the bounds at almost every point, and the whole curve stays inside them about 60% to 80% of the time, depending on sample size.
+So the bounds are conservative: a brief excursion outside them is not much evidence against the model, but a long stretch outside, or a large departure, is.</p>
+</section>
+<section id="all-the-speakers">
+<h2>All the speakers<a class="headerlink" href="#all-the-speakers" title="Link to this heading">#</a></h2>
+<p>Now we can check all 40 talks.
+In the following figure, each panel shows one talk, with the professionals in orange.
+The title shows the label of the talk, the number of intervals, and the CV.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-<span class="n">lam</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">n</span><span class="p">,</span> <span class="n">lam</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_grid</span><span class="p">(</span><span class="n">intervals</span><span class="p">,</span> <span class="n">summary</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">nrows</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="p">)</span> <span class="o">/</span> <span class="n">ncols</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">nrows</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">speaker</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">,</span> <span class="n">intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+        <span class="n">plot_bounds</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">ORANGE</span> <span class="k">if</span> <span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">speaker</span><span class="p">,</span> <span class="s2">"professional"</span><span class="p">]</span> <span class="k">else</span> <span class="n">BLUE</span>
+        <span class="n">plot_tail</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">"log"</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mf">1.5</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">speaker</span><span class="si">}</span><span class="s2"> (n=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2">, cv=</span><span class="si">{</span><span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">speaker</span><span class="p">,</span><span class="w"> </span><span class="s1">'cv'</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">flat</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="p">):]:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+
+<span class="n">plot_grid</span><span class="p">(</span><span class="n">intervals</span><span class="p">,</span> <span class="n">summary</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(56, 54.38107757142858)
-</pre></div>
+<img alt="_images/ff2d67a8cc3cf184cd74e123b6b1d354fbd521e52c574fab137b57219aa58395.png" src="_images/ff2d67a8cc3cf184cd74e123b6b1d354fbd521e52c574fab137b57219aa58395.png" />
 </div>
 </div>
-</div>
+<p>For many of the speakers, the data are inside the bounds, or close.
+For several, the tail is above the bounds, which means there are more long intervals than an exponential distribution predicts – including professionals 2, 7, 9, 27 and 29, and non-professionals 18 and 28.
+For a few speakers, including 5 and 21, the tail falls below the bounds on the right, which means there are fewer long intervals than expected.</p>
+</section>
+<section id="ways-the-data-might-deviate">
+<h2>Ways the data might deviate<a class="headerlink" href="#ways-the-data-might-deviate" title="Link to this heading">#</a></h2>
+<p>There are two ways the data might depart from a Poisson process: the intervals might come from a distribution other than exponential, or they might not be independent.</p>
+<p>A distribution other than exponential can be over-dispersed or under-dispersed.</p>
+<ul class="simple">
+<li><p>If it’s over-dispersed, there are more short intervals and more long intervals than in an exponential distribution, the CV is greater than 1, and the tail bends up. That’s the “platoon bus” pattern. It could happen if the rate of ums changes over the course of a talk, or if the speaker switches between modes.</p></li>
+<li><p>If it’s under-dispersed, the intervals are more regular than random, like buses that run on schedule, the CV is less than 1, and the tail falls faster than a straight line. That could happen if there’s a minimum time between ums, or because of the reaction time of the person with the clicker.</p></li>
+</ul>
+<p>In this dataset, over-dispersion is more common: 15 of 40 talks have CVs above the range we’d expect by chance, and only a few are below it.</p>
+<p>The other possibility is that the intervals are not independent.
+In a Poisson process, the time until the next event doesn’t depend on the time since the last one.
+But if speakers switch between rehearsed and new material, as Matt Parker suggests, we expect short intervals to be followed by short intervals, and long by long.
+Neither the CV nor the tail distribution can detect this kind of dependence, because they ignore the order of the intervals.</p>
+<section id="correlation-between-consecutive-intervals">
+<h3>Correlation between consecutive intervals<a class="headerlink" href="#correlation-between-consecutive-intervals" title="Link to this heading">#</a></h3>
+<p>To check for dependence, we can compute the serial correlation of the intervals – that is, the correlation between each interval and the next.
+Because the intervals are skewed, I’ll compute it using the logarithms of the intervals, so a few long intervals don’t dominate the result.
+To see whether a correlation is bigger than we’d expect by chance, we can shuffle the intervals, which destroys any dependence between them, and see how often the correlation of the shuffled data is as big as the actual correlation.
+Here are the median serial correlations for non-professionals and professionals.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">expon</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">lag1_corr</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">logs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">logs</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">logs</span><span class="p">[</span><span class="mi">1</span><span class="p">:])[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 
-<span class="n">dist</span> <span class="o">=</span> <span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">lam</span><span class="p">)</span>
-<span class="n">dist</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">lag1_test</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">iters</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+    <span class="n">actual</span> <span class="o">=</span> <span class="n">lag1_corr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">shuffled</span> <span class="o">=</span> <span class="p">[</span><span class="n">lag1_corr</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iters</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">actual</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shuffled</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">actual</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">lag1_test</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">summary</span><span class="p">[</span><span class="s2">"lag1"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">summary</span><span class="p">[</span><span class="s2">"p (lag1)"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">summary</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">summary</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"professional"</span><span class="p">)[</span><span class="s2">"lag1"</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>54.38107757142858
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>professional
+False    0.029668
+True     0.145648
+Name: lag1, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
+<p>For non-professionals, the median is close to 0; for professionals, it’s about 0.15.
+And here’s the number of talks where the correlation is bigger than 95% of the shuffled correlations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-<span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">sf_error_bounds</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">sf</span> <span class="o">=</span> <span class="n">make_surv</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-<span class="n">sf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
-    
-<span class="n">decorate</span><span class="p">(</span><span class="n">yscale</span><span class="o">=</span><span class="s1">'log'</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">correlated</span><span class="o">=</span><span class="n">summary</span><span class="p">[</span><span class="s2">"p (lag1)"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"professional"</span><span class="p">)[</span><span class="s2">"correlated"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">"sum"</span><span class="p">,</span> <span class="s2">"count"</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5eed6e3bd3a6503f3b9287a6bd22c37859fb7f6799f7eeb7375fc30524deaaf3.png" src="_images/5eed6e3bd3a6503f3b9287a6bd22c37859fb7f6799f7eeb7375fc30524deaaf3.png" />
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sum</th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>professional</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>False</th>
+      <td>1</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>True</th>
+      <td>7</td>
+      <td>15</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-</div>
+<p>By chance, we’d expect about 1 of 25 non-professionals and 1 of 15 professionals to exceed this threshold.
+For the non-professionals, the result is consistent with independence, but 7 of 15 professionals show evidence of positive correlation.</p>
+<p>To see what that looks like, here are scatter plots of each interval and the next for the two example speakers, on log-log axes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">poisson_plot</span><span class="p">(</span><span class="n">ts</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-    <span class="n">lam</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">dist</span> <span class="o">=</span> <span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="n">lam</span><span class="p">)</span>
-
-    <span class="n">qs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ts</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
-    <span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="n">sf_error_bounds</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">qs</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">qs</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-    <span class="n">sf</span> <span class="o">=</span> <span class="n">make_surv</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
-    <span class="n">sf</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
-
-    <span class="n">decorate</span><span class="p">(</span><span class="n">yscale</span><span class="o">=</span><span class="s1">'log'</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-    <span class="n">poisson_plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">speaker</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">examples</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">intervals</span><span class="p">[</span><span class="n">speaker</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="s2">"o"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">)</span>
+    <span class="n">decorate</span><span class="p">(</span>
+        <span class="n">xlabel</span><span class="o">=</span><span class="s2">"Interval (s)"</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">"Next interval (s)"</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="s2">"log"</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">"speaker </span><span class="si">{</span><span class="n">speaker</span><span class="si">}</span><span class="s2">, r = </span><span class="si">{</span><span class="n">lag1_corr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_890367/3801732769.py:2: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`). Consider using `matplotlib.pyplot.close()`.
-  plt.figure()
+<img alt="_images/20dce2a68a680ffbe76c776036bfb0290c4b985df9cb46d872e3df8afa1e26c1.png" src="_images/20dce2a68a680ffbe76c776036bfb0290c4b985df9cb46d872e3df8afa1e26c1.png" />
+</div>
+</div>
+<p>For speaker 8, there’s no visible relationship.
+For speaker 27, there is: short intervals tend to be followed by short intervals, and long by long.</p>
+<p>To see where that correlation comes from, here are the ums of the two speakers on a timeline.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">speaker</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">examples</span><span class="p">):</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">intervals</span><span class="p">[</span><span class="n">speaker</span><span class="p">])</span> <span class="o">/</span> <span class="mi">60</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"speaker </span><span class="si">{</span><span class="n">speaker</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">"Time (minutes)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="_images/5eed6e3bd3a6503f3b9287a6bd22c37859fb7f6799f7eeb7375fc30524deaaf3.png" src="_images/5eed6e3bd3a6503f3b9287a6bd22c37859fb7f6799f7eeb7375fc30524deaaf3.png" />
-<img alt="_images/60036950aca7c31c592332364fd826dd90cf5701fd2d1a3e02c0c3b2edaf7cc2.png" src="_images/60036950aca7c31c592332364fd826dd90cf5701fd2d1a3e02c0c3b2edaf7cc2.png" />
-<img alt="_images/f400f437398e627497a1c3754d52d4f176c558e1a8f5fd97a640d34336c287d6.png" src="_images/f400f437398e627497a1c3754d52d4f176c558e1a8f5fd97a640d34336c287d6.png" />
-<img alt="_images/3c25e85fc11dac1f7cb7e39bdae46018f0dd2ac048d4c63e75a7af972caf45dc.png" src="_images/3c25e85fc11dac1f7cb7e39bdae46018f0dd2ac048d4c63e75a7af972caf45dc.png" />
-<img alt="_images/495a125a4735be8156bf2905cf36130225f872ef93e203fa2003b23162d4b4f3.png" src="_images/495a125a4735be8156bf2905cf36130225f872ef93e203fa2003b23162d4b4f3.png" />
-<img alt="_images/be8b97955252cccc10c48d9eca6c7a43feb98f77b1e3363cc43cc16eb0f49442.png" src="_images/be8b97955252cccc10c48d9eca6c7a43feb98f77b1e3363cc43cc16eb0f49442.png" />
-<img alt="_images/2ac3873d62540efa30c4d22dcf46690b13438d39ef05155eb5f5c98464e3cc24.png" src="_images/2ac3873d62540efa30c4d22dcf46690b13438d39ef05155eb5f5c98464e3cc24.png" />
-<img alt="_images/1e904dd0bc72bbca4174ff0d5a9aad7d4202b31a0e81916c1331727685584599.png" src="_images/1e904dd0bc72bbca4174ff0d5a9aad7d4202b31a0e81916c1331727685584599.png" />
-<img alt="_images/6b0393dfd64384edd6813f39a4825772733d8dbe905686d2cfd92688ebb740d8.png" src="_images/6b0393dfd64384edd6813f39a4825772733d8dbe905686d2cfd92688ebb740d8.png" />
-<img alt="_images/3ce72513e474bd0b0e5fd5305bc55452bec6ca32e46e0400ee75220e50158817.png" src="_images/3ce72513e474bd0b0e5fd5305bc55452bec6ca32e46e0400ee75220e50158817.png" />
-<img alt="_images/6f3e5c3703c91c55b18ebb0e3b5a6f849b9c65db1e4298b1ae330529670a7744.png" src="_images/6f3e5c3703c91c55b18ebb0e3b5a6f849b9c65db1e4298b1ae330529670a7744.png" />
-<img alt="_images/758b878f1eadec1870702fecbb454f1c62b651f8be08c31b44e363a988738254.png" src="_images/758b878f1eadec1870702fecbb454f1c62b651f8be08c31b44e363a988738254.png" />
-<img alt="_images/fcc2def6bb9c18db11f1669866a21f4c6a08a4ffdcd01aa31687c7fe26f6ef3b.png" src="_images/fcc2def6bb9c18db11f1669866a21f4c6a08a4ffdcd01aa31687c7fe26f6ef3b.png" />
-<img alt="_images/4b871c3ff37056e1faf283bff09f37678d93aea5a40dff6fa46c1b2721b79ce9.png" src="_images/4b871c3ff37056e1faf283bff09f37678d93aea5a40dff6fa46c1b2721b79ce9.png" />
-<img alt="_images/3249309cfaac33b507f91c832c3b53f4c498af51eb52b9e77a89a75b7a576f9a.png" src="_images/3249309cfaac33b507f91c832c3b53f4c498af51eb52b9e77a89a75b7a576f9a.png" />
-<img alt="_images/5a6b5d36cb49e7663490d96a32b02c0d02a308d05bb59959e611d20d68908896.png" src="_images/5a6b5d36cb49e7663490d96a32b02c0d02a308d05bb59959e611d20d68908896.png" />
-<img alt="_images/5ab2631a9c45659053668873bab2a89d142c9335452d89932248aebaed54e231.png" src="_images/5ab2631a9c45659053668873bab2a89d142c9335452d89932248aebaed54e231.png" />
-<img alt="_images/0048b9d75fd1f4ec2bfa1630fdcab8e1ccd62597a64ed041e4b9a56d384b7622.png" src="_images/0048b9d75fd1f4ec2bfa1630fdcab8e1ccd62597a64ed041e4b9a56d384b7622.png" />
-<img alt="_images/7a42a96d64d5a762b4e7ca059cb442568ef9199f83af8db26b7c4f933ffc441d.png" src="_images/7a42a96d64d5a762b4e7ca059cb442568ef9199f83af8db26b7c4f933ffc441d.png" />
-<img alt="_images/e4ea7276f6f77cd9f1172377cc5413f5581c3e1d8db8c8b2ad2f3a80a15a71c8.png" src="_images/e4ea7276f6f77cd9f1172377cc5413f5581c3e1d8db8c8b2ad2f3a80a15a71c8.png" />
-<img alt="_images/9d9a267a1fb416df497d60e5c7edab2d17e4e93fffb2e34935bb88ddfebd89d3.png" src="_images/9d9a267a1fb416df497d60e5c7edab2d17e4e93fffb2e34935bb88ddfebd89d3.png" />
-<img alt="_images/79d59183640c00d69a6305e804881a6e3d1138a632bf7e7a46c7672bde1ce529.png" src="_images/79d59183640c00d69a6305e804881a6e3d1138a632bf7e7a46c7672bde1ce529.png" />
-<img alt="_images/7c1db1c8e35de205180c381bbd36981a4bd35671795c67b31b358c3ddf9a2dc0.png" src="_images/7c1db1c8e35de205180c381bbd36981a4bd35671795c67b31b358c3ddf9a2dc0.png" />
-<img alt="_images/735c6e245d749ff3ba1cfb3391f842bbac0afc6def5d9ccad84aa7d14ae3f3ef.png" src="_images/735c6e245d749ff3ba1cfb3391f842bbac0afc6def5d9ccad84aa7d14ae3f3ef.png" />
-<img alt="_images/4fccd7e64f667bbb9e9d4f682a0c9a129dc5da0cbbdebbb2f153f4c26f002d64.png" src="_images/4fccd7e64f667bbb9e9d4f682a0c9a129dc5da0cbbdebbb2f153f4c26f002d64.png" />
-<img alt="_images/8d2557fb961bb392c7f9575dda8b5daa79ae2733bc991f528d8feb1a51949cd4.png" src="_images/8d2557fb961bb392c7f9575dda8b5daa79ae2733bc991f528d8feb1a51949cd4.png" />
-<img alt="_images/a34abd9e7b6d5544fe24c07551dd65480648336a0bd0710f8fad896925411c4b.png" src="_images/a34abd9e7b6d5544fe24c07551dd65480648336a0bd0710f8fad896925411c4b.png" />
-<img alt="_images/637fb857e884564656d56bdd97eca6911e68a13fb61b57d40264a502018d7922.png" src="_images/637fb857e884564656d56bdd97eca6911e68a13fb61b57d40264a502018d7922.png" />
-<img alt="_images/fff6cd7a518392b2c571f3ef30455ded428c39f07240368515e7c507cec9f70f.png" src="_images/fff6cd7a518392b2c571f3ef30455ded428c39f07240368515e7c507cec9f70f.png" />
-<img alt="_images/1684dd57bf06388f3c775f9948b1765f441670c44d593aa143e8bf3621b3f086.png" src="_images/1684dd57bf06388f3c775f9948b1765f441670c44d593aa143e8bf3621b3f086.png" />
-<img alt="_images/5f1915b9a44c198d51a927f9c6590aec833c73ba00c6871128369a1cd77f9ce9.png" src="_images/5f1915b9a44c198d51a927f9c6590aec833c73ba00c6871128369a1cd77f9ce9.png" />
-<img alt="_images/a4326b2a8f3dd8be9d9cf7aef03e95d75671684539cd5e86cc4d1673ea8c11e5.png" src="_images/a4326b2a8f3dd8be9d9cf7aef03e95d75671684539cd5e86cc4d1673ea8c11e5.png" />
-<img alt="_images/fe3dca448f4a036d47d9d386343cb732b525d5a03cd70890398875f3302821d4.png" src="_images/fe3dca448f4a036d47d9d386343cb732b525d5a03cd70890398875f3302821d4.png" />
-<img alt="_images/8c8908884c9a5c2ddf003035925fda7cfabe7e1491e6d82c9b432f6f974323be.png" src="_images/8c8908884c9a5c2ddf003035925fda7cfabe7e1491e6d82c9b432f6f974323be.png" />
-<img alt="_images/0015643102fb45dd2538d8f3a1a239cbb36d5142097d20b21b2ad4cde3f11115.png" src="_images/0015643102fb45dd2538d8f3a1a239cbb36d5142097d20b21b2ad4cde3f11115.png" />
-<img alt="_images/60024aee916198cb056adac11fa16960e63c6f7c1751bcebf86494205dc0d059.png" src="_images/60024aee916198cb056adac11fa16960e63c6f7c1751bcebf86494205dc0d059.png" />
-<img alt="_images/0b26608a51af3dcf5945ae76013cfcddbad14193000d9154f807b40b105d9204.png" src="_images/0b26608a51af3dcf5945ae76013cfcddbad14193000d9154f807b40b105d9204.png" />
-<img alt="_images/de45799007cc9f80d0468fba4899bb1f5ebdde8a44ab0e33dfff89d6e479d3db.png" src="_images/de45799007cc9f80d0468fba4899bb1f5ebdde8a44ab0e33dfff89d6e479d3db.png" />
-<img alt="_images/add8098296031468aacc68b5b620d5f68cb402becf9889b790095b61eb50d480.png" src="_images/add8098296031468aacc68b5b620d5f68cb402becf9889b790095b61eb50d480.png" />
-<img alt="_images/d53e4c45a2e8be3cd1b95639b49748918989cfe043f0dc6a276385f380af53c3.png" src="_images/d53e4c45a2e8be3cd1b95639b49748918989cfe043f0dc6a276385f380af53c3.png" />
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9cd272573de198bb0799100b3b73b88c1ec407c6a2ddf4b931a0a09e9c1cd2a6.png" src="_images/9cd272573de198bb0799100b3b73b88c1ec407c6a2ddf4b931a0a09e9c1cd2a6.png" />
 </div>
 </div>
+<p>Speaker 8’s ums are spread out over the whole talk, with no obvious pattern.
+Speaker 27’s ums are dense at the beginning of the talk and sparse at the end.</p>
+<p>The following table summarizes the results for all 40 talks, sorted by CV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"cv"</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>professional</th>
+      <th>n</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>cv</th>
+      <th>cv 5%</th>
+      <th>cv 95%</th>
+      <th>p (cv high)</th>
+      <th>lag1</th>
+      <th>p (lag1)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>7</th>
+      <td>True</td>
+      <td>27</td>
+      <td>50.658</td>
+      <td>101.854</td>
+      <td>2.011</td>
+      <td>0.751</td>
+      <td>1.263</td>
+      <td>0.000</td>
+      <td>0.380</td>
+      <td>0.014</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>True</td>
+      <td>63</td>
+      <td>54.370</td>
+      <td>85.615</td>
+      <td>1.575</td>
+      <td>0.814</td>
+      <td>1.195</td>
+      <td>0.000</td>
+      <td>0.397</td>
+      <td>0.000</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>True</td>
+      <td>56</td>
+      <td>80.490</td>
+      <td>124.836</td>
+      <td>1.551</td>
+      <td>0.802</td>
+      <td>1.221</td>
+      <td>0.000</td>
+      <td>0.331</td>
+      <td>0.003</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>True</td>
+      <td>21</td>
+      <td>177.234</td>
+      <td>269.035</td>
+      <td>1.518</td>
+      <td>0.693</td>
+      <td>1.290</td>
+      <td>0.006</td>
+      <td>0.091</td>
+      <td>0.272</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>True</td>
+      <td>73</td>
+      <td>88.081</td>
+      <td>129.540</td>
+      <td>1.471</td>
+      <td>0.829</td>
+      <td>1.174</td>
+      <td>0.001</td>
+      <td>0.104</td>
+      <td>0.156</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>False</td>
+      <td>196</td>
+      <td>15.685</td>
+      <td>21.893</td>
+      <td>1.396</td>
+      <td>0.887</td>
+      <td>1.109</td>
+      <td>0.000</td>
+      <td>0.071</td>
+      <td>0.152</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>True</td>
+      <td>58</td>
+      <td>61.224</td>
+      <td>82.099</td>
+      <td>1.341</td>
+      <td>0.802</td>
+      <td>1.203</td>
+      <td>0.005</td>
+      <td>0.146</td>
+      <td>0.094</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>False</td>
+      <td>119</td>
+      <td>10.144</td>
+      <td>13.276</td>
+      <td>1.309</td>
+      <td>0.864</td>
+      <td>1.130</td>
+      <td>0.000</td>
+      <td>0.083</td>
+      <td>0.154</td>
+    </tr>
+    <tr>
+      <th>4b</th>
+      <td>False</td>
+      <td>51</td>
+      <td>51.350</td>
+      <td>66.649</td>
+      <td>1.298</td>
+      <td>0.801</td>
+      <td>1.212</td>
+      <td>0.022</td>
+      <td>-0.064</td>
+      <td>0.615</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>True</td>
+      <td>65</td>
+      <td>31.210</td>
+      <td>39.715</td>
+      <td>1.273</td>
+      <td>0.807</td>
+      <td>1.190</td>
+      <td>0.008</td>
+      <td>0.224</td>
+      <td>0.033</td>
+    </tr>
+    <tr>
+      <th>4a</th>
+      <td>False</td>
+      <td>35</td>
+      <td>46.087</td>
+      <td>57.920</td>
+      <td>1.257</td>
+      <td>0.760</td>
+      <td>1.236</td>
+      <td>0.043</td>
+      <td>0.314</td>
+      <td>0.009</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>False</td>
+      <td>56</td>
+      <td>54.381</td>
+      <td>68.214</td>
+      <td>1.254</td>
+      <td>0.808</td>
+      <td>1.200</td>
+      <td>0.026</td>
+      <td>-0.090</td>
+      <td>0.695</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>False</td>
+      <td>66</td>
+      <td>17.955</td>
+      <td>21.921</td>
+      <td>1.221</td>
+      <td>0.812</td>
+      <td>1.187</td>
+      <td>0.036</td>
+      <td>-0.090</td>
+      <td>0.729</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>True</td>
+      <td>32</td>
+      <td>62.385</td>
+      <td>74.939</td>
+      <td>1.201</td>
+      <td>0.748</td>
+      <td>1.230</td>
+      <td>0.070</td>
+      <td>-0.210</td>
+      <td>0.824</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>False</td>
+      <td>70</td>
+      <td>11.089</td>
+      <td>13.254</td>
+      <td>1.195</td>
+      <td>0.822</td>
+      <td>1.185</td>
+      <td>0.043</td>
+      <td>0.154</td>
+      <td>0.080</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>False</td>
+      <td>92</td>
+      <td>30.253</td>
+      <td>35.902</td>
+      <td>1.187</td>
+      <td>0.839</td>
+      <td>1.175</td>
+      <td>0.037</td>
+      <td>-0.096</td>
+      <td>0.811</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>False</td>
+      <td>65</td>
+      <td>21.516</td>
+      <td>25.177</td>
+      <td>1.170</td>
+      <td>0.823</td>
+      <td>1.196</td>
+      <td>0.065</td>
+      <td>0.066</td>
+      <td>0.269</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>False</td>
+      <td>60</td>
+      <td>21.446</td>
+      <td>24.521</td>
+      <td>1.143</td>
+      <td>0.813</td>
+      <td>1.201</td>
+      <td>0.103</td>
+      <td>0.081</td>
+      <td>0.223</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>True</td>
+      <td>11</td>
+      <td>75.043</td>
+      <td>85.660</td>
+      <td>1.141</td>
+      <td>0.607</td>
+      <td>1.296</td>
+      <td>0.135</td>
+      <td>-0.361</td>
+      <td>0.819</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>False</td>
+      <td>107</td>
+      <td>15.232</td>
+      <td>17.307</td>
+      <td>1.136</td>
+      <td>0.860</td>
+      <td>1.158</td>
+      <td>0.076</td>
+      <td>-0.054</td>
+      <td>0.696</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>True</td>
+      <td>53</td>
+      <td>19.366</td>
+      <td>21.696</td>
+      <td>1.120</td>
+      <td>0.797</td>
+      <td>1.229</td>
+      <td>0.132</td>
+      <td>0.225</td>
+      <td>0.033</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>True</td>
+      <td>92</td>
+      <td>21.456</td>
+      <td>23.938</td>
+      <td>1.116</td>
+      <td>0.836</td>
+      <td>1.164</td>
+      <td>0.109</td>
+      <td>-0.119</td>
+      <td>0.846</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>False</td>
+      <td>93</td>
+      <td>12.167</td>
+      <td>13.404</td>
+      <td>1.102</td>
+      <td>0.856</td>
+      <td>1.178</td>
+      <td>0.142</td>
+      <td>0.009</td>
+      <td>0.407</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>False</td>
+      <td>125</td>
+      <td>12.377</td>
+      <td>13.501</td>
+      <td>1.091</td>
+      <td>0.864</td>
+      <td>1.149</td>
+      <td>0.126</td>
+      <td>0.118</td>
+      <td>0.074</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>True</td>
+      <td>154</td>
+      <td>15.943</td>
+      <td>17.120</td>
+      <td>1.074</td>
+      <td>0.881</td>
+      <td>1.139</td>
+      <td>0.150</td>
+      <td>0.177</td>
+      <td>0.012</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>False</td>
+      <td>157</td>
+      <td>9.409</td>
+      <td>10.085</td>
+      <td>1.072</td>
+      <td>0.881</td>
+      <td>1.133</td>
+      <td>0.142</td>
+      <td>0.049</td>
+      <td>0.236</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>False</td>
+      <td>117</td>
+      <td>15.623</td>
+      <td>16.569</td>
+      <td>1.061</td>
+      <td>0.860</td>
+      <td>1.149</td>
+      <td>0.194</td>
+      <td>-0.103</td>
+      <td>0.866</td>
+    </tr>
+    <tr>
+      <th>35b</th>
+      <td>True</td>
+      <td>111</td>
+      <td>20.617</td>
+      <td>21.187</td>
+      <td>1.028</td>
+      <td>0.863</td>
+      <td>1.143</td>
+      <td>0.296</td>
+      <td>0.148</td>
+      <td>0.041</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>False</td>
+      <td>104</td>
+      <td>10.340</td>
+      <td>10.456</td>
+      <td>1.011</td>
+      <td>0.856</td>
+      <td>1.141</td>
+      <td>0.379</td>
+      <td>0.013</td>
+      <td>0.399</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>False</td>
+      <td>284</td>
+      <td>3.951</td>
+      <td>3.819</td>
+      <td>0.966</td>
+      <td>0.908</td>
+      <td>1.093</td>
+      <td>0.669</td>
+      <td>-0.003</td>
+      <td>0.507</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>False</td>
+      <td>117</td>
+      <td>11.026</td>
+      <td>10.639</td>
+      <td>0.965</td>
+      <td>0.858</td>
+      <td>1.143</td>
+      <td>0.609</td>
+      <td>-0.011</td>
+      <td>0.521</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>False</td>
+      <td>298</td>
+      <td>10.286</td>
+      <td>9.865</td>
+      <td>0.959</td>
+      <td>0.906</td>
+      <td>1.093</td>
+      <td>0.722</td>
+      <td>0.030</td>
+      <td>0.278</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>False</td>
+      <td>151</td>
+      <td>8.628</td>
+      <td>8.197</td>
+      <td>0.950</td>
+      <td>0.878</td>
+      <td>1.126</td>
+      <td>0.715</td>
+      <td>0.051</td>
+      <td>0.250</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>True</td>
+      <td>68</td>
+      <td>47.416</td>
+      <td>44.067</td>
+      <td>0.929</td>
+      <td>0.810</td>
+      <td>1.179</td>
+      <td>0.645</td>
+      <td>-0.122</td>
+      <td>0.814</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>False</td>
+      <td>121</td>
+      <td>12.475</td>
+      <td>11.400</td>
+      <td>0.914</td>
+      <td>0.853</td>
+      <td>1.136</td>
+      <td>0.808</td>
+      <td>-0.007</td>
+      <td>0.490</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>False</td>
+      <td>202</td>
+      <td>6.741</td>
+      <td>5.922</td>
+      <td>0.879</td>
+      <td>0.883</td>
+      <td>1.117</td>
+      <td>0.956</td>
+      <td>0.115</td>
+      <td>0.061</td>
+    </tr>
+    <tr>
+      <th>35a</th>
+      <td>True</td>
+      <td>117</td>
+      <td>16.983</td>
+      <td>14.835</td>
+      <td>0.874</td>
+      <td>0.847</td>
+      <td>1.152</td>
+      <td>0.901</td>
+      <td>-0.054</td>
+      <td>0.697</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>False</td>
+      <td>74</td>
+      <td>18.643</td>
+      <td>16.102</td>
+      <td>0.864</td>
+      <td>0.832</td>
+      <td>1.180</td>
+      <td>0.887</td>
+      <td>0.044</td>
+      <td>0.310</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>False</td>
+      <td>160</td>
+      <td>13.167</td>
+      <td>10.723</td>
+      <td>0.814</td>
+      <td>0.883</td>
+      <td>1.136</td>
+      <td>0.999</td>
+      <td>0.023</td>
+      <td>0.362</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>False</td>
+      <td>61</td>
+      <td>3.568</td>
+      <td>2.883</td>
+      <td>0.808</td>
+      <td>0.812</td>
+      <td>1.185</td>
+      <td>0.954</td>
+      <td>0.115</td>
+      <td>0.153</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The three talks with the highest CVs, 7, 27 and 9, are by professionals, and they have the highest serial correlations, from 0.33 to 0.40.</p>
+</section>
+</section>
+<section id="the-q-a-sessions">
+<h2>The Q&amp;A sessions<a class="headerlink" href="#the-q-a-sessions" title="Link to this heading">#</a></h2>
+<p>Finally, the video claims that in Q&amp;A sessions, ums are “truly Poisson”.
+The following table shows the CVs in the Q&amp;A sessions and in the corresponding talks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">raw_q</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'uhmmsQ_public.csv'</span><span class="p">)</span>
+<span class="n">q_intervals</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">raw_q</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">raw_q</span><span class="o">.</span><span class="n">columns</span><span class="p">}</span>
+<span class="n">q_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">"n"</span><span class="p">:</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">q_intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+    <span class="s2">"mean Q&amp;A"</span><span class="p">:</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">q_intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+    <span class="s2">"cv Q&amp;A"</span><span class="p">:</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">q_intervals</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+<span class="p">})</span>
+<span class="n">q_summary</span><span class="p">[</span><span class="s2">"mean talk"</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">q_summary</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">"mean"</span><span class="p">]</span>
+<span class="n">q_summary</span><span class="p">[</span><span class="s2">"cv talk"</span><span class="p">]</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">q_summary</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s2">"cv"</span><span class="p">]</span>
+<span class="n">q_summary</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>n</th>
+      <th>mean Q&amp;A</th>
+      <th>cv Q&amp;A</th>
+      <th>mean talk</th>
+      <th>cv talk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>22</th>
+      <td>15</td>
+      <td>7.37</td>
+      <td>1.16</td>
+      <td>17.95</td>
+      <td>1.22</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>19</td>
+      <td>5.51</td>
+      <td>0.84</td>
+      <td>3.57</td>
+      <td>0.81</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>22</td>
+      <td>4.73</td>
+      <td>0.76</td>
+      <td>3.95</td>
+      <td>0.97</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>12</td>
+      <td>5.85</td>
+      <td>0.64</td>
+      <td>8.63</td>
+      <td>0.95</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>18</td>
+      <td>5.37</td>
+      <td>0.61</td>
+      <td>12.38</td>
+      <td>1.09</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>8</td>
+      <td>7.01</td>
+      <td>0.73</td>
+      <td>12.48</td>
+      <td>0.91</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>35</td>
+      <td>5.59</td>
+      <td>0.74</td>
+      <td>10.34</td>
+      <td>1.01</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>15</td>
+      <td>5.33</td>
+      <td>0.60</td>
+      <td>9.41</td>
+      <td>1.07</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>11</td>
+      <td>4.29</td>
+      <td>0.97</td>
+      <td>11.03</td>
+      <td>0.96</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>10</td>
+      <td>8.45</td>
+      <td>0.71</td>
+      <td>21.45</td>
+      <td>1.14</td>
+    </tr>
+    <tr>
+      <th>4b</th>
+      <td>10</td>
+      <td>19.85</td>
+      <td>0.56</td>
+      <td>51.35</td>
+      <td>1.30</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>100</td>
+      <td>10.04</td>
+      <td>1.44</td>
+      <td>80.49</td>
+      <td>1.55</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>15</td>
+      <td>8.24</td>
+      <td>0.59</td>
+      <td>15.62</td>
+      <td>1.06</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>32</td>
+      <td>13.48</td>
+      <td>0.73</td>
+      <td>13.17</td>
+      <td>0.81</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>72</td>
+      <td>9.60</td>
+      <td>0.98</td>
+      <td>10.14</td>
+      <td>1.31</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>56</td>
+      <td>7.89</td>
+      <td>0.83</td>
+      <td>61.22</td>
+      <td>1.34</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>63</td>
+      <td>11.15</td>
+      <td>0.70</td>
+      <td>21.46</td>
+      <td>1.12</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>31</td>
+      <td>17.12</td>
+      <td>1.01</td>
+      <td>31.21</td>
+      <td>1.27</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q_summary</span><span class="p">[[</span><span class="s2">"mean Q&amp;A"</span><span class="p">,</span> <span class="s2">"mean talk"</span><span class="p">,</span> <span class="s2">"cv Q&amp;A"</span><span class="p">,</span> <span class="s2">"cv talk"</span><span class="p">]]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mean Q&amp;A      7.627686
+mean talk    12.821258
+cv Q&amp;A        0.736626
+cv talk       1.081393
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the Q&amp;A sessions, the intervals are mostly shorter – for most speakers, ums are more frequent – and the CVs are mostly <em>below</em> 1.
+Part of that is because the samples are small: with 10 to 20 intervals, the CV of an exponential sample tends to be a little less than 1, about 0.9.
+To see whether the Q&amp;A CVs are lower than we’d expect from small samples, we can run the same simulation as before, with the sample sizes of the Q&amp;A sessions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q_sims</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">cv_range</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">q_summary</span><span class="p">[</span><span class="s2">"n"</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">q_summary</span><span class="p">[</span><span class="s2">"cv 5%"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">q_sims</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="mi">5</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">q_summary</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="n">q_summary</span><span class="p">[</span><span class="s2">"p (cv low)"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">q_sims</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">q_summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="s2">"cv Q&amp;A"</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">q_summary</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+<span class="p">(</span><span class="n">q_summary</span><span class="p">[</span><span class="s2">"p (cv low)"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="nb">len</span><span class="p">(</span><span class="n">q_summary</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(7, 18)
+</pre></div>
+</div>
+</div>
+</div>
+<p>If the Q&amp;A sessions came from exponential distributions, we’d expect about 1 of 18 to have a CV below the 5th percentile of the simulated values.
+In fact, 7 of 18 do.
+So the low CVs are not just a small-sample effect.
+One possible explanation is that answers are short, so a long gap can’t happen within a single answer, and the gaps between answers are not recorded.
+If so, the Q&amp;A data are under-dispersed because of how they were collected, not because unrehearsed speech is more random.
+Either way, they don’t support the claim that ums in Q&amp;A are “truly Poisson”.</p>
 </section>
 <section id="discussion">
 <h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p>Let’s come back to the claims in the video.</p>
+<ul class="simple">
+<li><p>For most of the non-professional speakers, a Poisson process is a good model: their CVs are within or near the range we’d expect, their tail distributions are mostly within the bounds, and there’s little evidence of correlation between intervals.</p></li>
+<li><p>The professionals have longer gaps between ums, as the video says.</p></li>
+<li><p>Many of the professionals depart from a Poisson process, in two ways: their intervals are over-dispersed, and consecutive intervals are correlated. The serial correlation shows that intervals are not independent: short intervals tend to occur near other short intervals, and long intervals near other long intervals. This is consistent with Matt Parker’s explanation, although gradual changes in speaking conditions or um rates could produce the same pattern.</p></li>
+<li><p>The Q&amp;A sessions don’t look more like a Poisson process than the talks; if anything, they look less like one.</p></li>
+</ul>
+<p>To check whether a process is well modeled by a Poisson process, the CV is a reasonable start, but it’s a single number that can’t show where the data depart from the model.
+Plotting the tail distribution on a log-y scale, with bounds that show how much variation to expect, makes the departures visible, and the shape of the departure suggests an explanation.</p>
+<p>Mathematical distributions are often good models of processes in the real world, but they are never perfect, and with enough data, the deviations become apparent.
+So the question is not whether ums <em>really</em> come from a Poisson process – almost nothing does.
+The question, as always, is whether the model is good enough for its intended purpose.</p>
 <p><a class="reference external" href="https://allendowney.github.io/DataQnA/index.html"><em>Data Q&amp;A: Answering the real questions with Python</em></a></p>
 <p>Copyright 2024–2026 <a class="reference external" href="https://allendowney.com">Allen B. Downey</a></p>
 <p>License: <a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a></p>
@@ -1278,6 +1957,15 @@ Name: 1, dtype: float64
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="dual_choice.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Up or Down? Three Experiments, One Question</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -1296,7 +1984,17 @@ Name: 1, dtype: float64
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#answer">Answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data">The data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#standard-deviation-versus-mean">Standard Deviation Versus Mean</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-coefficient-of-variation">The coefficient of variation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tail-distributions-on-a-log-y-scale">Tail distributions on a log-y scale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-much-variation-should-we-expect">How much variation should we expect?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#all-the-speakers">All the speakers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ways-the-data-might-deviate">Ways the data might deviate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-between-consecutive-intervals">Correlation between consecutive intervals</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-q-a-sessions">The Q&amp;A sessions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
   </nav></div>
