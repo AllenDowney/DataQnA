@@ -94,10 +94,10 @@ As an example, let's use one of the exercises from *Think Python*:
 >
 > To see whether his objection is valid, let’s count the number number of lines that contain the word pale in any form, including pale, pales, paled, and paleness, as well as the related word pallor. Use a single regular expression that matches all of these words and no others.
 
-The following cell downloads the text of the book from Project Gutenberg.
+The following cell downloads the text of the book, which comes from [Project Gutenberg](https://www.gutenberg.org/ebooks/1184). Gutenberg blocks automated downloads, so we get a copy from the repository for this book.
 
 ```python
-download('https://www.gutenberg.org/cache/epub/1184/pg1184.txt');
+download('https://github.com/AllenDowney/DataQnA/raw/main/data/pg1184.txt');
 ```
 
 We'll use the following functions to remove the additional material that appears before and after the text of the book.
