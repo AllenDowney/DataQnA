@@ -7,8 +7,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Real questions about statistics from Reddit and Cross Validated, answered with Python: distributions, estimation, bootstrapping, testing, and regression." name="description" />
+<meta property="og:title" content="Data Q&A: Answering the Real Questions with Python" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://allendowney.github.io/DataQnA/index.html" />
+<meta property="og:site_name" content="Data Q&A" />
+<meta property="og:description" content="Real questions about statistics from Reddit and Cross Validated, answered with Python: distributions, estimation, bootstrapping, testing, and regression." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://allendowney.github.io/DataQnA/_images/social_previews/summary_index_c7e5dd82.png" />
+<meta property="og:image:alt" content="Data Q&amp;A is a series of articles where I answer questions people asked on Reddit’s statistics forum and on Cross Validated, the statistics Q&amp;A site. I chose questions that come up often or ..." />
+<meta name="twitter:card" content="summary_large_image" />
 
-    <title>Data Q&amp;A &#8212; Data Q&amp;A</title>
+    <title>Data Q&amp;A: Answering the Real Questions with Python &#8212; Data Q&amp;A</title>
   
   
   
@@ -34,7 +45,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=6a604523" />
   
@@ -63,9 +74,10 @@
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="canonical" href="https://allendowney.github.io/DataQnA/index.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Bernoulli’s Sample Size" href="bernoulli.html" />
+    <link rel="next" title="PMFs and PDFs" href="pmf_and_pdf.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -161,39 +173,51 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    Data Q&A
+                    Data Q&A: Answering the Real Questions with Python
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Probability and distributions</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="bernoulli.html">Bernoulli’s Sample Size</a></li>
-<li class="toctree-l1"><a class="reference internal" href="combine_risk.html">Combining Risks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gauss_bayes.html">Estimation with Small Samples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
-<li class="toctree-l1"><a class="reference internal" href="likelihood.html">Density and Likelihood</a></li>
-<li class="toctree-l1"><a class="reference internal" href="likert_mean.html">Likert scale analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log_heterosked.html">Logarithms and heteroskedasticity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pmf_and_pdf.html">PMFs and PDFs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="poisson_process.html">Poisson Processes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="proportions.html">Bootstrapping a Proportion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standard_dev.html">Which Standard Deviation?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hazard.html">Hazard and Survival</a></li>
-<li class="toctree-l1"><a class="reference internal" href="resample_logit.html">Resampling and Logistic Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="diff_slope.html">Testing a Difference in Slopes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="good_model.html">How Good is This Model?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likelihood.html">Density and Likelihood</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gambler.html">Gamblers and Large Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unlabeled_litters.html">Time to a Milestone When You Can’t Tell the Subjects Apart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dual_choice.html">Up or Down? Three Experiments, One Question</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hazard.html">Hazard and Survival</a></li>
+<li class="toctree-l1"><a class="reference internal" href="poisson_process.html">Poisson Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="poisson_umm.html">Do People Um at Random?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Summarizing data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="standard_dev.html">Which Standard Deviation?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likert_mean.html">Likert scale analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combine_risk.html">Combining Risks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimation and uncertainty</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proportions.html">Bootstrapping a Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauss_bayes.html">Estimation with Small Samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resample_logit.html">Resampling and Logistic Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing, sample size, and experiments</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diff_slope.html">Testing a Difference in Slopes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bernoulli.html">Bernoulli’s Sample Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dual_choice.html">Up or Down? Three Experiments, One Question</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression and models</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="good_model.html">How Good is This Model?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_heterosked.html">Logarithms and heteroskedasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unlabeled_litters.html">Time to a Milestone When You Can’t Tell the Subjects Apart</a></li>
 </ul>
 
     </div>
@@ -342,7 +366,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Data Q&A</h1>
+    <h1>Data Q&A: Answering the Real Questions with Python</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -356,11 +380,27 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="data-q-a">
-<h1>Data Q&amp;A<a class="headerlink" href="#data-q-a" title="Link to this heading">#</a></h1>
-<p><em>Data Q&amp;A</em> is a series of articles where I answer questions from Reddit’s statistics forum and Cross Validated, the statistics Q&amp;A site, using Python code in a Jupyter notebook.</p>
-<p>At the beginning of each article, there’s a link you can use to run the notebooks on Colab.</p>
-<p>This material is a work in progress, so suggestions are welcome.  The best way to provide feedback is to <a class="reference external" href="https://github.com/AllenDowney/DataQnA/issues">click here and create an issue in this GitHub repository</a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="data-q-a-answering-the-real-questions-with-python">
+<h1>Data Q&amp;A: Answering the Real Questions with Python<a class="headerlink" href="#data-q-a-answering-the-real-questions-with-python" title="Link to this heading">#</a></h1>
+<p><em>Data Q&amp;A</em> is a series of articles where I answer questions people asked on Reddit’s statistics forum and on <a class="reference external" href="https://stats.stackexchange.com/">Cross Validated</a>, the statistics Q&amp;A site. I chose questions that come up often or that look simple but turn out not to be, and I answer each one with Python code in a Jupyter notebook. When the question comes with data, I use it.</p>
+<p>The articles are grouped into five parts:</p>
+<ul class="simple">
+<li><p><strong>Probability and distributions</strong>: what PMFs, PDFs and likelihoods mean, the gambler’s fallacy, hazard rates, and how to tell whether events arrive at random.</p></li>
+<li><p><strong>Summarizing data</strong>: which standard deviation to use, percentile ranks, Likert scales, and combining risks.</p></li>
+<li><p><strong>Estimation and uncertainty</strong>: what a confidence interval means, bootstrapping proportions, means and percentiles, and Bayesian estimation with small samples.</p></li>
+<li><p><strong>Testing, sample size, and experiments</strong>: comparing percentiles and slopes, choosing a sample size, and analyzing a small experiment.</p></li>
+<li><p><strong>Regression and models</strong>: correlation and trend lines, R-squared versus p-values, heteroskedasticity, standardizing variables, and data where the subjects can’t be told apart.</p></li>
+</ul>
+<p>Each article stands on its own, so you can start anywhere. At the top of each one there’s a link you can use to run the notebook on Colab.</p>
+<p>The series is complete for now, but I might add more articles. If you have a question you’d like me to answer, or suggestions about these articles, <a class="reference external" href="https://github.com/AllenDowney/DataQnA/issues">create an issue in the GitHub repository</a>.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </section>
@@ -396,11 +436,11 @@
                   
 <div class="prev-next-area">
     <a class="right-next"
-       href="bernoulli.html"
+       href="pmf_and_pdf.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Bernoulli’s Sample Size</p>
+        <p class="prev-next-title">PMFs and PDFs</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -443,6 +483,10 @@ By Allen B. Downey
   
   <div class="footer-item">
     
+<div class="extra_footer">
+  <script>new Image().src="https://greenteapress.com/gh.gif?u="+encodeURIComponent(location.href)+"&r="+encodeURIComponent(document.referrer)</script>
+
+</div>
   </div>
   
 </div>

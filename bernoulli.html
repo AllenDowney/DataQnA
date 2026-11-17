@@ -7,6 +7,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="How many trials does it take to tell which of two success probabilities is right? Sample size by simulation, and why stopping when confident is fine." name="description" />
+<meta property="og:title" content="Bernoulli’s Sample Size" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://allendowney.github.io/DataQnA/bernoulli.html" />
+<meta property="og:site_name" content="Data Q&A" />
+<meta property="og:description" content="How many trials does it take to tell which of two success probabilities is right? Sample size by simulation, and why stopping when confident is fine." />
+<meta property="og:image:width" content="1146" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image" content="https://allendowney.github.io/DataQnA/_images/social_previews/summary_bernoulli_3ba3fb4d.png" />
+<meta property="og:image:alt" content="Here’s a question from the Reddit statistics forum. I’m looking at a Bernoulli process which may have either of two possible values of its trial probability parameter, let’s call them q1 and q2. I ..." />
+<meta name="twitter:card" content="summary_large_image" />
 
     <title>Bernoulli’s Sample Size &#8212; Data Q&amp;A</title>
   
@@ -34,7 +45,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=6a604523" />
   
@@ -61,10 +72,11 @@
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'bernoulli';</script>
+    <link rel="canonical" href="https://allendowney.github.io/DataQnA/bernoulli.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Combining Risks" href="combine_risk.html" />
-    <link rel="prev" title="Data Q&amp;A" href="index.html" />
+    <link rel="next" title="Sample Size Selection" href="sample_size.html" />
+    <link rel="prev" title="Testing a Difference in Slopes" href="diff_slope.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -158,39 +170,51 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="index.html">
-                    Data Q&A
+                    Data Q&A: Answering the Real Questions with Python
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bernoulli’s Sample Size</a></li>
-<li class="toctree-l1"><a class="reference internal" href="combine_risk.html">Combining Risks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gauss_bayes.html">Estimation with Small Samples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
-<li class="toctree-l1"><a class="reference internal" href="likelihood.html">Density and Likelihood</a></li>
-<li class="toctree-l1"><a class="reference internal" href="likert_mean.html">Likert scale analysis</a></li>
-<li class="toctree-l1"><a class="reference internal" href="log_heterosked.html">Logarithms and heteroskedasticity</a></li>
-<li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Probability and distributions</span></p>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pmf_and_pdf.html">PMFs and PDFs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="poisson_process.html">Poisson Processes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="proportions.html">Bootstrapping a Proportion</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standard_dev.html">Which Standard Deviation?</a></li>
-<li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
-<li class="toctree-l1"><a class="reference internal" href="hazard.html">Hazard and Survival</a></li>
-<li class="toctree-l1"><a class="reference internal" href="resample_logit.html">Resampling and Logistic Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="diff_slope.html">Testing a Difference in Slopes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="good_model.html">How Good is This Model?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likelihood.html">Density and Likelihood</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gambler.html">Gamblers and Large Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="unlabeled_litters.html">Time to a Milestone When You Can’t Tell the Subjects Apart</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dual_choice.html">Up or Down? Three Experiments, One Question</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hazard.html">Hazard and Survival</a></li>
+<li class="toctree-l1"><a class="reference internal" href="poisson_process.html">Poisson Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="poisson_umm.html">Do People Um at Random?</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Summarizing data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="standard_dev.html">Which Standard Deviation?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="count_data.html">Standard deviation of a count variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="percentile_rank.html">What is a Percentile Rank?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="likert_mean.html">Likert scale analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="combine_risk.html">Combining Risks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Estimation and uncertainty</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="confidence.html">What does a confidence interval mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proportions.html">Bootstrapping a Proportion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="harmonic.html">Bootstrapping the harmonic mean</a></li>
+<li class="toctree-l1"><a class="reference internal" href="low_percentile.html">Bootstrapping percentiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauss_bayes.html">Estimation with Small Samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resample_logit.html">Resampling and Logistic Regression</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing, sample size, and experiments</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="test_percentile.html">Testing percentiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diff_slope.html">Testing a Difference in Slopes</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Bernoulli’s Sample Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample_size.html">Sample Size Selection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dual_choice.html">Up or Down? Three Experiments, One Question</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Regression and models</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="corr_trend.html">What does “strength” mean?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="good_model.html">How Good is This Model?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="log_heterosked.html">Logarithms and heteroskedasticity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standardize.html">Standardization and Normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unlabeled_litters.html">Time to a Milestone When You Can’t Tell the Subjects Apart</a></li>
 </ul>
 
     </div>
@@ -991,20 +1015,20 @@ For a good device, <code class="docutils literal notranslate"><span class="pre">
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="diff_slope.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Data Q&amp;A</p>
+        <p class="prev-next-title">Testing a Difference in Slopes</p>
       </div>
     </a>
     <a class="right-next"
-       href="combine_risk.html"
+       href="sample_size.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Combining Risks</p>
+        <p class="prev-next-title">Sample Size Selection</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1066,6 +1090,10 @@ By Allen B. Downey
   
   <div class="footer-item">
     
+<div class="extra_footer">
+  <script>new Image().src="https://greenteapress.com/gh.gif?u="+encodeURIComponent(location.href)+"&r="+encodeURIComponent(document.referrer)</script>
+
+</div>
   </div>
   
 </div>
