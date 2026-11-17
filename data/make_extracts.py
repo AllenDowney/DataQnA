@@ -23,7 +23,8 @@ DATA = Path(__file__).parent
 SOURCES = DATA / "sources"
 
 EODS = "https://github.com/AllenDowney/ElementsOfDataScience/raw"
-DATAQNA = "https://github.com/AllenDowney/DataQnA/raw/main/data"
+# The two HDF sources were removed from main on 2026-11-17; the 2026-refresh tag keeps them
+DATAQNA = "https://github.com/AllenDowney/DataQnA/raw/2026-refresh/data"
 
 GZIP = {"method": "gzip", "mtime": 0}
 
@@ -52,7 +53,7 @@ def confidence():
 
 
 def likert_mean():
-    """GSS variables for likert_mean, from DataQnA's gss_qna_extract.hdf."""
+    """GSS variables for likert_mean, from gss_qna_extract.hdf (at the 2026-refresh tag)."""
     path = source(f"{DATAQNA}/gss_qna_extract.hdf")
     gss = pd.read_hdf(path, "gss")
     columns = ["year", "sex", "polviews", "homosex", "conservatism"]
