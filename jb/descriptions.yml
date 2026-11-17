@@ -1,0 +1,117 @@
+# Page descriptions for search results and link previews (GreenTeaPress plans/seo.md).
+# prep_notebooks.py writes each one into its notebook's metadata as
+# myst.html_meta.description and og:description. index.md carries its own in front matter.
+# About 120-155 characters, in the words a reader would search for.
+# Drafted 2026-11-15 from the summaries in plans/toc_parts.md, for Allen's review.
+
+# index (goes in index.md front matter):
+#   Real questions about statistics from Reddit and Cross Validated, answered with
+#   Python: distributions, estimation, bootstrapping, testing, and regression.
+
+bernoulli: >-
+  How many trials does it take to tell which of two success probabilities is right?
+  Sample size by simulation, and why stopping when confident is fine.
+
+combine_risk: >-
+  How to combine individual risk scores into a group risk that can exceed the highest
+  one, using log odds and logistic regression with an interaction term.
+
+confidence: >-
+  What does a 90% confidence interval mean, and is it wrong to say it has a 90% chance
+  of containing the true value? An argument that it's not.
+
+corr_trend: >-
+  Why would Excel show a negative correlation but a positive trend line? Correlation
+  and slope share a sign, but a line that minimizes MAE might not.
+
+count_data: >-
+  Is the standard deviation of count data meaningful, and is a t-test OK for counts?
+  Yes to the first; for the second, check by simulation.
+
+gauss_bayes: >-
+  What can six measurements say about a device's precision? Bayesian estimation of a
+  normal mean and standard deviation with a grid, in Python.
+
+harmonic: >-
+  How to compute a standard error for the harmonic mean by bootstrapping, and when the
+  harmonic mean is the right summary statistic.
+
+likelihood: >-
+  The difference between probability density and likelihood, explained with four
+  examples: PMFs and PDFs as functions of the data or of the parameter.
+
+likert_mean: >-
+  Is it OK to compute the mean of Likert scale responses? Often it's close enough, but
+  look at the distribution first and consider easier summaries.
+
+log_heterosked: >-
+  Should you log-transform data to fix heteroskedasticity? Why testing for it misleads,
+  and why least squares regression is robust to it.
+
+low_percentile: >-
+  A confidence interval for a low percentile of temperature data: why the bootstrap
+  fails in the tail, and how a normal model or KDE fixes it.
+
+percentile_rank: >-
+  What's the difference between percentile rank and cumulative percentage? Two
+  definitions, one based on the CDF and one on midpoints.
+
+pmf_and_pdf: >-
+  Why a discrete PMF approximation doesn't look like the PDF it approximates, and two
+  ways to compare them: normalize to the same scale, or use CDFs.
+
+poisson_process: >-
+  The difference between a Poisson process and a Poisson distribution, checked with
+  NHL hockey goals: goals per game, times between goals, correlation.
+
+proportions: >-
+  How to bootstrap a confidence interval for a proportion, compared with the normal
+  approximation, Wilson, Clopper-Pearson, and Jeffreys intervals.
+
+sample_size: >-
+  Choosing a sample size to estimate the fraction of a parking lot that's damaged,
+  using a beta-binomial model and a look at how much the prior matters.
+
+standard_dev: >-
+  When to divide by N and when by N-1 in the standard deviation: descriptive statistic
+  or estimator, and why the difference rarely matters in practice.
+
+standardize: >-
+  Do regression variables need to be normal? Standardizing, normalizing, and
+  transforming to normal, and why normality tests aren't useful.
+
+test_percentile: >-
+  How to test whether the 85th percentiles of two samples differ, or one differs from a
+  fixed value, by resampling, and an inconsistency in significance tests.
+
+hazard: >-
+  Does a 2% annual risk of a tumor becoming malignant compound? Constant hazard versus
+  an average over patients with different risks.
+
+resample_logit: >-
+  How to do a parametric bootstrap for logistic regression, which has no error term,
+  and how it differs from the non-parametric bootstrap.
+
+diff_slope: >-
+  How to test whether two time series change at different rates: regression with an
+  interaction term, or resampling under the null hypothesis.
+
+good_model: >-
+  A regression with a low R-squared but highly significant p-values isn't a
+  contradiction: what each one measures, and what to look at instead.
+
+gambler: >-
+  Do the gambler's fallacy and the law of large numbers contradict each other? No: the
+  long-run proportion converges by dilution, not compensation.
+
+unlabeled_litters: >-
+  Time-to-event analysis when subjects can't be told apart: counts per litter, litter as
+  the unit of analysis, and a model for missed observations.
+
+dual_choice: >-
+  Analyzing a two-choice insect experiment with three setups: logistic regression,
+  low power with 10 per group, and a Bayesian alternative.
+
+poisson_umm: >-
+  Are ums a Poisson process? Checking a YouTube video's claim with the coefficient of
+  variation, tail distributions with error bounds, and serial correlation.

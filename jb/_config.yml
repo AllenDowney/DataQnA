@@ -2,6 +2,9 @@
 title: Data Q&A
 author: Allen B. Downey
 
+# Build only the pages in _toc.yml; the drafts in nb/ stay out of the site and the sitemap
+only_build_toc_files: true
+
 latex:
   latex_documents:
     targetname: book.tex
@@ -12,4 +15,26 @@ execute:
 repository:
   url: https://github.com/AllenDowney/DataQnA
 html:
+  baseurl: https://allendowney.github.io/DataQnA/
   use_repository_button: true
+  # Page-view counter: one request per page view to greenteapress.com/gh.gif,
+  # counted from the greenteapress.com access logs (GreenTeaPress scripts/log_report.py).
+  # No cookies, no third party.
+  extra_footer: |
+    <script>new Image().src="https://greenteapress.com/gh.gif?u="+encodeURIComponent(location.href)+"&r="+encodeURIComponent(document.referrer)</script>
+
+sphinx:
+  # Sitemap and link previews (GreenTeaPress plans/seo.md); page descriptions are in
+  # descriptions.yml (notebooks) and the front matter of index.md
+  extra_extensions:
+    - sphinx_sitemap
+    - sphinxext.opengraph
+  config:
+    html_baseurl: https://allendowney.github.io/DataQnA/
+    sitemap_url_scheme: "{link}"
+    sitemap_excludes: [genindex.html, search.html]
+    ogp_site_url: https://allendowney.github.io/DataQnA/
+    ogp_site_name: Data Q&A
+    # No ogp_image: there's no cover, so sphinxext-opengraph generates a card per page
+    # with the site name and the article title (Allen, 2026-11-15)
+    ogp_enable_meta_description: false
